@@ -8,6 +8,8 @@ import signUp from '@/components/signup'
 import calendar from '@/components/keeper/calendar'
 import emoInput from '@/components/keeper/emoInput'
 import weekly_report from '@/components/keeper/weekly_report'
+import introduction from '@/components/introduction'
+import medical_resources from "../components/keeper/medical_resources";
 Vue.use(Router);
 
 export default new Router({
@@ -15,7 +17,12 @@ export default new Router({
   routes: [
     {
       path:'',
-      redirect:'/login',
+      redirect:'/introduction',
+    },
+    {
+      path: '/introduction',
+      name: 'introduction',
+      component: introduction
     },
     {
       path: '/home',
@@ -56,6 +63,11 @@ export default new Router({
       path:'/keeper/weekly_report',
       name:'weekly_report',
       component: weekly_report
+    },
+    {
+      path:'/keeper/medical_resources',
+      name:'medical_resources',
+      component: medical_resources
     }
   ]
 })

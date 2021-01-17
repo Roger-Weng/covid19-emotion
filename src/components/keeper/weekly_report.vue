@@ -23,7 +23,7 @@
       <ve-line :data="weekly_report.chartHappiness" :extend="chartSettings" width="400px"></ve-line>
       <ve-line :data="weekly_report.chartExcitement" :extend="chartSettings" width="400px"></ve-line>
       <ve-line :data="weekly_report.chartDepression" :extend="chartSettings" width="400px"></ve-line>
-      <ve-line :data="weekly_report.chartIrritability" :extend="chartSettings" width="400px"></ve-line>
+      <ve-line :data="weekly_report.chartBoredom" :extend="chartSettings" width="400px"></ve-line>
       <ve-line :data="weekly_report.chartAnxiety" :extend="chartSettings" width="400px"></ve-line>
     </div>
     <img src="../../assets/icon/split_line.png" style="position:relative; width: 400px; height: 40px;">
@@ -55,7 +55,7 @@
             chartHappiness:{},
             chartExcitement:{},
             chartDepression:{},
-            chartIrritability:{},
+            chartBoredom:{},
             chartAnxiety:{},
             BestRecords: null,
             BestPhoto: null

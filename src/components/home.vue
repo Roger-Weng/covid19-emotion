@@ -10,8 +10,11 @@
       <div v-else-if="selected === 'report'" class="report">
         <daily_report></daily_report>
       </div>
-      <div v-else>
+      <div v-else-if="selected === 'statistics'">
         <weekly_report></weekly_report>
+      </div>
+      <div v-else>
+        <medical_resources></medical_resources>
       </div>
     </div>
     <br />
@@ -45,6 +48,11 @@
         <!--<weekly_report></weekly_report>-->
         statistics
       </mt-tab-item>
+      <mt-tab-item id="resources">
+        <img src="../assets/icon/zhinanzhen.png" class="icon">
+        <br>
+        resources
+      </mt-tab-item>
     </mt-tabbar>
   </div>
 </template>
@@ -54,6 +62,7 @@
   import daily_report from "./keeper/daily_report"
   import weekly_report from "./keeper/weekly_report"
   import calendar from "./keeper/calendar"
+  import medical_resources from "./keeper/medical_resources";
 export default {
   name: 'home',
   data () {
@@ -66,7 +75,8 @@ export default {
     emoStatus,
     daily_report,
     weekly_report,
-    calendar
+    calendar,
+    medical_resources
   }
 }
 </script>
