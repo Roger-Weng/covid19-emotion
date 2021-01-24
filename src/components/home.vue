@@ -4,6 +4,9 @@
       <div v-if="selected === 'record'">
         <emo-status></emo-status>
       </div>
+      <div v-else-if="selected === 'forum'">
+        <forum></forum>
+      </div>
       <div v-else-if="selected === 'calendar'">
         <calendar></calendar>
       </div>
@@ -29,6 +32,12 @@
         <br>
         <!--<emo-status></emo-status>-->
         record
+      </mt-tab-item>
+      <mt-tab-item id="forum">
+        <img src="../assets/icon/calendar.png" class="icon">
+        <br>
+        <!--<forum></forum>-->
+        forum
       </mt-tab-item>
       <mt-tab-item id="calendar">
         <img src="../assets/icon/calendar.png" class="icon">
@@ -62,7 +71,8 @@
   import daily_report from "./keeper/daily_report"
   import weekly_report from "./keeper/weekly_report"
   import calendar from "./keeper/calendar"
-  import medical_resources from "./keeper/medical_resources";
+  import medical_resources from "./keeper/medical_resources"
+  import forum from "./keeper/forum";
 export default {
   name: 'home',
   data () {
@@ -73,6 +83,7 @@ export default {
   },
   components:{
     emoStatus,
+    forum,
     daily_report,
     weekly_report,
     calendar,

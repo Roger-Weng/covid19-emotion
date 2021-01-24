@@ -9,7 +9,9 @@ import calendar from '@/components/keeper/calendar'
 import emoInput from '@/components/keeper/emoInput'
 import weekly_report from '@/components/keeper/weekly_report'
 import introduction from '@/components/introduction'
-import medical_resources from "../components/keeper/medical_resources";
+import medical_resources from "@/components/keeper/medical_resources"
+import forum from '@/components/keeper/forum'
+import topic from '@/components/keeper/topic';
 Vue.use(Router);
 
 export default new Router({
@@ -68,6 +70,16 @@ export default new Router({
       path:'/keeper/medical_resources',
       name:'medical_resources',
       component: medical_resources
+    },
+    {
+      path: '/keeper/forum',
+      name: 'forum',
+      component: forum
+    },
+    {
+      path: '/keeper/topic',
+      name: 'topic',
+      component: topic
     }
   ]
 })
