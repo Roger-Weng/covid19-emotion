@@ -8,11 +8,13 @@
   <h3>Google Chrome</h3>
   <p>Google Chrome is a web browser developed by Google, released in 2008. Chrome is the world's most popular web browser today!</p>
 </article>
-<label for="fname">First name:</label>
-  <input type="text" id="fname" name="fname"><br><br>
-  <label for="lname">Last name:</label>
-  <input type="text" id="lname" name="lname"><br><br>
-  <input type="submit" value="Submit">
+
+<div id="app-5">
+  <p>{{ message }}</p>
+  <label> comments </label>
+  <input v-model="message">
+  <button v-on:click="comment">反转消息</button>
+</div>
 
 <article>
   <h3>Mozilla Firefox</h3>
@@ -23,6 +25,18 @@
 </template>
 
 <script>
+import Vue from 'vue'
+var app5 = new Vue({
+  el: '#app-5',
+  data: {
+    message: 'Hello Vue.js!'
+  },
+ methods: {
+    comments: function () {
+      this.message = this.message.split('').reverse().join('')
+    }
+  }
+})
 </script>
 
 <style scoped>
