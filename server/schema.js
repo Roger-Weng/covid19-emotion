@@ -1,5 +1,11 @@
 let mongoose = require('mongoose');
 
+let ForumRecord = new mongoose.Schema({
+  username: String,
+  create_time: String,
+  forum_text: String
+});
+
 let UserSchema = new mongoose.Schema({
   username: String,
   password: String,
@@ -37,3 +43,4 @@ let userRecord = new mongoose.Schema({
 
 mongoose.model('User', UserSchema);
 mongoose.model('userRecord', userRecord);
+mongoose.model('ForumRecord'.ForumRecord);

@@ -141,6 +141,64 @@ io.on('connection',function(socket) {
     console.log("message sent: ", result);
   });
 
+  //forum
+  socket.on("getForumText", function(data,callback){
+    console.log("getForumText request received", data);
+    ForumRecord.find({
+      'username': data.user,
+      'create_time': dateUtil.dateString(data.date),
+      'forum_text': data.message
+    },
+    // function (error, docs) {
+    //   if (error){
+    //     console.log(error);
+    //   }
+    //   else{
+    //     if(docs.length === 0){
+    //       console.log("No record found for daily report!");
+    //       callback({
+    //         code: 0
+    //       });
+    //     }
+    //     else{
+    //       let doc = docs[0];
+    //       console.log("find report", doc);
+    //       // let reportInfo = (doc['keyWords']? JSON.parse(doc['keyWords']): "");
+    //       console.log(doc['imgScore']);
+    //       let imgScore = (doc['imgScore']? JSON.parse(doc['imgScore']): "");
+    //       console.log();
+    //       let dailyReport = {
+    //         weather: doc['weather'],
+    //         hoursSleep:doc['hoursSleep'],
+    //         meals:doc['mealsHad'],
+    //         report:doc['input'],
+    //         reportEmo: doc['textScore'],
+    //         reportInfo:doc['keyWords'],
+    //         img:'data:image/jpeg;base64,'+ doc['img'],
+    //         imgScore:imgScore,
+    //         emoChart:{
+    //           columns: ['emotion', 'level'],
+    //           rows:[
+    //             {'emotion': 'happiness', 'level': doc['value_happiness']},
+    //             {'emotion': 'excitement', 'level': doc['value_excitement']},
+    //             {'emotion': 'depression', 'level': doc['value_depression']},
+    //             {'emotion': 'anxiety', 'level': doc['value_anxiety']},
+    //             {'emotion': 'boredom', 'level': doc['value_boredom']}
+    //           ]
+    //         },
+    //         total_score: doc['total_score']
+    //       };
+    //     }
+    //   }
+    })
+  });
+
+
+
+
+
+
+
   //daily report
   socket.on("getDailyReport", function(data,callback){
     console.log("getDailyReport request received", data);

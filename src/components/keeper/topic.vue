@@ -13,7 +13,7 @@
   <p>{{ message }}</p>
   <label> comments </label>
   <input v-model="message">
-  <button v-on:click="comment">反转消息</button>
+  <button v-on:click="comment">Comment</button>
 </div>
 
 <article>
