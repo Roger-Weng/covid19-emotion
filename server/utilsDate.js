@@ -3,7 +3,7 @@ let dateString = function (dateFrom) {
   if(typeof (dateFrom) === "string"){
     date = new Date(Date.parse(dateFrom));
   }
-  return String(date.getFullYear())+"-"+String(date.getMonth()+1)+"-"+date.getDate();
+  return "2021"+"-"+"2"+"-"+"12";
 };
 
 let mondayDateString = function (dateFrom) {
@@ -17,7 +17,7 @@ let mondayDateString = function (dateFrom) {
   let day = date.getDay();
   let oneDayTime = 24*60*60*1000;
   let MondayDate = new Date(time-(day-1)*oneDayTime);
-  return String(MondayDate.getFullYear())+"-"+String(MondayDate.getMonth()+1)+"-"+MondayDate.getDate();
+  return "2021"+"-"+"2"+"-"+"12";
 };
 
 module.exports = {

@@ -34,6 +34,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var User = mongoose.model('User');
 var userRecord = mongoose.model('userRecord');
+var record = mongoose.model('forum');
 
 function score_compare(){
   return function(a,b){
@@ -144,25 +145,26 @@ io.on('connection',function(socket) {
   //forum
   socket.on("getForumText", function(data,callback){
     console.log("getForumText request received", data);
-    ForumRecord.find({
-      'username': data.user,
-      'create_time': dateUtil.dateString(data.date),
-      'forum_text': data.message
+    record.find({
+      'username': "",
+      'create_time': "",
+      'forum_text': ""
     },
-    // function (error, docs) {
-    //   if (error){
-    //     console.log(error);
-    //   }
-    //   else{
-    //     if(docs.length === 0){
-    //       console.log("No record found for daily report!");
-    //       callback({
-    //         code: 0
-    //       });
-    //     }
-    //     else{
-    //       let doc = docs[0];
-    //       console.log("find report", doc);
+    function (error, docs) {
+      if (error){
+        console.log(error);
+      }
+      else{
+        if(docs.length === 0){
+          console.log("No record found for forum!");
+          callback({
+            code: 0
+          });
+        }
+        else{
+          let doc = docs[0];
+          console.log("find report", doc);
+        }
     //       // let reportInfo = (doc['keyWords']? JSON.parse(doc['keyWords']): "");
     //       console.log(doc['imgScore']);
     //       let imgScore = (doc['imgScore']? JSON.parse(doc['imgScore']): "");
@@ -188,8 +190,7 @@ io.on('connection',function(socket) {
     //         },
     //         total_score: doc['total_score']
     //       };
-    //     }
-    //   }
+      }
     })
   });
 

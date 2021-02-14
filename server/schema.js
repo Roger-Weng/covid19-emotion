@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-let ForumRecord = new mongoose.Schema({
+let record = new mongoose.Schema({
   username: String,
   create_time: String,
   forum_text: String
@@ -43,4 +43,4 @@ let userRecord = new mongoose.Schema({
 
 mongoose.model('User', UserSchema);
 mongoose.model('userRecord', userRecord);
-mongoose.model('ForumRecord'.ForumRecord);
+mongoose.model('forum', record);

@@ -9,12 +9,7 @@
   <p>Google Chrome is a web browser developed by Google, released in 2008. Chrome is the world's most popular web browser today!</p>
 </article>
 
-<div id="app-5">
-  <p>{{ message }}</p>
-  <label> comments </label>
-  <input v-model="message">
-  <button v-on:click="comment">Comment</button>
-</div>
+
 
 <article>
   <h3>Mozilla Firefox</h3>
@@ -25,18 +20,53 @@
 </template>
 
 <script>
-import Vue from 'vue'
-var app5 = new Vue({
-  el: '#app-5',
-  data: {
-    message: 'Hello Vue.js!'
-  },
- methods: {
-    comments: function () {
-      this.message = this.message.split('').reverse().join('')
+    export default {
+      name: "forumdata",
+      // data(){
+      //   this.chartSettings = {
+      //     // "xAxis.0.axisLabel.rotate": 30,
+      //   };
+      //   return{
+      //     test: "hello",
+      //     weekly_report:{
+      //       averageSleep: null,
+      //       averageMeal: null,
+      //       total_score: null,
+      //       chartHappiness:{},
+      //       chartExcitement:{},
+      //       chartDepression:{},
+      //       chartBoredom:{},
+      //       chartAnxiety:{},
+      //       BestRecords: null,
+      //       BestPhoto: null
+      //     }
+      //   }
+      // },
+
+      // filters: {
+      //   numFilter (value) {
+      //     let realVal = null;
+      //     if (value) {
+      //       realVal = value.toFixed(2);
+      //     }
+      //     return realVal;
+      //   }
+      // },
+      mounted: function () {
+        let u=this.username;
+        let t=this.create_time;
+        let f=this.forum_text;
+        let msg = {
+           username:u,
+           create_time:t,
+           forum_text:f
+      };
+
+        this.$socket.emit("getForumText",msg,  (data) => {
+          console.log(this.username);
+        })
+      }
     }
-  }
-})
 </script>
 
 <style scoped>
