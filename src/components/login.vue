@@ -1,8 +1,8 @@
 <template>
   <div class="login">
     <div class="title">
-      <h2>Welcome to</h2>
-      <h1>APP Name</h1>
+      <h2>Covid-19</h2>
+      <h1>Moodup</h1>
     </div>
     <div class="inputCell">
       <br />
@@ -13,10 +13,10 @@
       <!--<br />-->
       <mt-button type="primary" size="large" @click="login">Log In</mt-button>
 
-      <h6>Don't have an account?</h6>
+      <h6 style="color: white">Don't have an account?</h6>
       <router-link :to="{path: '/sign-up'}">
         <mt-button>
-          Join EmoKeeper
+          Join Moodup
         </mt-button>
       </router-link>
     </div>
@@ -72,7 +72,7 @@
     position: absolute;
     width:100%;
     height:100%;
-    background-image:url('../assets/loginBackground.jpg');
+    background-image:url('../assets/lilac-1914124_1280.jpg');
     background-size: 411px 731px;
     /*background-size:100%;*/
   }
@@ -84,10 +84,9 @@
   .title{
     /*color: #ffffff;*/
     position: relative;
-    right: 3px;
     top: 80px;
     /*right: 0;*/
-    text-align: right;
+    text-align: center;
   }
 
   .inputCell{

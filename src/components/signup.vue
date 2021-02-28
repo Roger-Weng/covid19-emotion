@@ -97,10 +97,9 @@
   .title{
     /*color: #ffffff;*/
     position: relative;
-    right: 3px;
     top: 80px;
     /*right: 0;*/
-    text-align: right;
+    text-align: center;
   }
 
   .my-input{

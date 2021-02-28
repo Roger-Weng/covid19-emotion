@@ -6,7 +6,7 @@
         <div class="emo">
           <!--<img src="../../assets/bg_main2.jpg" class="img_bg">-->
           <h3>Comprehensive Score of This day</h3>
-          <h3 style="margin-left: 160px">{{daily_report.total_score || numFilter}}</h3>
+          <h3 style="margin-left: 160px">{{daily_report.total_score| numFilter}} /100</h3>
           <mt-progress :value="(daily_report.total_score+100)/2">
             <div slot="start">
               <img src="../../assets/icon/sad.png" class="icon">&nbsp;
@@ -15,6 +15,14 @@
               &nbsp;<img src="../../assets/icon/happy.png" class="icon">
             </div>
           </mt-progress>
+          <!--add button-->
+          <div style="text-align: right">
+            <router-link :to="{path: '/home'}" >
+              <mt-button style="margin-right: 10px">
+                return home
+              </mt-button>
+            </router-link>
+          </div>
         </div>
         <br>
 
@@ -256,7 +264,7 @@
         //       {'emotion': 'excitement', 'degree': 1},
         //       {'emotion': 'depression', 'degree': 2},
         //       {'emotion': 'anxiety', 'degree': 3},
-        //       {'emotion': 'irritability', 'degree': 4}
+        //       {'emotion': 'boredom', 'degree': 4}
         //     ]
         //   }
         // }

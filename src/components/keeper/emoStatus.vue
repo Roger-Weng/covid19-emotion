@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 style="display: inline-block; margin-left: 20px">Title 1</h1>
+    <h1 style="display: inline-block; margin-left: 20px">Mood up</h1>
     <div style="position:relative; display: inline-block; margin-right: 80px">
       <img src="../../assets/icon/date.png" class="icon" style="display: inline-block">
       <div style="font-size: 110%; display: inline-block">{{dateString}}</div>
@@ -54,7 +54,7 @@
       <mt-range
         v-model="emoRecord.hoursSleep"
         :min="0"
-        :max="24"
+        :max="48"
         :step="1">
         <div slot="start">0</div>
         <div slot="end">24</div>
@@ -74,14 +74,9 @@
         :max="3"
         :step="1">
       </mt-range>
-      <table>
-        <tr>
-          <td class="label">None</td>
-          <td class="label">Mild</td>
-          <td class="label">Moderate</td>
-          <td class="label">Strong</td>
-        </tr>
-      </table>
+      <p>&nbsp;None&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Mild&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Moderate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strong</p>
     </div>
     <div class="odd_row">
       <div class="sub_title">
@@ -96,14 +91,9 @@
         :max="3"
         :step="1">
       </mt-range>
-      <table>
-        <tr>
-          <td class="label">None</td>
-          <td class="label">Mild</td>
-          <td class="label">Moderate</td>
-          <td class="label">Strong</td>
-        </tr>
-      </table>
+      <p>&#160;None&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Mild&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Moderate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strong</p>
     </div>
     <div class="even_row">
       <div class="sub_title">
@@ -118,36 +108,34 @@
         :max="3"
         :step="1">
       </mt-range>
-      <table>
-        <tr>
-          <td class="label">None</td>
-          <td class="label">Mild</td>
-          <td class="label">Moderate</td>
-          <td class="label">Strong</td>
-        </tr>
-      </table>
+<!--      <table>-->
+<!--        <tr>-->
+<!--          <td class="label">None</td>-->
+<!--          <td class="label">Mild</td>-->
+<!--          <td class="label">Moderate</td>-->
+<!--          <td class="label">Strong</td>-->
+<!--        </tr>-->
+<!--      </table>-->
+      <p>&#160;None&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Mild&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Moderate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strong</p>
     </div>
     <div class="odd_row">
       <div class="sub_title">
         <img src="../../assets/icon/angry.png" class="icon" style="display: inline-block">
         <div style="display: inline-block">
-          Today's most extreme irritability
+          Today's most extreme boredom
         </div>
       </div>
       <mt-range
-        v-model="emoRecord.value_irritability"
+        v-model="emoRecord.value_boredom"
         :min="0"
         :max="3"
         :step="1">
       </mt-range>
-      <table>
-        <tr>
-          <td class="label">None</td>
-          <td class="label">Mild</td>
-          <td class="label">Moderate</td>
-          <td class="label">Severe</td>
-        </tr>
-      </table>
+      <p>&nbsp;None&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Mild&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Moderate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strong</p>
     </div>
     <div class="even_row">
       <div class="sub_title">
@@ -162,14 +150,9 @@
         :max="3"
         :step="1">
       </mt-range>
-      <table>
-        <tr>
-          <td class="label">None</td>
-          <td class="label">Mild</td>
-          <td class="label">Moderate</td>
-          <td class="label">Severe</td>
-        </tr>
-      </table>
+      <p>&nbsp;None&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Mild&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Moderate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strong</p>
     </div>
 
     <div>Diary</div>
@@ -199,6 +182,8 @@
 </template>
 
 <script>
+  import emoInput from "./emoInput";
+
   export default {
     name: "emoStatus",
     data() {
@@ -242,7 +227,7 @@
           hoursSleep: 0,
           meals: null,
           value_happiness: 0,
-          value_irritability: 0,
+          value_boredom: 0,
           value_anxiety: 0,
           value_depression: 0,
           value_excitement: 0
@@ -251,7 +236,6 @@
           // symptoms: null,
           // therapy: null,
           input: null,
-          imgData: null,
           img: null
         },
         taken: 0,
@@ -262,14 +246,14 @@
     },
     computed:{
       hoursSleep: function(){
-        if(this.emoRecord.hoursSleep < 3){
+        if(this.emoRecord.hoursSleep < 6){
           return "3-";
         }
-        else if(this.emoRecord.hoursSleep > 12){
+        else if(this.emoRecord.hoursSleep > 24){
           return "12+";
         }
         else {
-          return this.emoRecord.hoursSleep;
+          return this.emoRecord.hoursSleep/2;
         }
       },
       dateString: function () {
@@ -289,8 +273,7 @@
           // let image = document.getElementById('myImage');
           // image.src = "data:image/jpeg;base64," + imageData;
           that.taken = 1;
-          that.emoInput.imgData = imageData;
-          that.emoInput.img = "data:image/jpeg;base64," + imageData;
+          that.emoInput.img =  imageData;
         }
         function onFail(message) {
           alert('Failed because: ' + message);
@@ -298,14 +281,35 @@
       },
       submit:function () {
         console.log(this.emoInput);
+        let emoRecordCopy=this.emoRecord;
+        emoRecordCopy.hoursSleep=emoRecordCopy.hoursSleep/2;
+        for (let prop in emoRecordCopy) {
+          if(emoRecordCopy[prop]==null){
+            console.log(prop+"unfilled");
+            this.$toast("There are unfilled answers");
+            return;
+          }
+        }
+        for (let prop in this.emoInput) {
+          if(this.emoInput[prop]==null){
+            console.log(prop+"unfilled");
+            this.$toast("There are unfilled answers");
+            return;
+          }
+        }
+        if (this.$store.state.user==null){
+          this.$toast("Please log in first");
+          return;
+        }
+
         this.$socket.emit('emoContent',{
           emoInput: this.emoInput,
-          emoStatus: this.emoRecord,
+          emoStatus: emoRecordCopy,
           date: this.date,
           user: this.$store.state.user
         }, (data)=>{
           if (data.code === 1){
-            this.$toast("Submitted! Have a nice day :)")
+            this.$toast("Submitted! Have a nice day :)");
           }
         });
       },
