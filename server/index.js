@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var User = mongoose.model('User');
 var userRecord = mongoose.model('userRecord');
-var record = mongoose.model('forum');
+var forum = mongoose.model('forum');
 
 function score_compare(){
   return function(a,b){
@@ -143,55 +143,24 @@ io.on('connection',function(socket) {
   });
 
   //forum
-  socket.on("getForumText", function(data,callback){
+  socket.on("getForumText", function(data, callback){
     console.log("getForumText request received", data);
-    record.find({
-      'username': "",
-      'create_time': "",
-      'forum_text': ""
-    },
+    forum.find({},
     function (error, docs) {
       if (error){
         console.log(error);
       }
       else{
-        if(docs.length === 0){
-          console.log("No record found for forum!");
-          callback({
-            code: 0
-          });
-        }
-        else{
-          let doc = docs[0];
-          console.log("find report", doc);
-        }
-    //       // let reportInfo = (doc['keyWords']? JSON.parse(doc['keyWords']): "");
-    //       console.log(doc['imgScore']);
-    //       let imgScore = (doc['imgScore']? JSON.parse(doc['imgScore']): "");
-    //       console.log();
-    //       let dailyReport = {
-    //         weather: doc['weather'],
-    //         hoursSleep:doc['hoursSleep'],
-    //         meals:doc['mealsHad'],
-    //         report:doc['input'],
-    //         reportEmo: doc['textScore'],
-    //         reportInfo:doc['keyWords'],
-    //         img:'data:image/jpeg;base64,'+ doc['img'],
-    //         imgScore:imgScore,
-    //         emoChart:{
-    //           columns: ['emotion', 'level'],
-    //           rows:[
-    //             {'emotion': 'happiness', 'level': doc['value_happiness']},
-    //             {'emotion': 'excitement', 'level': doc['value_excitement']},
-    //             {'emotion': 'depression', 'level': doc['value_depression']},
-    //             {'emotion': 'anxiety', 'level': doc['value_anxiety']},
-    //             {'emotion': 'boredom', 'level': doc['value_boredom']}
-    //           ]
-    //         },
-    //         total_score: doc['total_score']
-    //       };
+    //     // console.log(docs.forum_text);
+        callback({
+          code:1,
+          username:data.user,
+          create_time:data.date,
+          forum_text:data.m,
+          test:data.m,
+        });
       }
-    })
+    });
   });
 
 

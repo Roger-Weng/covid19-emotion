@@ -1,11 +1,12 @@
 let mongoose = require('mongoose');
 require("./db.js");
 require("./schema.js");
-let emo = require('./faceEmo.js');
-let WeeklyEmo = require('./weeklyEmo.js').WeeklyEmo;
-let dateUtil = require('./utilsDate.js');
-var userRecord = mongoose.model('userRecord');
-userRecord.find({}, function (error, doc) {
+// let emo = require('./faceEmo.js');
+// let WeeklyEmo = require('./weeklyEmo.js').WeeklyEmo;
+// let dateUtil = require('./utilsDate.js');
+// var userRecord = mongoose.model('userRecord');
+var forum=mongoose.model("forum");
+forum.find({}, function (error, doc) {
   if(error){
     console.log(error);
   }

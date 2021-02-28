@@ -6,64 +6,52 @@
     <div>
     <article>
   <h3>Google Chrome</h3>
-  <p>Google Chrome is a web browser developed by Google, released in 2008. Chrome is the world's most popular web browser today!</p>
+  <p>{{username}}</p>
+ <p>{{ctime}}</p>
+ <p>{{ftext}}</p>
+ <!-- <p>{{test}}</p> -->
 </article>
 
 
-
-<article>
-  <h3>Mozilla Firefox</h3>
-  <p>Mozilla Firefox is an open-source web browser developed by Mozilla. Firefox has been the second most popular web browser since January, 2018.</p>
-</article>
 </div>
-  </div>
+</div>
 </template>
 
 <script>
     export default {
-      name: "forumdata",
-      // data(){
-      //   this.chartSettings = {
-      //     // "xAxis.0.axisLabel.rotate": 30,
-      //   };
-      //   return{
-      //     test: "hello",
-      //     weekly_report:{
-      //       averageSleep: null,
-      //       averageMeal: null,
-      //       total_score: null,
-      //       chartHappiness:{},
-      //       chartExcitement:{},
-      //       chartDepression:{},
-      //       chartBoredom:{},
-      //       chartAnxiety:{},
-      //       BestRecords: null,
-      //       BestPhoto: null
-      //     }
-      //   }
-      // },
+      name: "test_data",
+      data(){
+        this.chartSettings = {
+          // "xAxis.0.axisLabel.rotate": 30,
+        };
+        return{
+          username:this.username,
+          ctime:this.ctime,
+          ftext:this.ftext
+        }
+      },
 
-      // filters: {
-      //   numFilter (value) {
-      //     let realVal = null;
-      //     if (value) {
-      //       realVal = value.toFixed(2);
-      //     }
-      //     return realVal;
-      //   }
-      // },
+      filters: {
+        
+      },
       mounted: function () {
-        let u=this.username;
-        let t=this.create_time;
-        let f=this.forum_text;
         let msg = {
-           username:u,
-           create_time:t,
-           forum_text:f
-      };
+          user: "test_user",
+          date: new Date(),
+          m:"test_msg",
+        };
+        // let msg="test_msg";
 
         this.$socket.emit("getForumText",msg,  (data) => {
-          console.log(this.username);
+          console.log(data);
+
+          this.username=data.username;
+          this.ctime=data.create_time;
+          this.ftext=data.forum_text;
+          // this.test=data.test;
+          
+          
+
         })
       }
     }
