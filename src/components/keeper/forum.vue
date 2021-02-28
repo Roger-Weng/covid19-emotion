@@ -8,55 +8,42 @@
       <br />
       <p style="font-size:20px;"> Welcome to our forum! </p>
     </div>
- 
-    <router-link :to="{ name: 'topic'}">
-      <mt-button>
-        Academics
-      </mt-button>
-    <br />
-    <br />
-    </router-link>
-    <router-link :to="{ name: 'topic'}">
-      <mt-button>
-        Sports
-      </mt-button>
-    <br />
-    <br />
-    </router-link>
-    <router-link :to="{ name: 'topic'}">
-      <mt-button>
-        Arts
-      </mt-button>
-    <br />
-    <br />
-    </router-link>
-    <router-link :to="{ name: 'topic'}">
-      <mt-button>
-        Just for fun
-      </mt-button>
-    <br />
-    <br />
-    </router-link>
+    <div v-for="topic in topics" :key='topic.title'>
+      <router-link :to="{ name: 'topic',params:{t:topic.title}}">
+        <mt-button>
+          {{topic.title}}
+        </mt-button>
+      <br />
+      <br />
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
+export default {
+  name: "fo",
+  data() {
+    return {
+      topics: [{ title: "ABC" }, { title: "BBC" }, { title: "CBC" }],
+    };
+  },
+};
 </script>
 
 <style scoped>
-  .forum{
-    position: absolute;
-    width:100%;
-    height:100%;
-  }
+.forum {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 
-  .title{
-    color: #c0663f;
-    font-size:30px;
-    position: relative;
-    top: 80px;
-    /*right: 0;*/
-    text-align: center;
-  }
-
+.title {
+  color: #c0663f;
+  font-size: 30px;
+  position: relative;
+  top: 80px;
+  /*right: 0;*/
+  text-align: center;
+}
 </style>

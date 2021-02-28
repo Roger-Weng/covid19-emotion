@@ -77,7 +77,7 @@ export default new Router({
       component: forum
     },
     {
-      path: '/keeper/topic',
+      path: '/keeper/topic/:t',
       name: 'topic',
       component: topic
     }
