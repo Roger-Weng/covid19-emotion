@@ -1,14 +1,13 @@
 <template>
   <div class="topic">
     <div class="title">
-      <h2>Topic</h2>
+      <h2>{{$route.params.t}}</h2>
     </div>
-    <div>
+    <div v-for="piece in data" :key="piece._id">
       <article>
-        <h3>Google Chrome</h3>
-        <p>{{ username }}</p>
-        <p>{{ ctime }}</p>
-        <p>{{ fulltext }}</p>
+        <p>{{ piece.username }}</p>
+        <p>{{ piece.create_time }}</p>
+        <p>{{ piece.forum_text }}</p>
       </article>
     </div>
   </div>
@@ -19,9 +18,10 @@ export default {
   name: "topic",
   data() {
     return {
-      username: this.username,
-      ctime: this.ctime,
-      fulltext: this.fulltext,
+      // username: this.username,
+      // ctime: this.ctime,
+      // fulltext: this.fulltext,
+      data:this.data
     };
   },
 
@@ -35,9 +35,11 @@ export default {
 
     this.$socket.emit("getForumText", data, (callback) => {
       console.log(callback);
-      this.username = callback.username;
-      this.ctime = callback.create_time;
-      this.fulltext = callback.forum_text;
+      // this.username = callback.username;
+      // this.ctime = callback.create_time;
+      // this.fulltext = callback.forum_text;
+      
+      this.data=callback.doc;
     });
   },
 };
