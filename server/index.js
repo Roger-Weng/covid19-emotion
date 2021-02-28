@@ -151,13 +151,12 @@ io.on('connection',function(socket) {
         console.log(error);
       }
       else{
-    //     // console.log(docs.forum_text);
+        console.log(docs[0]);
         callback({
           code:1,
-          username:data.user,
-          create_time:data.date,
-          forum_text:data.m,
-          test:data.m,
+          username:docs[0].username,
+          create_time:docs[0].create_time,
+          forum_text:docs[0].forum_text,
         });
       }
     });
