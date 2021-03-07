@@ -20,7 +20,31 @@ let mondayDateString = function (dateFrom) {
   return "2021"+"-"+"2"+"-"+"12";
 };
 
+function add_zero(d){
+  if(d<10){
+    d="0"+d;
+  }
+  return d;
+}
+
+let getCurDate=function(){
+  var d=new Date();
+  var mon=add_zero(d.getMonth()+1);
+  var dd=add_zero(d.getDate());
+  var day=add_zero(d.getDay());
+  var y=add_zero(d.getFullYear());
+  var hh=add_zero(d.getHours());
+  var min=add_zero(d.getMinutes());
+  var s=add_zero(d.getSeconds());
+
+  var day_map={0:"Sun",1:"Mon",2:"Tue",3:"Wed",4:"Thu",5:"Fri",6:"Sat"};
+  var day_format=day_map[day];
+
+  return [dd+"/"+mon+"/"+y, hh+":"+min+":"+s, day_format];
+}
+
 module.exports = {
   dateString: dateString,
-  mondayDateString: mondayDateString
+  mondayDateString: mondayDateString,
+  getCurDate:getCurDate,
 };

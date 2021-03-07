@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "fo",
+  name: "forum",
   data() {
     return {
       topics: [{ title: "ABC" }, { title: "BBC" }, { title: "CBC" }],
