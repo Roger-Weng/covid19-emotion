@@ -173,7 +173,7 @@ io.on('connection',function(socket) {
     });
   });
 
-
+  
   socket.on("putText", function(put_data, callback){
     console.log("putText request received", put_data);
     forum.create(put_data,
