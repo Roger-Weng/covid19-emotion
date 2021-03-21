@@ -4,27 +4,29 @@
       <h2>{{ $route.params.t }}</h2>
     </div>
     <span>Current Time: {{ time_data.date }} {{ time_data.time }} {{ time_data.day }}</span>
-
-    <div id="v-model-basic" class="demo">
-    <label>Notes:
-    <textarea v-model="message" />
-    </label>
-    <input type="submit" @click="onSubmit()" value="Submit">
+    
+    <div class="notes">
+    <p>Notes:</p>
+    <textarea class="text" v-model="message" />
+    <mt-button  class="submit" @click="onSubmit()" >Submit</mt-button>
+    <router-link :to="{ name: 'forum' }">
+      <mt-button class="back"> Back </mt-button>
+    </router-link>
     <p v-if="submit">Submitted Success! Please refresh the page to see updates</p>
+    
   </div>
+  
 
     <div v-for="piece in data" :key="piece._id" class="wrapper">
       
         <p class="info-u">User: {{ piece.username }}</p>
         <p class="info-t">Create Time: {{ piece.create_time }}</p>
 
-
         <p class="artical-body">{{ piece.forum_text }}</p>
 
     </div>
-    <router-link :to="{ name: 'forum' }">
-      <mt-button class="bottom"> Back </mt-button>
-    </router-link>
+    
+    
   </div>
 </template>
 
@@ -50,8 +52,7 @@ export default {
   filters: {},
 
   mounted: function () {
-    
-
+  
     const topics = {
       ABC: "1",
       BBC: "2",
@@ -69,9 +70,6 @@ export default {
 
     this.$socket.emit("getForumText", this.topic, (callback) => {
       console.log(callback);
-      // this.username = callback.username;
-      // this.ctime = callback.create_time;
-      // this.fulltext = callback.forum_text;
       this.data = callback.doc;
     });
   },
@@ -111,40 +109,66 @@ methods:{
 
 .wrapper {
   display: grid;
-  margin: 30px;
+  margin-bottom: 50px;
+  margin: 10px;
+  border: 1px solid #eee;
+  border-radius: 2px;
   /* position: fixed; */
   /* height: 500px;
   width: 300px; */
-  grid-gap: 10px;
-  grid-auto-columns: 300px 300px;
-  grid-auto-rows:30px 200px;
+  /* grid-gap: 10px; */
+  grid-auto-columns: 150px 150px;
+  grid-auto-rows:50px 120px;
 }
 
 .info-u{
+  
+  /* position: fixed; */
   grid-column: 1;
   grid-row: 1;
 }
 .info-t{
+  
+  /* position: fixed; */
   grid-column: 2;
   grid-row:1;
 }
 .artical-body{
-  width:600px;
-  border-style:solid;
-  border-width: 1px;
-  grid-row: 2;
+
+  /* overflow-y:auto; */
+
+  word-wrap: break-word;
+  border-top: 1px solid burlywood;
+  border-radius: 2px;
+  border-right: hidden;
+  border-left: hidden;
+  text-align: justify;
+  font-size:large;
+  /* white-space: pre-line; */
+  /* text-overflow: ellipsis; */
+  overflow-y: auto;
+  width:300px;
+
+  /* grid-row: 2; */
 }
 
-.bottom {
-  position: fixed;
-  text-align: center;
-  width: 80px;
-  height: 50px;
-  bottom: 15%;
-  left: 50%;
+.submit{
+  width:100%;
+  height:40px;
+}
+.back{
+  margin-top:10px ;
+  width:100%;
+  height:40px;
 }
 
-.demo {
+
+.text{
+  width: 100%;
+  height:50px;
+  margin:auto;
+}
+.notes {
   font-family: sans-serif;
   border: 1px solid #eee;
   border-radius: 2px;
