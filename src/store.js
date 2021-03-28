@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
+
 Vue.use(Vuex);
 const state = {
   user: "",
@@ -24,6 +26,7 @@ const mutations = {
 
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state,
   mutations,
 })

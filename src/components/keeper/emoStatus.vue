@@ -151,10 +151,10 @@
         <div class="slot_label" slot="start">Normal</div>
         <div class="slot_label" slot="end">Strong</div>
       </mt-range>
-      <div class="mid_label">Mild</div>
+      <div class="mid_label" style="display:relative">Mild</div>
     </div>
 
-    <div>Diary</div>
+    <p>Diary</p>
     <textarea class="textarea" v-model="emoInput.input" placeholder="Describe your life today with several sentences"></textarea>
     <!--<mt-button @click="open_camera">open camera</mt-button>-->
 

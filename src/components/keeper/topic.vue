@@ -12,7 +12,7 @@
     <router-link :to="{ name: 'forum' }">
       <mt-button class="back"> Back </mt-button>
     </router-link>
-    <p v-if="submit">Submitted Success! Please refresh the page to see updates</p>
+    
     
   </div>
   
@@ -83,7 +83,7 @@ methods:{
       };
       this.$socket.emit('putText',put_data,(callback)=>{
       });
-      this.submit=true;
+      this.$router.go(0);
     }
 }
 };
