@@ -13,7 +13,7 @@ import medical_resources from "@/components/keeper/medical_resources"
 import forum from '@/components/keeper/forum'
 import topic from '@/components/keeper/topic';
 
-import test from '@/components/keeper/test';
+
 
 Vue.use(Router);
 
@@ -84,10 +84,6 @@ export default new Router({
       name: 'topic',
       component: topic
     },
-    {
-      path: '/keeper/test',
-      name: 'test',
-      component: test
-    }
+   
   ]
 })

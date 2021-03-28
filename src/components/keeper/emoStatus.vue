@@ -54,11 +54,11 @@
       <mt-range
         v-model="emoRecord.hoursSleep"
         :min="0"
-        :max="48"
-        :step="1">
-        <div slot="start">0</div>
-        <div slot="end">24</div>
-
+        :max="24"
+        :step="1"
+        :bar-height="5">
+        <div class="slot_label_num" slot="start">0</div>
+        <div class="slot_label_num" slot="end">12</div>
       </mt-range>
     </div>
     <div class="even_row">
@@ -71,12 +71,13 @@
       <mt-range
         v-model="emoRecord.value_happiness"
         :min="0"
-        :max="3"
-        :step="1">
+        :max="8"
+        :step="1"
+        :bar-height="5">
+        <div class="slot_label" slot="start">Normal</div>
+        <div class="slot_label" slot="end">Strong</div>
       </mt-range>
-      <p>&nbsp;None&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Mild&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Moderate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strong</p>
+     <div class="mid_label">Mild</div>
     </div>
     <div class="odd_row">
       <div class="sub_title">
@@ -88,12 +89,14 @@
       <mt-range
         v-model="emoRecord.value_excitement"
         :min="0"
-        :max="3"
-        :step="1">
+        :max="8"
+        :step="1"
+        :bar-height="5">
+        <div class="slot_label" slot="start">Normal</div>
+        <div class="slot_label" slot="end">Strong</div>
       </mt-range>
-      <p>&#160;None&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Mild&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Moderate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strong</p>
+     <div class="mid_label">Mild</div>
+     
     </div>
     <div class="even_row">
       <div class="sub_title">
@@ -105,20 +108,14 @@
       <mt-range
         v-model="emoRecord.value_depression"
         :min="0"
-        :max="3"
-        :step="1">
+        :max="8"
+        :step="1"
+        :bar-height="5">
+        <div class="slot_label" slot="start">Normal</div>
+        <div class="slot_label" slot="end">Strong</div>
       </mt-range>
-<!--      <table>-->
-<!--        <tr>-->
-<!--          <td class="label">None</td>-->
-<!--          <td class="label">Mild</td>-->
-<!--          <td class="label">Moderate</td>-->
-<!--          <td class="label">Strong</td>-->
-<!--        </tr>-->
-<!--      </table>-->
-      <p>&#160;None&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Mild&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Moderate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strong</p>
+
+   <div class="mid_label">Mild</div>
     </div>
     <div class="odd_row">
       <div class="sub_title">
@@ -130,12 +127,13 @@
       <mt-range
         v-model="emoRecord.value_boredom"
         :min="0"
-        :max="3"
-        :step="1">
+        :max="8"
+        :step="1"
+        :bar-height="5">
+        <div class="slot_label" slot="start">Normal</div>
+        <div class="slot_label" slot="end">Strong</div>
       </mt-range>
-      <p>&nbsp;None&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Mild&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Moderate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strong</p>
+      <div class="mid_label">Mild</div>
     </div>
     <div class="even_row">
       <div class="sub_title">
@@ -147,12 +145,13 @@
       <mt-range
         v-model="emoRecord.value_anxiety"
         :min="0"
-        :max="3"
-        :step="1">
+        :max="8"
+        :step="1"
+        :bar-height="5">
+        <div class="slot_label" slot="start">Normal</div>
+        <div class="slot_label" slot="end">Strong</div>
       </mt-range>
-      <p>&nbsp;None&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Mild&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Moderate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strong</p>
+      <div class="mid_label">Mild</div>
     </div>
 
     <div>Diary</div>
@@ -246,11 +245,9 @@
     },
     computed:{
       hoursSleep: function(){
-        if(this.emoRecord.hoursSleep < 6){
-          return "3-";
-        }
-        else if(this.emoRecord.hoursSleep > 24){
-          return "12+";
+       
+        if(this.emoRecord.hoursSleep > 23){
+          return "over 12";
         }
         else {
           return this.emoRecord.hoursSleep/2;
@@ -372,6 +369,27 @@
 </script>
 
 <style scoped>
+  mt-range {
+    margin-top:5px;
+  }
+  .mid_label{
+    text-align: center;
+    font-size: 18px;
+    margin-trim: 2px;
+  }
+  .slot_label_num{
+    font-size: 120%;
+    text-align: left;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+  .slot_label{
+    font-size: 125%;
+    text-align: left;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
   .sub_title{
     text-align: left;
     font-size: 110%;
@@ -384,9 +402,7 @@
     border: 10px solid transparent;
     background: gainsboro;
   }
-  .label{
-    width: 110px;
-  }
+  
   .textarea{
     border:0;
     border-radius:5px;
@@ -404,4 +420,5 @@
     width: 20px;
     height: 20px;
   }
+
 </style>
