@@ -385,53 +385,59 @@ io.on('connection', function (socket) {
     console.log(date);
 
     //text analysis
+    if (data.emoInput.input) {
 
-    let sentiment = new Sentiment();
-    let textScore = sentiment.analyze(data.emoInput.input).comparative;
+      let sentiment = new Sentiment();
+      let textScore = sentiment.analyze(data.emoInput.input).comparative;
 
-    let sentences = data.emoInput.input.split(/[\n]/).filter(function (e) { return e });
-    let extractKeywords = function (list) {
-      //tfidf
-      let tokenizer = new EnglishTokenizer();
-      let keywordExtractor = new KeywordExtractor();
-      // console.log(list);
-      keywordExtractor.setTokenizer(tokenizer);
-      list.forEach((text, i) => {
-        keywordExtractor.addDocument(i, text)
-      });
-      let rank = {};
-      for (let i = 0; i < list.length; i++) {
-        let tfidfResult = keywordExtractor.extractKeywords(list[i], {
-          sortByScore: true,
-          limit: 10
+      let sentences = data.emoInput.input.split(/[\n]/).filter(function (e) { return e });
+      let extractKeywords = function (list) {
+        //tfidf
+        let tokenizer = new EnglishTokenizer();
+        let keywordExtractor = new KeywordExtractor();
+        // console.log(list);
+        keywordExtractor.setTokenizer(tokenizer);
+        list.forEach((text, i) => {
+          keywordExtractor.addDocument(i, text)
         });
-        for (let j = 0; j < tfidfResult.length; j++) {
-          let key = tfidfResult[j][0];
-          let value = tfidfResult[j][1];
-          if (key in rank) {
-            rank[key] += value;
-          }
-          else {
-            rank[key] = value;
+        let rank = {};
+        for (let i = 0; i < list.length; i++) {
+          let tfidfResult = keywordExtractor.extractKeywords(list[i], {
+            sortByScore: true,
+            limit: 10
+          });
+          for (let j = 0; j < tfidfResult.length; j++) {
+            let key = tfidfResult[j][0];
+            let value = tfidfResult[j][1];
+            if (key in rank) {
+              rank[key] += value;
+            }
+            else {
+              rank[key] = value;
+            }
           }
         }
-      }
-      let topRank = Object.keys(rank).sort((a, b) => {
-        return rank[b] - rank[a];
-      });
-      // console.log(rank);
-      // rank.sort(score_compare());
-      // let keywords = {};
-      // let maxLen = 5;
-      // let from = 0;
-      // for(let j in rank){
-      //   keywords[j] = rank[j];
-      //   from += 1;
-      //   if(from > maxLen) break;
-      // }
-      return topRank.slice(0, 5).toString();
-    };
-    let keyWords = extractKeywords(sentences);
+        let topRank = Object.keys(rank).sort((a, b) => {
+          return rank[b] - rank[a];
+        });
+        // console.log(rank);
+        // rank.sort(score_compare());
+        // let keywords = {};
+        // let maxLen = 5;
+        // let from = 0;
+        // for(let j in rank){
+        //   keywords[j] = rank[j];
+        //   from += 1;
+        //   if(from > maxLen) break;
+        // }
+        return topRank.slice(0, 5).toString();
+      };
+      let keyWords = extractKeywords(sentences);
+    }
+    else{
+      var textScore=false;
+      var keyWords=false;
+    }
 
 
     // console.log(typeof (data.emoInput.input));
@@ -440,12 +446,13 @@ io.on('connection', function (socket) {
     // console.log(keyWords);
 
     //img analysis
-    let timeStamp = (new Date()).valueOf();
-    let path = "imgs/" + data.user + timeStamp + ".jpg";
-    let imgScore = {};
-    let imgHappiness = 0;
-    let imgSadness = 0;
     if (data.emoInput.img) {
+    
+      let timeStamp = (new Date()).valueOf();
+      let path = "imgs/" + data.user + timeStamp + ".jpg";
+      let imgScore = {};
+      let imgHappiness = 0;
+      let imgSadness = 0;
       let dataBuffer = new Buffer(data.emoInput.img, 'base64');
       fs.writeFile(path, dataBuffer, function (err) {
         if (err) {
@@ -459,10 +466,18 @@ io.on('connection', function (socket) {
           if (imgScore === "{}") {
             imgScore = "";
           }
+
+          let mediaScore = 0.3 * (textScore * 20) + 0.1 * (imgHappiness - imgSadness);
+        }})
+    }
+      else{
+
+        var imgScore= false;
+        var imgHappiness=false;
+        var imgSadness=false;
+
           let total_score = 0.6 * ((50 / 3) * (data.emoStatus.value_happiness + data.emoStatus.value_excitement - 0.8 * data.emoStatus.value_depression -
-            0.8 * data.emoStatus.value_anxiety - 0.4 * data.emoStatus.value_boredom)) +
-            0.3 * (textScore * 20) +
-            0.1 * ((imgHappiness - imgSadness));
+            0.8 * data.emoStatus.value_anxiety - 0.4 * data.emoStatus.value_boredom)) + data.emoInput.img ? mediaScore : 0;
           //record
           userRecord.create({
             //basic info
@@ -473,8 +488,8 @@ io.on('connection', function (socket) {
             day: date.getDate(),
             date: dateUtil.dateString(date),
             MondayDate: dateUtil.mondayDateString(date),
-            input: data.emoInput.input,
-            img: data.emoInput.img,
+            input: data.emoInput.input ? data.emoInput.input : null,
+            img: data.emoInput.img ? data.emoInput.img : null,
             hoursSleep: data.emoStatus.hoursSleep,
             mealsHad: data.emoStatus.meals,
             value_happiness: data.emoStatus.value_happiness,
@@ -483,11 +498,11 @@ io.on('connection', function (socket) {
             value_depression: data.emoStatus.value_depression,
             value_excitement: data.emoStatus.value_excitement,
             //detected value
-            textScore: textScore,
-            keyWords: keyWords,
-            imgScore: imgScore,
-            imgHappiness: imgHappiness,
-            imgSadness: imgSadness,
+            textScore: textScore?textScore:0,
+            keyWords: keyWords?keyWords:'',
+            imgScore: imgScore?imgScore:0,
+            imgHappiness: imgHappiness?imgHappiness:0,
+            imgSadness: imgSadness?imgSadness:0,
             total_score: total_score
           }, function (error, doc) {
             if (error) {
@@ -498,46 +513,42 @@ io.on('connection', function (socket) {
                 code: 1
               })
             }
-          })
-        }
-      });
-    }
-  });
-
-  //calendar
-  socket.on('tryGetDate', function (data, callback) {
-    userRecord.find({ 'username': data.user }, function (error, docs) {
-      if (error) {
-        console.log(error);
-      }
-      else {
-        if (docs.length === 0) {
-          callback({
-            code: 0
-          });
-        }
-        else {
-          let allRecordDate = [];
-          for (let i = 0; i < docs.length; i++) {
-            allRecordDate.push({
-              year: docs[i].year,
-              month: docs[i].month,
-              day: docs[i].day
-            })
           }
-          let msg = {
-            code: 1,
-            msg: allRecordDate,
-          };
-          callback(msg);
+          )
         }
-      }
+        })
+      //calendar
+      socket.on('tryGetDate', function (data, callback) {
+        userRecord.find({ 'username': data.user }, function (error, docs) {
+          if (error) {
+            console.log(error);
+          }
+          else {
+            if (docs.length === 0) {
+              callback({
+                code: 0
+              });
+            }
+            else {
+              let allRecordDate = [];
+              for (let i = 0; i < docs.length; i++) {
+                allRecordDate.push({
+                  year: docs[i].year,
+                  month: docs[i].month,
+                  day: docs[i].day
+                })
+              }
+              let msg = {
+                code: 1,
+                msg: allRecordDate,
+              };
+              callback(msg);
+            }
+          }
+        })
+      })
     })
-  });
-
-});
-
-//listen
-http.listen(3000, function () {
-  console.log('listening on *:3000');
-});
+  //listen
+  http.listen(3000, function () {
+    console.log('listening on *:3000');
+  })

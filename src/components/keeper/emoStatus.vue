@@ -151,7 +151,7 @@
         <div class="slot_label" slot="start">Normal</div>
         <div class="slot_label" slot="end">Strong</div>
       </mt-range>
-      <div class="mid_label" style="display:relative">Mild</div>
+      <div class="mid_label">Mild</div>
     </div>
 
     <p>Diary</p>
@@ -287,20 +287,14 @@
             return;
           }
         }
-        for (let prop in this.emoInput) {
-          if(this.emoInput[prop]==null){
-            console.log(prop+"unfilled");
-            this.$toast("There are unfilled answers");
-            return;
-          }
-        }
+        
         if (this.$store.state.user==null){
           this.$toast("Please log in first");
           return;
         }
 
         this.$socket.emit('emoContent',{
-          emoInput: this.emoInput,
+          emoInput: '',
           emoStatus: emoRecordCopy,
           date: this.date,
           user: this.$store.state.user
