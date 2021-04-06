@@ -65,7 +65,7 @@
       <div class="sub_title">
         <img src="../../assets/icon/happy.png" class="icon" style="display: inline-block">
         <div style="display: inline-block">
-          Today's most extreme happiness
+          Today's happiness
         </div>
       </div>
       <mt-range
@@ -74,7 +74,7 @@
         :max="8"
         :step="1"
         :bar-height="5">
-        <div class="slot_label" slot="start">Normal</div>
+        <div class="slot_label" slot="start">None</div>
         <div class="slot_label" slot="end">Strong</div>
       </mt-range>
      <div class="mid_label">Mild</div>
@@ -83,7 +83,7 @@
       <div class="sub_title">
         <img src="../../assets/icon/excite.png" class="icon" style="display: inline-block">
         <div style="display: inline-block">
-          Today's most extreme excitement
+          Today's excitement
         </div>
       </div>
       <mt-range
@@ -92,7 +92,7 @@
         :max="8"
         :step="1"
         :bar-height="5">
-        <div class="slot_label" slot="start">Normal</div>
+        <div class="slot_label" slot="start">None</div>
         <div class="slot_label" slot="end">Strong</div>
       </mt-range>
      <div class="mid_label">Mild</div>
@@ -102,7 +102,7 @@
       <div class="sub_title">
         <img src="../../assets/icon/sad.png" class="icon" style="display: inline-block">
         <div style="display: inline-block">
-          Today's most extreme depression
+          Today's anger
         </div>
       </div>
       <mt-range
@@ -111,7 +111,7 @@
         :max="8"
         :step="1"
         :bar-height="5">
-        <div class="slot_label" slot="start">Normal</div>
+        <div class="slot_label" slot="start">None</div>
         <div class="slot_label" slot="end">Strong</div>
       </mt-range>
 
@@ -121,7 +121,7 @@
       <div class="sub_title">
         <img src="../../assets/icon/angry.png" class="icon" style="display: inline-block">
         <div style="display: inline-block">
-          Today's most extreme boredom
+          Today's boredom
         </div>
       </div>
       <mt-range
@@ -130,7 +130,7 @@
         :max="8"
         :step="1"
         :bar-height="5">
-        <div class="slot_label" slot="start">Normal</div>
+        <div class="slot_label" slot="start">None</div>
         <div class="slot_label" slot="end">Strong</div>
       </mt-range>
       <div class="mid_label">Mild</div>
@@ -139,7 +139,7 @@
       <div class="sub_title">
         <img src="../../assets/icon/anxiety.png" class="icon" style="display: inline-block">
         <div style="display: inline-block">
-          Today's most extreme anxiety
+          Today's anxiety
         </div>
       </div>
       <mt-range
@@ -148,7 +148,7 @@
         :max="8"
         :step="1"
         :bar-height="5">
-        <div class="slot_label" slot="start">Normal</div>
+        <div class="slot_label" slot="start">None</div>
         <div class="slot_label" slot="end">Strong</div>
       </mt-range>
       <div class="mid_label">Mild</div>

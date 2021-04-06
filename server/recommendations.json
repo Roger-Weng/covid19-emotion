@@ -1,9 +1,9 @@
 {
   "sentences": {
-    "rainy": "Artistic Rainy Day",
-    "sunny": "Ardent Sunny Day",
-    "snowy": "Dreamlike Snowy Day",
-    "cloudy": "Elegant Cloudy Day"
+    "rainy": "Rainy Day",
+    "sunny": "Sunny Day",
+    "snowy": "Snowy Day",
+    "cloudy": "Cloudy Day"
   },
   "poems": {
     "rainy": ["When depressed in the rainy days, the breath of the pine needles in the mountain will help you find yourself"],

@@ -17,6 +17,11 @@
       <br />
       </router-link>
     </div>
+
+    <router-link :to="{ name: 'home' }">
+      <mt-button class="back"> Back </mt-button>
+    </router-link>
+
   </div>
 </template>
 
