@@ -30,28 +30,28 @@ const { EnglishTokenizer, KeywordExtractor } = require("@agtabesh/keyword-extrac
 const rake = require('node-rake');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var User = mongoose.model('User');
 var userRecord = mongoose.model('userRecord');
 var forum = mongoose.model('forum');
 
-function score_compare(){
-  return function(a,b){
+function score_compare() {
+  return function (a, b) {
     let value1 = a['score'];
     let value2 = b['score'];
     return (value2 - value1);
   }
 }
 
-function getRandom(list){
-  let random_id = Math.floor(Math.random()*(list.length));
+function getRandom(list) {
+  let random_id = Math.floor(Math.random() * (list.length));
   return list[random_id];
 }
 
 //socket connect
 
-io.on('connection',function(socket) {
+io.on('connection', function (socket) {
 
   //signup
   socket.on("sign_up", function (data, callback) {
@@ -59,12 +59,11 @@ io.on('connection',function(socket) {
     User.find({
       'username': data.username
     }, function (error, docs) {
-      if(error) {
+      if (error) {
         console.log(error);
       }
-      else
-      {
-        if (docs.length === 0){
+      else {
+        if (docs.length === 0) {
           User.create({
             username: data.username,
             password: data.password,
@@ -73,15 +72,15 @@ io.on('connection',function(socket) {
             if (error) {
               console.log(error);
             }
-            else{
+            else {
               console.log("success");
               callback({
-                code:1
+                code: 1
               })
             }
           })
         }
-        else{
+        else {
           console.log(docs);
           callback({
             code: 0,
@@ -92,24 +91,33 @@ io.on('connection',function(socket) {
     });
   });
 
+  socket.on("getTime", function (data, callback) {
+    res = dateUtil.getCurDate();
+    callback({
+      date: res[0],
+      time: res[1],
+      day: res[2]
+    })
+  });
+
+
   //login
   socket.on("login", function (data, callback) {
-    console.log("login request from user"+ data.username);
+    console.log("login request from user" + data.username);
     User.find({
       'username': data.username,
       'password': data.password
     }, function (error, docs) {
-      if(error){
+      if (error) {
         console.log(error);
       }
-      else
-      {
-        if (docs.length === 0){
+      else {
+        if (docs.length === 0) {
           callback({
             code: 0
           })
         }
-        else{
+        else {
           // console.log(docs);
           callback({
             code: 1,
@@ -136,82 +144,87 @@ io.on('connection',function(socket) {
       month: date.month,
       day: date.day
     });
-    socket.emit('emoStatus',{
+    socket.emit('emoStatus', {
       msg: score
     });
     console.log("message sent: ", result);
   });
 
   //forum
-  socket.on("getForumText", function(data, callback){
+  socket.on("getForumText", function (data, callback) {
     console.log("getForumText request received", data);
-    forum.find({},
-    function (error, docs) {
-      if (error){
-        console.log(error);
-      }
-      else{
-        console.log(docs);
-        callback({
-          code:1,
-          // username:docs[0].username,
-          // create_time:docs[0].create_time,
-          // forum_text:docs[0].forum_text,
-          doc:docs
-        });
-      }
-    });
+    forum.find({ "topic_id": data },
+      function (error, docs) {
+        if (error) {
+          console.log(error);
+        }
+        else {
+          console.log(docs);
+          callback({
+            code: 1,
+            // username:docs[0].username,
+            // create_time:docs[0].create_time,
+            // forum_text:docs[0].forum_text,
+            doc: docs
+          });
+        }
+      });
   });
 
 
-
-
-
-
+  socket.on("putText", function (put_data) {
+    console.log("putText request received", put_data);
+    forum.create(put_data,
+      function (error) {
+        if (error) {
+          console.log(error);
+        }
+      });
+  });
 
   //daily report
-  socket.on("getDailyReport", function(data,callback){
+  socket.on("getDailyReport", function (data, callback) {
     console.log("getDailyReport request received", data);
     userRecord.find({
       'username': data.user,
       'year': data.year,
       'month': data.month,
       'day': data.day
-    },function (error, docs) {
-      if (error){
+    }, function (error, docs) {
+      if (error) {
         console.log(error);
       }
-      else{
-        if(docs.length === 0){
+      else {
+        if (docs.length === 0) {
           console.log("No record found for daily report!");
           callback({
             code: 0
           });
         }
-        else{
+        else {
           let doc = docs[0];
           console.log("find report", doc);
           // let reportInfo = (doc['keyWords']? JSON.parse(doc['keyWords']): "");
           console.log(doc['imgScore']);
-          let imgScore = (doc['imgScore']? JSON.parse(doc['imgScore']): "");
+          let imgScore = (doc['imgScore'] ? JSON.parse(doc['imgScore']) : "");
           console.log();
           let dailyReport = {
             weather: doc['weather'],
-            hoursSleep:doc['hoursSleep'],
-            meals:doc['mealsHad'],
-            report:doc['input'],
+            hoursSleep: doc['hoursSleep'],
+            meals: doc['mealsHad'],
+            report: doc['input'],
             reportEmo: doc['textScore'],
-            reportInfo:doc['keyWords'],
-            img:'data:image/jpeg;base64,'+ doc['img'],
-            imgScore:imgScore,
-            emoChart:{
+            reportInfo: doc['keyWords'],
+            img: 'data:image/jpeg;base64,' + doc['img'],
+            imgScore: imgScore,
+            emoChart: {
               columns: ['emotion', 'level'],
-              rows:[
-                {'emotion': 'happiness', 'level': doc['value_happiness']},
-                {'emotion': 'excitement', 'level': doc['value_excitement']},
-                {'emotion': 'depression', 'level': doc['value_depression']},
-                {'emotion': 'anxiety', 'level': doc['value_anxiety']},
-                {'emotion': 'boredom', 'level': doc['value_boredom']}
+              rows: [
+                { 'emotion': 'happiness', 'level': doc['value_happiness'] },
+                { 'emotion': 'excitement', 'level': doc['value_excitement'] },
+                { 'emotion': 'depression', 'level': doc['value_depression'] },
+                { 'emotion': 'anxiety', 'level': doc['value_anxiety'] },
+                { 'emotion': 'boredom', 'level': doc['value_boredom'] }
               ]
             },
             total_score: doc['total_score']
@@ -220,28 +233,28 @@ io.on('connection',function(socket) {
           let weather_sentence = null;
           let weather_img = null;
           let weather_recommendation = null;
-          if (doc['weather'] === 'sunny'){
+          if (doc['weather'] === 'sunny') {
             weather_sentence = recommendations['sentences']['sunny'];
             weather_img = getRandom(sunny_imgs);
             weather_recommendation = getRandom(recommendations['poems']['sunny']);
           }
-          else if (doc['weather'] === 'rainy'){
+          else if (doc['weather'] === 'rainy') {
             weather_sentence = recommendations['sentences']['rainy'];
             weather_img = getRandom(rainy_imgs);
             weather_recommendation = getRandom(recommendations['poems']['rainy']);
           }
-          else if (doc['weather'] === 'cloudy'){
+          else if (doc['weather'] === 'cloudy') {
             weather_sentence = recommendations['sentences']['cloudy'];
             weather_img = getRandom(cloudy_imgs);
             weather_recommendation = getRandom(recommendations['poems']['cloudy']);
           }
-          else if (doc['weather'] === 'snowy'){
+          else if (doc['weather'] === 'snowy') {
             weather_sentence = recommendations['sentences']['snowy'];
             weather_img = getRandom(snowy_imgs);
             weather_recommendation = getRandom(recommendations['poems']['snowy']);
           }
           let total_words = null;
-          if(doc['total_score'] > 0){
+          if (doc['total_score'] > 0) {
             total_words = getRandom(recommendations['encourageWords']);
           }
           else {
@@ -268,21 +281,21 @@ io.on('connection',function(socket) {
   });
 
   //weekly report
-  socket.on("getWeeklyReport", function(data,callback){
+  socket.on("getWeeklyReport", function (data, callback) {
     userRecord.find({
       'username': data.user,
       'MondayDate': dateUtil.mondayDateString(data.date)
-    },function (error, docs) {
-      if (error){
+    }, function (error, docs) {
+      if (error) {
         console.log(error);
       }
-      else{
-        if(docs.length === 0){
+      else {
+        if (docs.length === 0) {
           callback({
             code: 0
           });
         }
-        else{
+        else {
           console.log("get weekly report...........");
           // console.log(docs);
           let count = 0;
@@ -300,7 +313,7 @@ io.on('connection',function(socket) {
           let bestRecord = "";
           let highestPhotoHappiness = 0;
           let highestTextHappiness = -3;
-          for(let i=0; i < docs.length; i++){
+          for (let i = 0; i < docs.length; i++) {
             count += 1;
             MondayDate = docs[i]['MondayDate'];
             sleepSum += docs[i]['hoursSleep'];
@@ -333,11 +346,11 @@ io.on('connection',function(socket) {
             //   }
             // }
 
-            if(docs[i]['imgHappiness'] > highestPhotoHappiness){
+            if (docs[i]['imgHappiness'] > highestPhotoHappiness) {
               highestPhotoHappiness = docs[i]['imgHappiness'];
               bestPhoto = docs[i]['img'];
             }
-            if(docs[i]['textScore'] > highestTextHappiness){
+            if (docs[i]['textScore'] > highestTextHappiness) {
               highestTextHappiness = docs[i]['textScore'];
               bestRecord = docs[i]['input'];
             }
@@ -345,16 +358,16 @@ io.on('connection',function(socket) {
 
           let returnValue = {
             'MondayDate': MondayDate,
-            'averageSleep': sleepSum/count,
-            'averageMeal': mealSum/count,
-            'total_score': totalSum/count,
+            'averageSleep': sleepSum / count,
+            'averageMeal': mealSum / count,
+            'total_score': totalSum / count,
             'chartHappiness': happiness.getItem(),
             'chartExcitement': excitement.getItem(),
             'chartDepression': depression.getItem(),
             'chartBoredom': boredom.getItem(),
             'chartAnxiety': anxiety.getItem(),
             'BestRecords': bestRecord,
-            'BestPhoto': 'data:image/jpeg;base64,'+ bestPhoto
+            'BestPhoto': 'data:image/jpeg;base64,' + bestPhoto
           };
           callback({
             code: 1,
@@ -366,59 +379,65 @@ io.on('connection',function(socket) {
   });
 
   //collect data
-  socket.on("emoContent", function(data, callback){
+  socket.on("emoContent", function (data, callback) {
     console.log("processing emotion content.......");
     let date = new Date(data.date);
     console.log(date);
 
     //text analysis
+    if (data.emoInput.input) {
 
-    let sentiment = new Sentiment();
-    let textScore = sentiment.analyze(data.emoInput.input).comparative;
+      let sentiment = new Sentiment();
+      let textScore = sentiment.analyze(data.emoInput.input).comparative;
 
-    let sentences = data.emoInput.input.split(/[\n]/).filter(function(e){return e});
-    let extractKeywords = function(list){
-      //tfidf
-      let tokenizer = new EnglishTokenizer();
-      let keywordExtractor = new KeywordExtractor();
-      // console.log(list);
-      keywordExtractor.setTokenizer(tokenizer);
-      list.forEach((text, i) => {
-        keywordExtractor.addDocument(i, text)
-      });
-      let rank = {};
-      for(let i = 0; i < list.length; i++){
-        let tfidfResult = keywordExtractor.extractKeywords(list[i], {
-          sortByScore: true,
-          limit: 10
+      let sentences = data.emoInput.input.split(/[\n]/).filter(function (e) { return e });
+      let extractKeywords = function (list) {
+        //tfidf
+        let tokenizer = new EnglishTokenizer();
+        let keywordExtractor = new KeywordExtractor();
+        // console.log(list);
+        keywordExtractor.setTokenizer(tokenizer);
+        list.forEach((text, i) => {
+          keywordExtractor.addDocument(i, text)
         });
-        for(let j = 0; j < tfidfResult.length; j++){
-          let key = tfidfResult[j][0];
-          let value = tfidfResult[j][1];
-          if (key in rank){
-            rank[key] += value;
-          }
-          else{
-            rank[key] = value;
+        let rank = {};
+        for (let i = 0; i < list.length; i++) {
+          let tfidfResult = keywordExtractor.extractKeywords(list[i], {
+            sortByScore: true,
+            limit: 10
+          });
+          for (let j = 0; j < tfidfResult.length; j++) {
+            let key = tfidfResult[j][0];
+            let value = tfidfResult[j][1];
+            if (key in rank) {
+              rank[key] += value;
+            }
+            else {
+              rank[key] = value;
+            }
           }
         }
-      }
-      let topRank = Object.keys(rank).sort((a,b)=>{
-        return rank[b]-rank[a];
-      });
-      // console.log(rank);
-      // rank.sort(score_compare());
-      // let keywords = {};
-      // let maxLen = 5;
-      // let from = 0;
-      // for(let j in rank){
-      //   keywords[j] = rank[j];
-      //   from += 1;
-      //   if(from > maxLen) break;
-      // }
-      return topRank.slice(0,5).toString();
-    };
-    let keyWords = extractKeywords(sentences);
+        let topRank = Object.keys(rank).sort((a, b) => {
+          return rank[b] - rank[a];
+        });
+        // console.log(rank);
+        // rank.sort(score_compare());
+        // let keywords = {};
+        // let maxLen = 5;
+        // let from = 0;
+        // for(let j in rank){
+        //   keywords[j] = rank[j];
+        //   from += 1;
+        //   if(from > maxLen) break;
+        // }
+        return topRank.slice(0, 5).toString();
+      };
+      let keyWords = extractKeywords(sentences);
+    }
+    else{
+      var textScore=false;
+      var keyWords=false;
+    }
 
 
     // console.log(typeof (data.emoInput.input));
@@ -427,41 +446,50 @@ io.on('connection',function(socket) {
     // console.log(keyWords);
 
     //img analysis
-    let timeStamp = (new Date()).valueOf();
-    let path = "imgs/"+data.user+ timeStamp+ ".jpg";
-    let imgScore = {};
-    let imgHappiness = 0;
-    let imgSadness = 0;
-    if (data.emoInput.img){
+    if (data.emoInput.img) {
+    
+      let timeStamp = (new Date()).valueOf();
+      let path = "imgs/" + data.user + timeStamp + ".jpg";
+      let imgScore = {};
+      let imgHappiness = 0;
+      let imgSadness = 0;
       let dataBuffer = new Buffer(data.emoInput.img, 'base64');
-      fs.writeFile(path, dataBuffer, function(err) {
-        if(err){
+      fs.writeFile(path, dataBuffer, function (err) {
+        if (err) {
           console.log(err);
         }
         else {
-          imgScore = faceEmo.getEmo("@"+path);
+          imgScore = faceEmo.getEmo("@" + path);
           imgHappiness = imgScore['happiness'];
           imgSadness = imgScore['sadness'];
           imgScore = JSON.stringify(imgScore);
-          if(imgScore === "{}"){
+          if (imgScore === "{}") {
             imgScore = "";
           }
-          let total_score = 0.6 * ((50/3)* (data.emoStatus.value_happiness + data.emoStatus.value_excitement - 0.8 * data.emoStatus.value_depression -
-            0.8 * data.emoStatus.value_anxiety - 0.4 * data.emoStatus.value_boredom)) +
-            0.3 * (textScore * 20) +
-            0.1 * ((imgHappiness - imgSadness));
+
+          let mediaScore = 0.3 * (textScore * 20) + 0.1 * (imgHappiness - imgSadness);
+        }})
+    }
+      else{
+
+        var imgScore= false;
+        var imgHappiness=false;
+        var imgSadness=false;
+
+          let total_score = 0.6 * ((50 / 3) * (data.emoStatus.value_happiness + data.emoStatus.value_excitement - 0.8 * data.emoStatus.value_depression -
+            0.8 * data.emoStatus.value_anxiety - 0.4 * data.emoStatus.value_boredom)) + data.emoInput.img ? mediaScore : 0;
           //record
           userRecord.create({
             //basic info
             weather: data.emoStatus.weather,
             username: data.user,
             year: date.getFullYear(),
-            month: date.getMonth()+1,
+            month: date.getMonth() + 1,
             day: date.getDate(),
             date: dateUtil.dateString(date),
             MondayDate: dateUtil.mondayDateString(date),
-            input: data.emoInput.input,
-            img: data.emoInput.img,
+            input: data.emoInput.input ? data.emoInput.input : null,
+            img: data.emoInput.img ? data.emoInput.img : null,
             hoursSleep: data.emoStatus.hoursSleep,
             mealsHad: data.emoStatus.meals,
             value_happiness: data.emoStatus.value_happiness,
@@ -470,61 +498,57 @@ io.on('connection',function(socket) {
             value_depression: data.emoStatus.value_depression,
             value_excitement: data.emoStatus.value_excitement,
             //detected value
-            textScore: textScore,
-            keyWords: keyWords,
-            imgScore: imgScore,
-            imgHappiness: imgHappiness,
-            imgSadness: imgSadness,
+            textScore: textScore?textScore:0,
+            keyWords: keyWords?keyWords:'',
+            imgScore: imgScore?imgScore:0,
+            imgHappiness: imgHappiness?imgHappiness:0,
+            imgSadness: imgSadness?imgSadness:0,
             total_score: total_score
           }, function (error, doc) {
-            if(error){
+            if (error) {
               console.log(error);
             }
-            else{
+            else {
               callback({
                 code: 1
               })
             }
-          })
-        }
-      });
-    }
-  });
-
-  //calendar
-  socket.on('tryGetDate', function (data, callback) {
-    userRecord.find({'username': data.user},function (error, docs) {
-      if (error){
-        console.log(error);
-      }
-      else {
-        if (docs.length === 0) {
-          callback({
-            code: 0
-          });
-        }
-        else {
-          let allRecordDate = [];
-          for(let i = 0; i < docs.length; i++){
-            allRecordDate.push({
-              year: docs[i].year,
-              month: docs[i].month,
-              day: docs[i].day
-            })
           }
-          let msg = {
-            code: 1,
-            msg: allRecordDate,
-          };
-          callback(msg);
+          )
         }
-      }
+        })
+      //calendar
+      socket.on('tryGetDate', function (data, callback) {
+        userRecord.find({ 'username': data.user }, function (error, docs) {
+          if (error) {
+            console.log(error);
+          }
+          else {
+            if (docs.length === 0) {
+              callback({
+                code: 0
+              });
+            }
+            else {
+              let allRecordDate = [];
+              for (let i = 0; i < docs.length; i++) {
+                allRecordDate.push({
+                  year: docs[i].year,
+                  month: docs[i].month,
+                  day: docs[i].day
+                })
+              }
+              let msg = {
+                code: 1,
+                msg: allRecordDate,
+              };
+              callback(msg);
+            }
+          }
+        })
+      })
     })
-  });
-
-});
-
-//listen
-http.listen(3000, function(){
-  console.log('listening on *:3000');
-});
+  //listen
+  http.listen(3000, function () {
+    console.log('listening on *:3000');
+  })

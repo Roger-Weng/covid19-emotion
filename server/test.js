@@ -6,7 +6,7 @@ require("./schema.js");
 // let dateUtil = require('./utilsDate.js');
 // var userRecord = mongoose.model('userRecord');
 var forum=mongoose.model("forum");
-forum.find({}, function (error, doc) {
+forum.find({"topic_id":1}, function (error, doc) {
   if(error){
     console.log(error);
   }

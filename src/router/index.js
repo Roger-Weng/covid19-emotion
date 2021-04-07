@@ -12,10 +12,12 @@ import introduction from '@/components/introduction'
 import medical_resources from "@/components/keeper/medical_resources"
 import forum from '@/components/keeper/forum'
 import topic from '@/components/keeper/topic';
+import store from "../store";
+
+
 Vue.use(Router);
 
-export default new Router({
-  mode: 'history',
+const router = new Router({
   routes: [
     {
       path:'',
@@ -44,42 +46,85 @@ export default new Router({
     {
       path: '/keeper_emoStatus',
       name: 'emoStatus',
-      component: emoStatus
+      component: emoStatus,
+      meta: {
+        need2Login: true
+    }
     },
     {
       path: '/keeper/emoInput',
       name: 'emoInput',
-      component: emoInput
+      component: emoInput,
+      meta: {
+        need2Login: true
+    }
     },
     {
       path: '/keeper/daily_report',
       name: 'daily_report',
-      component: daily_report
+      component: daily_report,
+      meta: {
+        need2Login: true
+    }
     },
     {
       path:'/keeper/calendar',
       name:'calendar',
-      component: calendar
+      component: calendar,
+      meta: {
+        need2Login: true
+    }
     },
     {
       path:'/keeper/weekly_report',
       name:'weekly_report',
-      component: weekly_report
+      component: weekly_report,
+      meta: {
+        need2Login: true
+    }
     },
     {
       path:'/keeper/medical_resources',
       name:'medical_resources',
-      component: medical_resources
+      component: medical_resources,
+      meta: {
+        need2Login: true
+    }
     },
     {
       path: '/keeper/forum',
       name: 'forum',
-      component: forum
+      component: forum,
+      meta: {
+        need2Login: true
+    }
     },
     {
       path: '/keeper/topic/:t',
       name: 'topic',
-      component: topic
+      component: topic,
+      meta: {
+        need2Login: true
     }
+    },
+   
   ]
 })
+
+router.beforeEach((to, from, next) => { 
+  to.matched.some((route) => {
+      
+      if (route.meta.need2Login) { 
+          if (store.state.user!='') {
+              next()
+          } else {
+              next({ name: 'login'})
+          }
+      } else {
+          next();
+      }
+  });
+})
+
+
+export default router;

@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 
 let forum = new mongoose.Schema({
+  topic_id:Number,
   username: String,
   create_time: String,
   forum_text: String

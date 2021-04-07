@@ -17,12 +17,17 @@
       <br />
       </router-link>
     </div>
+
+    <router-link :to="{ name: 'home' }">
+      <mt-button class="back"> Back </mt-button>
+    </router-link>
+
   </div>
 </template>
 
 <script>
 export default {
-  name: "fo",
+  name: "forum",
   data() {
     return {
       topics: [{ title: "ABC" }, { title: "BBC" }, { title: "CBC" }],
