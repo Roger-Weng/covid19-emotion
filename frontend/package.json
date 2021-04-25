@@ -18,6 +18,7 @@
     "jquery": "^3.4.1",
     "mint-ui": "^2.2.13",
     "natural": "^0.6.3",
+    "shelljs": "^0.8.4",
     "socket.io": "^2.3.0",
     "tfidf": "^0.2.2",
     "tiny-tfidf": "^0.9.1",

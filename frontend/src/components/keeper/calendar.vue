@@ -1,6 +1,7 @@
 <template>
   <div class="content">
     <Calendar
+      :locale="$i18n.locale"
       ref="Calendar"
       :markDateMore="arr"
       agoDayHide="1530115221"
