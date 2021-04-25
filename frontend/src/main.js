@@ -25,7 +25,7 @@ Vue.use(echarts);
 
 /* eslint-disable no-new */
 Vue.use(new VueSocketIO({
-  connection:socketio()
+  connection:socketio(process.env.HOST)
 }));
 
 new Vue({
