@@ -25,7 +25,7 @@ Vue.use(echarts);
 
 /* eslint-disable no-new */
 Vue.use(new VueSocketIO({
-  connection:socketio("http://www.impact-ai.ml")
+  connection:socketio()
 }));
 
 new Vue({
