@@ -13,7 +13,7 @@ import VueSocketIO from 'vue-socket.io'
 import Vuex from 'vuex'
 import store from './store'
 import echarts from "echarts"
-
+import socketio from 'socket.io-client';
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
@@ -25,13 +25,7 @@ Vue.use(echarts);
 
 /* eslint-disable no-new */
 Vue.use(new VueSocketIO({
-  debug: true,
-  // connection: 'http://10.188.222.154:3000',
-  // local
-  connection: 'http://127.0.0.1:3000',
-  vuex: {
-
-  }
+  connection:socketio("http://www.impact-ai.ml")
 }));
 
 new Vue({

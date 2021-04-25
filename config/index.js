@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     proxyTable: {},
 
     // Various Dev Server settings
@@ -33,7 +33,7 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true
+    cssSourceMap: false,
   },
 
   build: {
@@ -50,7 +50,7 @@ module.exports = {
      * Source Maps
      */
 
-    productionSourceMap: true,
+    productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 
