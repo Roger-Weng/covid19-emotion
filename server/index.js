@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 const app = express();
 let http = require('http').Server(app);
-let io = require('socket.io')(http);
+let io = require('socket.io')(http,{allowEIO3: true});
 
 let Sentiment = require('sentiment');
 let mongoose = require('mongoose');
