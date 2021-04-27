@@ -29,9 +29,9 @@
 - `certbot renew` # regenerate the ssl certificate (RUN EVERY 12 MONTH)
 
 ## *fabfile functions*
->`[sudo] pip install fabric` # may need sudo authority. **RUN ONCE**
+- `[sudo] pip install fabric` # may need sudo authority. **RUN ONCE**
 
-> RUN COMMAND IN YOUR OWN COMPUTER
+>RUN COMMAND IN YOUR OWN COMPUTER
 
 - `fab --list` # list task functions in fabfile.py 
 - `fab -H root@$ip $taskname` # run task in your server
