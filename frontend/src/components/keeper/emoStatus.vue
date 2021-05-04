@@ -235,7 +235,7 @@
           4:"Mild",
           8:"Strong"
       }
-
+      }
     },
     computed:{
       hoursSleep: function(){
