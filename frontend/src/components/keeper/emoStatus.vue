@@ -51,15 +51,12 @@
         <div style="display: inline-block; margin-left: 70px">{{hoursSleep}} hours</div>
       </div>
 
-      <mt-range
+      <el-slider
         v-model="emoRecord.hoursSleep"
         :min="0"
         :max="24"
-        :step="1"
-        :bar-height="5">
-        <div class="slot_label_num" slot="start">0</div>
-        <div class="slot_label_num" slot="end">12</div>
-      </mt-range>
+        :step="1">
+      </el-slider>
     </div>
     <div class="even_row">
       <div class="sub_title">
@@ -68,15 +65,13 @@
           Today's happiness
         </div>
       </div>
-      <mt-range
+      <el-slider
         v-model="emoRecord.value_happiness"
         :min="0"
         :max="8"
         :step="1"
-        :bar-height="5">
-        <div class="slot_label" slot="start">None</div>
-        <div class="slot_label" slot="end">Strong</div>
-      </mt-range>
+        :marks="marks">
+      </el-slider>
      <div class="mid_label">Mild</div>
     </div>
     <div class="odd_row">
@@ -86,15 +81,14 @@
           Today's excitement
         </div>
       </div>
-      <mt-range
+      <el-slider
         v-model="emoRecord.value_excitement"
         :min="0"
         :max="8"
         :step="1"
-        :bar-height="5">
-        <div class="slot_label" slot="start">None</div>
-        <div class="slot_label" slot="end">Strong</div>
-      </mt-range>
+        :marks="marks">
+
+      </el-slider>
      <div class="mid_label">Mild</div>
      
     </div>
@@ -105,15 +99,14 @@
           Today's anger
         </div>
       </div>
-      <mt-range
+      <el-slider
         v-model="emoRecord.value_depression"
         :min="0"
         :max="8"
         :step="1"
-        :bar-height="5">
-        <div class="slot_label" slot="start">None</div>
-        <div class="slot_label" slot="end">Strong</div>
-      </mt-range>
+        :marks="marks">
+   
+      </el-slider>
 
    <div class="mid_label">Mild</div>
     </div>
@@ -124,14 +117,13 @@
           Today's boredom
         </div>
       </div>
-      <mt-range
+      <el-slider
         v-model="emoRecord.value_boredom"
         :min="0"
         :max="8"
         :step="1"
-        :bar-height="5">
-        <div class="slot_label" slot="start">None</div>
-        <div class="slot_label" slot="end">Strong</div>
+        :marks="marks">
+       
       </mt-range>
       <div class="mid_label">Mild</div>
     </div>
