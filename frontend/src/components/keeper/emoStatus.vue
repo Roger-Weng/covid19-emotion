@@ -153,12 +153,7 @@
     <textarea class="textarea" v-model="emoInput.input" placeholder="Describe your life today with several sentences"></textarea>
     <!--<mt-button @click="open_camera">open camera</mt-button>-->
 
-    <!--<div v-if="taken === 1">-->
-      <!--<img :src="emoInput.img" class="img">-->
-    <!--</div>-->
-    <!--<div v-else>-->
-      <!--<img src="../../assets/imagedefault.png" class="img">-->
-    <!--</div>-->
+ 
     <div>
       <div style="display: inline-block">Take a selfie!</div>
       <img @click="callCamera" :src="headImgSrc" width="20" height="20" alt="摄像头" style="display: inline-block">
@@ -233,9 +228,8 @@
           img: null
         },
         taken: 0,
-        date: new Date()
-        
-      },
+        date: new Date(),
+
       marks:{
           0:"Not tell",
           4:"Mild",
