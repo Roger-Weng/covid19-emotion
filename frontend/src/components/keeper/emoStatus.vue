@@ -55,7 +55,8 @@
         v-model="emoRecord.hoursSleep"
         :min="0"
         :max="24"
-        :step="1">
+        :step="1"
+        show-stops>
       </el-slider>
     </div>
     <div class="even_row">
@@ -70,9 +71,10 @@
         :min="0"
         :max="8"
         :step="1"
-        :marks="marks">
+        :marks="marks"
+        show-stops>
       </el-slider>
-     <div class="mid_label">Mild</div>
+     
     </div>
     <div class="odd_row">
       <div class="sub_title">
@@ -86,10 +88,11 @@
         :min="0"
         :max="8"
         :step="1"
-        :marks="marks">
+        :marks="marks"
+        show-stops>
 
       </el-slider>
-     <div class="mid_label">Mild</div>
+     
      
     </div>
     <div class="even_row">
@@ -104,11 +107,11 @@
         :min="0"
         :max="8"
         :step="1"
-        :marks="marks">
+        :marks="marks"
+        show-stops>
    
       </el-slider>
 
-   <div class="mid_label">Mild</div>
     </div>
     <div class="odd_row">
       <div class="sub_title">
@@ -122,10 +125,11 @@
         :min="0"
         :max="8"
         :step="1"
-        :marks="marks">
+        :marks="marks"
+        show-stops>
        
-      </mt-range>
-      <div class="mid_label">Mild</div>
+      </el-slider>
+
     </div>
     <div class="even_row">
       <div class="sub_title">
@@ -134,16 +138,15 @@
           Today's anxiety
         </div>
       </div>
-      <mt-range
+      <el-slider
         v-model="emoRecord.value_anxiety"
         :min="0"
         :max="8"
         :step="1"
-        :bar-height="5">
-        <div class="slot_label" slot="start">None</div>
-        <div class="slot_label" slot="end">Strong</div>
-      </mt-range>
-      <div class="mid_label">Mild</div>
+        :marks="marks"
+        show-stops>
+      </el-slider>
+
     </div>
 
     <p>Diary</p>
@@ -179,6 +182,7 @@
     name: "emoStatus",
     data() {
       return {
+        
         headImgSrc: require('../../assets/camera.jpg'),
         weather_options:[{
           value: 'sunny',
@@ -224,14 +228,18 @@
           value_excitement: 0
         },
         emoInput: {
-          // symptoms: null,
-          // therapy: null,
+          
           input: null,
           img: null
         },
         taken: 0,
         date: new Date()
-        // date: new Date(new Date()-24*60*60*1000)
+        
+      },
+      marks:{
+          0:"Not tell",
+          4:"Mild",
+          8:"Strong"
       }
 
     },
@@ -355,7 +363,7 @@
 </script>
 
 <style scoped>
-  mt-range {
+  el-slider {
     margin-top:5px;
   }
   .mid_label{
