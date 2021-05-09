@@ -184,10 +184,10 @@ io.on('connection',function(socket) {
   socket.on("getDailyReport", function(data,callback){
     console.log("getDailyReport request received", data);
     userRecord.find({
-      'username': data.user,
-      'year': data.year,
-      'month': data.month,
-      'day': data.day
+      username: data.user.toString(),
+      year: Number(data.year),
+      month: Number(data.month),
+      day: Number(data.day)
     },function (error, docs) {
       if (error){
         console.log(error);
