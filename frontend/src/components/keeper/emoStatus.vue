@@ -74,7 +74,7 @@
         :marks="marks"
         show-stops>
       </el-slider>
-     
+
     </div>
     <div class="odd_row">
       <div class="sub_title">
@@ -92,8 +92,8 @@
         show-stops>
 
       </el-slider>
-     
-     
+
+
     </div>
     <div class="even_row">
       <div class="sub_title">
@@ -109,7 +109,7 @@
         :step="1"
         :marks="marks"
         show-stops>
-   
+
       </el-slider>
 
     </div>
@@ -127,7 +127,7 @@
         :step="1"
         :marks="marks"
         show-stops>
-       
+
       </el-slider>
 
     </div>
@@ -153,7 +153,7 @@
     <textarea class="textarea" v-model="emoInput.input" placeholder="Describe your life today with several sentences"></textarea>
     <!--<mt-button @click="open_camera">open camera</mt-button>-->
 
- 
+
     <div>
       <div style="display: inline-block">Take a selfie!</div>
       <img @click="callCamera" :src="headImgSrc" width="20" height="20" alt="摄像头" style="display: inline-block">
@@ -177,7 +177,7 @@
     name: "emoStatus",
     data() {
       return {
-        
+
         headImgSrc: require('../../assets/camera.jpg'),
         weather_options:[{
           value: 'sunny',
@@ -223,7 +223,7 @@
           value_excitement: 0
         },
         emoInput: {
-          
+
           input: null,
           img: null
         },
@@ -239,7 +239,7 @@
     },
     computed:{
       hoursSleep: function(){
-       
+
         if(this.emoRecord.hoursSleep > 23){
           return "over 12";
         }
@@ -274,14 +274,8 @@
         console.log(this.emoInput);
         let emoRecordCopy=this.emoRecord;
         emoRecordCopy.hoursSleep=emoRecordCopy.hoursSleep/2;
-        for (let prop in emoRecordCopy) {
-          if(emoRecordCopy[prop]==null){
-            console.log(prop+"unfilled");
-            this.$toast("There are unfilled answers");
-            return;
-          }
-        }
-        
+
+
         if (this.$store.state.user==null){
           this.$toast("Please log in first");
           return;
@@ -307,7 +301,7 @@
         }).then(success => {
           this.$refs['video'].srcObject = success
         }).catch(error => {
-          console.error('摄像头开启失败，请检查摄像头是否可用！')
+          console.error('Check Camera Failed')
         })
       },
       photograph () {
@@ -371,7 +365,7 @@
     margin-left: 5px;
     margin-right: 5px;
   }
-  
+
   .slot_label{
     font-size: 125%;
     text-align: left;
@@ -390,7 +384,7 @@
     border: 10px solid transparent;
     background: gainsboro;
   }
-  
+
   .textarea{
     border:0;
     border-radius:5px;

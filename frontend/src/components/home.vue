@@ -73,6 +73,7 @@
   import calendar from "./keeper/calendar"
   import medical_resources from "./keeper/medical_resources"
   import forum from "./keeper/forum";
+  import emoInput from "./keeper/emoInput";
 export default {
   name: 'home',
   data () {
@@ -82,6 +83,7 @@ export default {
     }
   },
   components:{
+    emoInput,
     emoStatus,
     forum,
     daily_report,

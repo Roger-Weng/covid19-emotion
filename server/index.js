@@ -381,12 +381,15 @@ io.on('connection',function(socket) {
     console.log("processing emotion content.......");
     let date = new Date(data.date);
     console.log(date);
-
+    let textScore=0;
+    let imgScore = 0;
+    let imgHappiness = 0;
+    let imgSadness = 0;
+    let keyWords='';
     //text analysis
-
+    if (data.emoInput.input){
     let sentiment = new Sentiment();
-    let textScore = sentiment.analyze(data.emoInput.input).comparative;
-
+    textScore = sentiment.analyze(data.emoInput.input).comparative;
     let sentences = data.emoInput.input.split(/[\n]/).filter(function(e){return e});
     let extractKeywords = function(list){
       //tfidf
@@ -417,6 +420,7 @@ io.on('connection',function(socket) {
       let topRank = Object.keys(rank).sort((a,b)=>{
         return rank[b]-rank[a];
       });
+
       // console.log(rank);
       // rank.sort(score_compare());
       // let keywords = {};
@@ -430,6 +434,7 @@ io.on('connection',function(socket) {
       return topRank.slice(0,5).toString();
     };
     let keyWords = extractKeywords(sentences);
+  }
 
 
     // console.log(typeof (data.emoInput.input));
@@ -438,25 +443,26 @@ io.on('connection',function(socket) {
     // console.log(keyWords);
 
     //img analysis
+    if (data.emoInput.img){
     let timeStamp = (new Date()).valueOf();
     let path = "imgs/"+data.user+ timeStamp+ ".jpg";
-    let imgScore = {};
-    let imgHappiness = 0;
-    let imgSadness = 0;
-    if (data.emoInput.img){
-      let dataBuffer = new Buffer(data.emoInput.img, 'base64');
-      fs.writeFile(path, dataBuffer, function(err) {
-        if(err){
-          console.log(err);
+
+    let dataBuffer = new Buffer(data.emoInput.img, 'base64');
+    fs.writeFile(path, dataBuffer, function(err) {
+      if(err){
+        console.log(err);
+      }
+      else {
+        imgScore = faceEmo.getEmo("@"+path);
+        imgHappiness = imgScore['happiness'];
+        imgSadness = imgScore['sadness'];
+        imgScore = JSON.stringify(imgScore);
+        if(imgScore === "{}"){
+          imgScore = "";
         }
-        else {
-          imgScore = faceEmo.getEmo("@"+path);
-          imgHappiness = imgScore['happiness'];
-          imgSadness = imgScore['sadness'];
-          imgScore = JSON.stringify(imgScore);
-          if(imgScore === "{}"){
-            imgScore = "";
-          }
+      }
+    })
+    }
           let total_score = 0.6 * ((50/3)* (data.emoStatus.value_happiness + data.emoStatus.value_excitement - 0.8 * data.emoStatus.value_depression -
             0.8 * data.emoStatus.value_anxiety - 0.4 * data.emoStatus.value_boredom)) +
             0.3 * (textScore * 20) +
@@ -471,8 +477,8 @@ io.on('connection',function(socket) {
             day: date.getDate(),
             date: dateUtil.dateString(date),
             MondayDate: dateUtil.mondayDateString(date),
-            input: data.emoInput.input,
-            img: data.emoInput.img,
+            input: data.emoInput.input||'',
+            img: data.emoInput.img||'',
             hoursSleep: data.emoStatus.hoursSleep,
             mealsHad: data.emoStatus.meals,
             value_happiness: data.emoStatus.value_happiness,
@@ -486,7 +492,7 @@ io.on('connection',function(socket) {
             imgScore: imgScore,
             imgHappiness: imgHappiness,
             imgSadness: imgSadness,
-            total_score: total_score
+            total_score: total_score||50,
           }, function (error, doc) {
             if(error){
               console.log(error);
@@ -496,11 +502,9 @@ io.on('connection',function(socket) {
                 code: 1
               })
             }
-          })
+  })
         }
-      });
-    }
-  });
+      );
 
   //calendar
   socket.on('tryGetDate', function (data, callback) {
@@ -534,6 +538,8 @@ io.on('connection',function(socket) {
   });
 
 });
+
+
 
 //listen
 http.listen(3000, function(){

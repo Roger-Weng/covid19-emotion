@@ -5,12 +5,6 @@
       {{dateString}}
     </div>
     <div>
-      <!--<mt-cell title="Psychotic symptoms today">-->
-        <!--<mt-switch v-model="emoInput.symptoms"></mt-switch>-->
-      <!--</mt-cell>-->
-      <!--<mt-cell title="Talk therapy today">-->
-        <!--<mt-switch v-model="emoInput.therapy"></mt-switch>-->
-      <!--</mt-cell>-->
       <div>Diary</div>
       <textarea v-model="emoInput.input" placeholder="Describe your life today with several sentences"></textarea>
       <div>Take a selfie!</div>
