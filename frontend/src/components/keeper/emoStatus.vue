@@ -231,7 +231,7 @@
         date: new Date(),
 
       marks:{
-          0:"Not tell",
+          0:"None",
           4:"Mild",
           8:"Strong"
       }

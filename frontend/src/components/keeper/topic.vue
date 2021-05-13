@@ -54,9 +54,9 @@ export default {
   mounted: function () {
   
     const topics = {
-      ABC: "1",
-      BBC: "2",
-      CBC: "3",
+      Academics: "1",
+      Extracurriculars: "2",
+      Others: "3",
     };
     this.topic= topics[this.$route.params.t];
     

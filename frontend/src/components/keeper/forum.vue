@@ -30,7 +30,7 @@ export default {
   name: "forum",
   data() {
     return {
-      topics: [{ title: "ABC" }, { title: "BBC" }, { title: "CBC" }],
+      topics: [{ title: "Academics" }, { title: "Extracurriculars" }, { title: "Others" }],
     };
   },
 };

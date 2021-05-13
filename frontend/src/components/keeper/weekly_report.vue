@@ -5,7 +5,7 @@
     <img src="../../assets/icon/split_line.png" style="position:relative; width: 400px; height: 40px;">
     <div>
       <h4 style="display: inline-block">Comprehensive Evaluation: </h4>
-      <div style="display: inline-block">{{weekly_report.total_score | numFilter}}</div>
+      <div style="display: inline-block">{{(daily_report.total_score+100)/2| numFilter}}</div>
       <mt-progress :value="(weekly_report.total_score+100)/2">
         <div slot="start">
           &nbsp;<img src="../../assets/icon/sad.png" class="icon">&nbsp;

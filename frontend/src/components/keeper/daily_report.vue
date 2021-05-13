@@ -6,7 +6,7 @@
         <div class="emo">
           <!--<img src="../../assets/bg_main2.jpg" class="img_bg">-->
           <h3>Comprehensive Score of This day</h3>
-          <h3 style="margin-left: 160px">{{daily_report.total_score| numFilter}} /100</h3>
+          <h3 style="margin-left: 160px">{{(daily_report.total_score+100)/2| numFilter}} /100</h3>
           <mt-progress :value="(daily_report.total_score+100)/2">
             <div slot="start">
               <img src="../../assets/icon/sad.png" class="icon">&nbsp;
