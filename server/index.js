@@ -155,8 +155,7 @@ io.on('connection',function(socket) {
   //forum
   socket.on("getForumText", function(data, callback){
     console.log("getForumText request received", data);
-    topic_id=data.topic,
-    forum.find({topic:topic_id},
+    forum.find({topic_id:data},
     function (error, docs) {
       if (error){
         console.log(error);
@@ -174,6 +173,15 @@ io.on('connection',function(socket) {
     });
   });
 
+  socket.on("putText", function (put_data) {
+    console.log("putText request received", put_data);
+    forum.create(put_data,
+      function (error) {
+        if (error) {
+          console.log(error);
+        }
+      });
+  });
 
 
 

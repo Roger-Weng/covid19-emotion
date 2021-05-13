@@ -4,7 +4,7 @@
       <h2>{{ $route.params.t }}</h2>
     </div>
     <span>Current Time: {{ time_data.date }} {{ time_data.time }} {{ time_data.day }}</span>
-    
+
     <div class="notes">
     <p>Notes:</p>
     <textarea class="text" v-model="message" />
@@ -12,21 +12,21 @@
     <router-link :to="{ name: 'forum' }">
       <mt-button class="back"> Back </mt-button>
     </router-link>
-    
-    
+
+
   </div>
-  
+
 
     <div v-for="piece in data" :key="piece._id" class="wrapper">
-      
+
         <p class="info-u">User: {{ piece.username }}</p>
         <p class="info-t">Create Time: {{ piece.create_time }}</p>
 
         <p class="artical-body">{{ piece.forum_text }}</p>
 
     </div>
-    
-    
+
+
   </div>
 </template>
 
@@ -52,14 +52,14 @@ export default {
   filters: {},
 
   mounted: function () {
-  
+
     const topics = {
-      Academics: "1",
-      Extracurriculars: "2",
-      Others: "3",
+      "Academics": 1,
+      "Extracurriculars": 2,
+      "Others": 3,
     };
     this.topic= topics[this.$route.params.t];
-    
+
 
     this.$socket.emit("getTime", '', (callback) => {
       console.log(callback);
@@ -123,13 +123,13 @@ methods:{
 }
 
 .info-u{
-  
+
   /* position: fixed; */
   grid-column: 1;
   grid-row: 1;
 }
 .info-t{
-  
+
   /* position: fixed; */
   grid-column: 2;
   grid-row:1;
