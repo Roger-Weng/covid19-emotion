@@ -161,7 +161,7 @@ io.on('connection',function(socket) {
         console.log(error);
       }
       else{
-        console.log(docs);
+        docs.sort(function(a,b){return new Date(b.create_time)-new Date(a.create_time)});
         callback({
           code:1,
           // username:docs[0].username,
@@ -297,9 +297,8 @@ io.on('connection',function(socket) {
       }
       else{
         if(docs.length === 0){
-          callback({
-            code: 0
-          });
+         console.log("No Record Found");
+
         }
         else{
           console.log("get weekly report...........");
@@ -375,6 +374,8 @@ io.on('connection',function(socket) {
             'BestRecords': bestRecord,
             'BestPhoto': 'data:image/jpeg;base64,'+ bestPhoto
           };
+          console.log(dateUtil.mondayDateString(data.date));
+          console.log(returnValue);
           callback({
             code: 1,
             weekly_report: returnValue
