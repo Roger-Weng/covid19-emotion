@@ -17,7 +17,7 @@
   </div>
 
 
-    <div v-for="piece in data" :key="piece._id" class="wrapper">
+    <div v-for="piece in doc"  :key="piece._id" class="wrapper">
 
         <p class="info-u">User: {{ piece.username }}</p>
         <p class="info-t">Create Time: {{ piece.create_time }}</p>
@@ -34,9 +34,8 @@
 export default {
   name: "topic",
   data() {
-    return {
-
-      data: '',
+    return{
+      doc: '',
       message:'',
       topic:'',
       time_data:{
@@ -46,10 +45,10 @@ export default {
       },
       submit:false,
     };
-
   },
 
   filters: {},
+
 
   mounted: function () {
 
@@ -70,7 +69,7 @@ export default {
 
     this.$socket.emit("getForumText", this.topic, (callback) => {
       console.log(callback);
-      this.data = callback.doc;
+      this.doc = callback.doc;
     });
   },
 methods:{
