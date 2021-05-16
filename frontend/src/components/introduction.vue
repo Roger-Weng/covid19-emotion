@@ -7,7 +7,8 @@
     <div class="description">
       <br />
       <br />
-      <p style="font-size:20px;"> Welcome to Mood Up! </p>
+      <p style="font-size:20px;"> Welcome to Mood Up! Mood Up is a web application that provides mental health guidance for everyone whose life is affected by covid-19. Users can record their emotions by filling out daily questionnaires and writing diaries. The app will then generate a comprehensive score to evaluate users’ happiness, anxiety, etc. The app also recommends depression counseling websites for certain users. In addition, users can share their feelings and stories with others in the forum within our application. 
+</p>
     </div>
     <router-link :to="{path: '/login'}">
       <mt-button>
