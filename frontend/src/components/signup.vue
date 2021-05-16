@@ -15,8 +15,8 @@
       <br />
       <br />
       <br />
-      <mt-field label="Username" placeholder="Enter your username" v-model="username" class="my-input"></mt-field>
-      <mt-field label="Password" placeholder="Enter a password" type="password" v-model="password" class="my-input" ></mt-field>
+      <mt-field label="Username" placeholder="Enter your username (8-16 characters long; including at least one number and one letter)" v-model="username" class="my-input"></mt-field>
+      <mt-field label="Password" placeholder="Enter a password (8-16 characters long; including at least one number and one letter)" type="password" v-model="password" class="my-input" ></mt-field>
       <mt-field label="Confirm" placeholder="Enter password again" type="password" v-model="password_new" class="my-input" ></mt-field>
       <br />
       <mt-button type="primary" size="large" @click="sign_up">Create your account</mt-button>
