@@ -16,19 +16,28 @@
   </div>
 
 
-    <div v-for="piece in doc"  :key="piece._id"  class="artical">
+    <div v-for="piece in doc" class="artical">
       <div class="artical">
-        <p class="info-u">User: {{ piece.username }}</p>
-        <p class="info-t">Create Time: {{ piece.create_time.toString() }}</p>
-        <p class="info-id">ID:#{{piece.artical_id}}</p>
-        <p class="artical-body">{{ piece.forum_text }}</p>
+        <p class="info-u">User: {{ piece.content.username }}</p>
+        <p class="info-t">Create Time: {{ piece.content.create_time.toString() }}</p>
+        <p class="info-id">ID:#{{piece.content.artical_id}}</p>
+        <p class="artical-body">{{ piece.content.forum_text }}</p>
       </div>
       <div class="comment">
       <mt-button class="comment-button" @Click="addComment()" style="display: inline-block">Add Comment</mt-button>
       <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
-      <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.artical_id)" >Submit</mt-button>
+      <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button>
       </div>
-
+      <div v-if="piece.comment.length>0">
+        <div  v-for="comment in piece.comment" >
+          <label for="content">Comment: </label>
+          <div class="content">
+            <p class="content-u">User:{{comment.username}}</p>
+            <p class="content-t">Create Time: {{comment.create_time.toString()}}</p>
+            <p class="content-body">{{comment.comment}}</p>
+          </div>
+        </div>
+      </div>
     </div>
 
 
@@ -40,7 +49,7 @@ export default {
   name: "topic",
   data() {
     return{
-      doc: '',
+      doc: [],
       message:'',
       topic:'',
       time_data:'',
@@ -62,10 +71,15 @@ export default {
     };
     this.topic= topics[this.$route.params.t];
 
-    this.$socket.emit("getForumText", this.topic, (callback) => {
-      console.log(callback);
-      this.doc = callback.doc;
+    this.$socket.emit("getForumText", this.topic, (artical) => {
+      console.log(artical);
+      for(i = 0; i <artical.doc.length;i++){
+        this.$socket.emit("getComment",artical.doc.artical_id,(comment)=>{
+          this.doc.push({content: artical.doc[i],comment:comment.doc});
+        })
+      }
     });
+
   },
 methods:{
   addComment(){
@@ -113,7 +127,6 @@ methods:{
   font-size: 30px;
   position: relative;
   top: 30px;
-  /*right: 0;*/
   text-align: center;
 }
 
@@ -123,10 +136,6 @@ methods:{
   margin: 10px;
   border: 1px solid #eee;
   border-radius: 2px;
-  /* position: fixed; */
-  /* height: 500px;
-  width: 300px; */
-  /* grid-gap: 10px; */
   grid-auto-columns: 150px 150px 80px;
   grid-auto-rows:50px 120px;
 }
@@ -138,8 +147,6 @@ methods:{
   grid-row: 1;
 }
 .info-t{
-
-  /* position: fixed; */
   grid-column: 2;
   grid-row:1;
 }
@@ -148,9 +155,6 @@ methods:{
   grid-row:1;
 }
 .artical-body{
-
-  /* overflow-y:auto; */
-
   word-wrap: break-word;
   border-top: 1px solid burlywood;
   border-radius: 2px;
@@ -158,12 +162,8 @@ methods:{
   border-left: hidden;
   text-align: justify;
   font-size:large;
-  /* white-space: pre-line; */
-  /* text-overflow: ellipsis; */
   overflow-y: auto;
   width:380px;
-
-  /* grid-row: 2; */
 }
 .comment{
   width:380px;
@@ -181,6 +181,35 @@ methods:{
   height:40px;
 }
 
+.comment{
+  display: grid;
+  margin-bottom: 50px;
+  margin: 10px;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  grid-auto-columns: 150px 150px 80px;
+  grid-auto-rows:50px 120px;
+}
+
+.comment-u{
+  grid-column: 1;
+  grid-row: 1;
+}
+.comment-t{
+  grid-column: 2;
+  grid-row:1;
+}
+.comment-body{
+  word-wrap: break-word;
+  border-top: 1px solid burlywood;
+  border-radius: 2px;
+  border-right: hidden;
+  border-left: hidden;
+  text-align: justify;
+  font-size:large;
+  overflow-y: auto;
+  width:380px;
+}
 .submit{
   width:100%;
   height:40px;
