@@ -16,12 +16,18 @@
   </div>
 
 
-    <div v-for="piece in doc"  :key="piece._id"  class="wrapper">
-
+    <div v-for="piece in doc"  :key="piece._id"  class="artical">
+      <div class="artical">
         <p class="info-u">User: {{ piece.username }}</p>
-        <p class="info-t">Create Time: {{ piece.create_time }}</p>
-
+        <p class="info-t">Create Time: {{ piece.create_time.toString() }}</p>
+        <p class="info-id">ID:#{{piece.artical_id}}</p>
         <p class="artical-body">{{ piece.forum_text }}</p>
+      </div>
+      <div class="comment">
+      <mt-button class="comment-button" @Click="addComment()" style="display: inline-block">Add Comment</mt-button>
+      <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
+      <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.artical_id)" >Submit</mt-button>
+      </div>
 
     </div>
 
@@ -39,6 +45,8 @@ export default {
       topic:'',
       time_data:'',
       submit:false,
+      cdisplay:'None',
+      comment: '',
     };
   },
 
@@ -60,12 +68,27 @@ export default {
     });
   },
 methods:{
+  addComment(){
+    this.cdisplay ='block';
+  },
+  submitComment(id){
+    const put_data={
+      username:this.$store.state.user,
+      create_time:new Date(),
+      comment:this.comment,
+      artical_id:id,
+      topic_id:this.topic,
+    };
+    this.$socket.emit("putComment",put_data,(callback) => {});
+    this.$route.go(0);
+  },
   onSubmit(){
       const put_data={
         username:this.$store.state.user,
         create_time:new Date(),
         forum_text:this.message,
         topic_id:this.topic,
+        artical_id:this.doc.length+1
       };
       this.$socket.emit('putText',put_data,(callback)=>{
       });
@@ -94,7 +117,7 @@ methods:{
   text-align: center;
 }
 
-.wrapper {
+.artical {
   display: grid;
   margin-bottom: 50px;
   margin: 10px;
@@ -104,7 +127,7 @@ methods:{
   /* height: 500px;
   width: 300px; */
   /* grid-gap: 10px; */
-  grid-auto-columns: 150px 150px;
+  grid-auto-columns: 150px 150px 80px;
   grid-auto-rows:50px 120px;
 }
 
@@ -118,6 +141,10 @@ methods:{
 
   /* position: fixed; */
   grid-column: 2;
+  grid-row:1;
+}
+.info-id{
+  grid-column: 3;
   grid-row:1;
 }
 .artical-body{
@@ -134,9 +161,24 @@ methods:{
   /* white-space: pre-line; */
   /* text-overflow: ellipsis; */
   overflow-y: auto;
-  width:300px;
+  width:380px;
 
   /* grid-row: 2; */
+}
+.comment{
+  width:380px;
+}
+.comment-button{
+  width:100%;
+  height:40px;
+}
+.comment-body{
+  height:50px;
+  width:100%;
+}
+.submit-comment{
+  width:100%;
+  height:40px;
 }
 
 .submit{
