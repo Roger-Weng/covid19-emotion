@@ -92,16 +92,6 @@ io.on('connection',function(socket) {
     });
   });
 
-  socket.on("getTime",function(data,callback){
-    res=dateUtil.getCurDate();
-    callback({
-      date:res[0],
-      time:res[1],
-      day:res[2]
-    })
-  });
-
-
   //login
   socket.on("login", function (data, callback) {
     console.log("login request from user"+ data.username);
@@ -164,9 +154,6 @@ io.on('connection',function(socket) {
         docs.sort(function(a,b){return new Date(b.create_time)-new Date(a.create_time)});
         callback({
           code:1,
-          // username:docs[0].username,
-          // create_time:docs[0].create_time,
-          // forum_text:docs[0].forum_text,
           doc:docs
         });
       }

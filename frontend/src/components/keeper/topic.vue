@@ -3,7 +3,6 @@
     <div class="title">
       <h2>{{ $route.params.t }}</h2>
     </div>
-    <span>Current Time: {{ time_data.date }} {{ time_data.time }} {{ time_data.day }}</span>
 
     <div class="notes">
     <p>Notes:</p>
@@ -17,7 +16,7 @@
   </div>
 
 
-    <div v-for="piece in doc"  :key="piece._id" class="wrapper">
+    <div v-for="piece in doc"  :key="piece._id"  class="wrapper">
 
         <p class="info-u">User: {{ piece.username }}</p>
         <p class="info-t">Create Time: {{ piece.create_time }}</p>
@@ -38,11 +37,7 @@ export default {
       doc: '',
       message:'',
       topic:'',
-      time_data:{
-        date:'',
-        time:'',
-        day:''
-      },
+      time_data:'',
       submit:false,
     };
   },
@@ -59,14 +54,6 @@ export default {
     };
     this.topic= topics[this.$route.params.t];
 
-
-    this.$socket.emit("getTime", '', (callback) => {
-      console.log(callback);
-      this.time_data.date = callback.date
-      this.time_data.time = callback.time;
-      this.time_data.day = callback.day;
-    });
-
     this.$socket.emit("getForumText", this.topic, (callback) => {
       console.log(callback);
       this.doc = callback.doc;
@@ -76,9 +63,9 @@ methods:{
   onSubmit(){
       const put_data={
         username:this.$store.state.user,
-        create_time:this.time_data.date+' '+this.time_data.time,
+        create_time:new Date(),
         forum_text:this.message,
-        topic_id:this.topic
+        topic_id:this.topic,
       };
       this.$socket.emit('putText',put_data,(callback)=>{
       });
