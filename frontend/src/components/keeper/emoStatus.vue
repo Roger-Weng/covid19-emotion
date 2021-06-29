@@ -167,6 +167,7 @@
     </div>
     <mt-button @click="photograph" style="display: inline-block">confirm</mt-button>
     <mt-button @click="submit" style="display: inline-block">submit</mt-button>
+    <mt-button @click="skip" style="display: inline-block">skip today</mt-button>
   </div>
 </template>
 
@@ -234,8 +235,10 @@
           0:"None",
           4:"Mild",
           8:"Strong"
+      },
+      skip:false,
       }
-      }
+
     },
     computed:{
       hoursSleep: function(){
@@ -270,7 +273,11 @@
           alert('Failed because: ' + message);
         }
       },
-      submit:function () {
+      skip(){
+        this.skip = true;
+        this.submit();
+      },
+      submit() {
         console.log(this.emoInput);
         let emoRecordCopy=this.emoRecord;
         emoRecordCopy.hoursSleep=emoRecordCopy.hoursSleep/2;
@@ -285,13 +292,15 @@
           emoInput: '',
           emoStatus: emoRecordCopy,
           date: this.date,
-          user: this.$store.state.user
+          user: this.$store.state.user,
+          skip: this.skip,
         }, (data)=>{
           if (data.code === 1){
             this.$toast("Submitted! Have a nice day :)");
           }
         });
       },
+
 
       callCamera () {
         let video = document.getElementById("video");

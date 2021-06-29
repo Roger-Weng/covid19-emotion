@@ -195,7 +195,8 @@ io.on('connection',function(socket) {
       username: data.user.toString(),
       year: Number(data.year),
       month: Number(data.month),
-      day: Number(data.day)
+      day: Number(data.day),
+      skip:false,
     },function (error, docs) {
       if (error){
         console.log(error);
@@ -484,6 +485,7 @@ io.on('connection',function(socket) {
             year: date.getFullYear(),
             month: date.getMonth()+1,
             day: date.getDate(),
+            skip: data.skip,
             date: dateUtil.dateString(date),
             MondayDate: dateUtil.mondayDateString(date),
             input: data.emoInput.input||'',

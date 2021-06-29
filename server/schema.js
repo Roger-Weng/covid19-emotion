@@ -20,6 +20,7 @@ let userRecord = new mongoose.Schema({
   month: Number,
   day: Number,
   date: String,
+  skip:Boolean,
   //week info
   MondayDate: String,
   //input value
@@ -39,7 +40,7 @@ let userRecord = new mongoose.Schema({
   imgScore: String,
   imgHappiness: Number,
   imgSadness: Number,
-  total_score: Number
+  total_score: Number,
 });
 
 mongoose.model('User', UserSchema);
