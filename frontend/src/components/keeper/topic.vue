@@ -72,8 +72,11 @@ export default {
     this.topic= topics[this.$route.params.t];
 
     this.$socket.emit("getForumText", this.topic, (artical) => {
-      console.log(artical.length);
-      for(i = 0; i <artical.doc.length;i++){
+      console.log(artical.docs.length);
+      for(var i = 0; i <artical.doc.length;i++){
+        var d=new Date(artical.docs[i].create_time);
+        var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+        artical.docs[i].create_time=ctime;
         this.$socket.emit("getComment",artical.doc.artical_id,(comment)=>{
           if(comment.doc.length>0){
             this.doc.push({content: artical.doc[i],comment:comment.doc});
