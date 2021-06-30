@@ -54,4 +54,4 @@ let userRecord = new mongoose.Schema({
 mongoose.model('User', UserSchema);
 mongoose.model('userRecord', userRecord,'userRecord');
 mongoose.model('forum', forum,'forum');
-mongoose.model('comment',comment,'comment')
+mongoose.model('comment',comment,'comment');

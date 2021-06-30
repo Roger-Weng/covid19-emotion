@@ -95,7 +95,7 @@ io.on('connection',function(socket) {
 
   //login
   socket.on("login", function (data, callback) {
-    console.log("login request from user"+ data.username);
+    console.log("login request from user "+ data.username);
     User.find({
       'username': data.username,
       'password': data.password
