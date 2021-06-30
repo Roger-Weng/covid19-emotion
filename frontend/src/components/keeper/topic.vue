@@ -72,21 +72,21 @@ export default {
     this.topic= topics[this.$route.params.t];
 
     this.$socket.emit("getForumText", this.topic, (artical) => {
-      console.log(artical.docs.length);
+      console.log(artical.doc.length);
       for(var i = 0; i <artical.doc.length;i++){
-        var d=new Date(artical.docs[i].create_time);
+        var d=new Date(artical.doc[i].create_time);
         var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
-        artical.docs[i].create_time=ctime;
-        this.$socket.emit("getComment",artical.doc.artical_id,(comment)=>{
-          if(comment.doc.length>0){
-            this.doc.push({content: artical.doc[i],comment:comment.doc});
-          }
-          else{
-            this.doc.push({content: artical.doc[i],comment:[]});
-          }
-        })
-      }
-    });
+        artical.doc[i].create_time=ctime;
+        // this.$socket.emit("getComment",artical.doc.artical_id,(comment)=>{
+        //   if(comment.doc.length>0){
+        //     this.doc.push({content: artical.doc[i],comment:comment.doc});
+        //   }
+        //   else{
+        //     this.doc.push({content: artical.doc[i],comment:[]});
+        //   }
+        this.doc.push({content: artical.doc[i],comment:[]});
+        }
+      })
     console.log(this.doc.length);
   },
 methods:{
