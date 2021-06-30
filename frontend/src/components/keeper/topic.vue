@@ -23,7 +23,7 @@
         <div style="boder:1px solid burlywood"></div>
         <p class="artical-body">{{ piece.content.forum_text }}</p>
       </div>
-      <!-- <div class="comment">
+      <div class="comment">
       <mt-button class="comment-button" @Click="addComment()" style="display: inline-block">Add Comment</mt-button>
       <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
       <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button>
@@ -37,7 +37,7 @@
             <p class="content-body">{{comment.comment}}</p>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
 
 
@@ -77,17 +77,17 @@ export default {
         var d=new Date(artical.doc[i].create_time);
         var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
         artical.doc[i].create_time=ctime;
-        // this.$socket.emit("getComment",artical.doc.artical_id,(comment)=>{
-        //   if(comment.doc.length>0){
-        //     this.doc.push({content: artical.doc[i],comment:comment.doc});
-        //   }
-        //   else{
-        //     this.doc.push({content: artical.doc[i],comment:[]});
-        //   }
-        this.doc.push({content: artical.doc[i],comment:[]});
-        }
-      })
+        this.$socket.emit("getComment",artical.doc.artical_id,(comment)=>{
+          if(comment.doc.length>0){
+            this.doc.push({content: artical.doc[i],comment:comment.doc});
+          }
+          else{
+            this.doc.push({content: artical.doc[i],comment:[]});
+          }
+        })
+      }
     console.log(this.doc.length);
+  })
   },
 methods:{
   addComment(){
@@ -184,7 +184,7 @@ methods:{
   border: 1px solid #eee;
   border-radius: 2px;
   grid-auto-columns: 30% 70%;
-  grid-auto-rows:50px 120px;
+  grid-auto-rows:40px 80px;
 }
 
 .comment-u{
@@ -197,10 +197,6 @@ methods:{
 }
 .comment-body{
   word-wrap: break-word;
-  border-top: 1px solid burlywood;
-  border-radius: 2px;
-  border-right: hidden;
-  border-left: hidden;
   text-align: justify;
   font-size:large;
   overflow-y: auto;
