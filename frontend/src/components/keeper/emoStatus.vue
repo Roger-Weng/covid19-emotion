@@ -275,7 +275,7 @@
       },
       skip(){
         this.skip = true;
-        this.submit();
+        this.$options.methods.submit();
       },
       submit() {
         console.log(this.emoInput);
