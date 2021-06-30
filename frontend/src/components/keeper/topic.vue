@@ -20,7 +20,6 @@
       <div class="artical-info">
         <p class="info-u">User: {{ piece.content.username }}</p>
         <p class="info-t">Create Time: {{ piece.content.create_time}}</p>
-        <p class="info-id">ID:#{{piece.content.artical_id || 0}}</p>
         <p class="artical-body">{{ piece.content.forum_text }}</p>
       </div>
       <!-- <div class="comment">
@@ -96,7 +95,7 @@ methods:{
   submitComment(id){
     const put_data={
       username:this.$store.state.user,
-      create_time:new Date().toString(),
+      create_time:Date.now(),
       comment:this.comment,
       artical_id:id,
       topic_id:this.topic,
