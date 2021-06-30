@@ -160,7 +160,7 @@ methods:{
 
 .artical-body{
   word-wrap: break-word;
-  border-top: 100% solid burlywood;
+  border-top: 1px solid burlywood;
   border-radius: 2px;
   border-right: hidden;
   border-left: hidden;
@@ -184,7 +184,7 @@ methods:{
   display: grid;
   margin-bottom: 50px;
   margin: 10px;
-  border: 100% solid #eee;
+  border: 1px solid #eee;
   border-radius: 2px;
   grid-auto-columns: 30% 70%;
   grid-auto-rows:50px 120px;
@@ -200,7 +200,7 @@ methods:{
 }
 .comment-body{
   word-wrap: break-word;
-  border-top: 100% solid burlywood;
+  border-top: 1px solid burlywood;
   border-radius: 2px;
   border-right: hidden;
   border-left: hidden;
