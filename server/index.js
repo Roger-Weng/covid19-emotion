@@ -152,7 +152,7 @@ io.on('connection',function(socket) {
         console.log(error);
       }
       else{
-        docs.sort(function(a,b){return new Date(b.create_time)-new Date(a.create_time)});
+        // docs.sort(function(a,b){return new Date(b.create_time)-new Date(a.create_time)});
         callback({
           code:1,
           doc:docs

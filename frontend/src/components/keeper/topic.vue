@@ -23,7 +23,7 @@
         <p class="info-id">ID:#{{piece.content.artical_id}}</p>
         <p class="artical-body">{{ piece.content.forum_text }}</p>
       </div>
-      <div class="comment">
+      <!-- <div class="comment">
       <mt-button class="comment-button" @Click="addComment()" style="display: inline-block">Add Comment</mt-button>
       <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
       <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button>
@@ -37,7 +37,7 @@
             <p class="content-body">{{comment.comment}}</p>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
 
