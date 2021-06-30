@@ -51,6 +51,7 @@ let userRecord = new mongoose.Schema({
   total_score: Number,
 });
 
-mongoose.model('User', UserSchema);
+mongoose.model('User', UserSchema,'User');
 mongoose.model('userRecord', userRecord,'userRecord');
 mongoose.model('forum', forum,'forum');
+mongoose.model('comment',comment,'comment')
