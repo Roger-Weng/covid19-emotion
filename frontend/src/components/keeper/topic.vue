@@ -17,10 +17,10 @@
 
 
     <div v-for="piece in doc" :key="piece.content._id" class="artical">
-      <div class="artical">
+      <div class="artical-info">
         <p class="info-u">User: {{ piece.content.username }}</p>
         <p class="info-t">Create Time: {{ piece.content.create_time}}</p>
-        <p class="info-id">ID:#{{piece.content.artical_id}}</p>
+        <p class="info-id">ID:#{{piece.content.artical_id || 0}}</p>
         <p class="artical-body">{{ piece.content.forum_text }}</p>
       </div>
       <!-- <div class="comment">
@@ -72,14 +72,19 @@ export default {
     this.topic= topics[this.$route.params.t];
 
     this.$socket.emit("getForumText", this.topic, (artical) => {
-      console.log(artical);
+      console.log(artical.length);
       for(i = 0; i <artical.doc.length;i++){
         this.$socket.emit("getComment",artical.doc.artical_id,(comment)=>{
-          this.doc.push({content: artical.doc[i],comment:comment.doc});
+          if(comment.doc.length>0){
+            this.doc.push({content: artical.doc[i],comment:comment.doc});
+          }
+          else{
+            this.doc.push({content: artical.doc[i],comment:[]});
+          }
         })
       }
     });
-
+    console.log(this.doc.length);
   },
 methods:{
   addComment(){
@@ -130,7 +135,7 @@ methods:{
   text-align: center;
 }
 
-.artical {
+.artical-info {
   display: grid;
   margin-bottom: 50px;
   margin: 10px;
