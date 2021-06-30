@@ -182,8 +182,8 @@ io.on('connection',function(socket) {
       )
   });
 
-  socket.on("getComment",function(artical_id,callback) {
-    comment.find({artical_id:artical_id},function (error, docs){
+  socket.on("getComment",function(id,callback) {
+    comment.find({artical_id:id},function (error, docs){
        if (error) {
           console.log(error);
         }

@@ -24,7 +24,7 @@
         <p class="artical-body">{{ piece.content.forum_text }}</p>
       </div>
       <div class="comment">
-      <mt-button class="comment-button" @Click="addComment()" style="display: inline-block">Add Comment</mt-button>
+      <mt-button class="comment-button" @Click="addComment()">Add Comment</mt-button>
       <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
       <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button>
       </div>
@@ -77,9 +77,9 @@ export default {
         var d=new Date(artical.doc[i].create_time);
         var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
         artical.doc[i].create_time=ctime;
-        this.$socket.emit("getComment",artical.doc.artical_id,(comment)=>{
-          if(comment.doc.length>0){
-            this.doc.push({content: artical.doc[i],comment:comment.doc});
+        this.$socket.emit("getComment",artical.doc.artical_id,(c)=>{
+          if(c.doc.length>0){
+            this.doc.push({content: artical.doc[i],comment:c.doc});
           }
           else{
             this.doc.push({content: artical.doc[i],comment:[]});
