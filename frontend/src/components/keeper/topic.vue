@@ -16,10 +16,10 @@
   </div>
 
 
-    <div v-for="piece in doc" class="artical">
+    <div v-for="piece in doc" :key="piece.content._id" class="artical">
       <div class="artical">
         <p class="info-u">User: {{ piece.content.username }}</p>
-        <p class="info-t">Create Time: {{ piece.content.create_time.toString() }}</p>
+        <p class="info-t">Create Time: {{ piece.content.create_time}}</p>
         <p class="info-id">ID:#{{piece.content.artical_id}}</p>
         <p class="artical-body">{{ piece.content.forum_text }}</p>
       </div>
@@ -29,11 +29,11 @@
       <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button>
       </div>
       <div v-if="piece.comment.length>0">
-        <div  v-for="comment in piece.comment" >
+        <div  v-for="comment in piece.comment" :key="comment._id" >
           <label for="content">Comment: </label>
           <div class="content">
             <p class="content-u">User:{{comment.username}}</p>
-            <p class="content-t">Create Time: {{comment.create_time.toString()}}</p>
+            <p class="content-t">Create Time: {{comment.create_time}}</p>
             <p class="content-body">{{comment.comment}}</p>
           </div>
         </div>
@@ -88,7 +88,7 @@ methods:{
   submitComment(id){
     const put_data={
       username:this.$store.state.user,
-      create_time:new Date(),
+      create_time:new Date().toString(),
       comment:this.comment,
       artical_id:id,
       topic_id:this.topic,
