@@ -138,18 +138,18 @@ methods:{
 }
 
 .artical-info {
+  width:100%;
   display: grid;
   margin-bottom: 50px;
   margin: 10px;
   border: 1px solid #eee;
   border-radius: 2px;
-  grid-auto-columns: 150px 150px 80px;
+  grid-auto-columns: 30% 30%;
   grid-auto-rows:50px 120px;
 }
 
 .info-u{
 
-  /* position: fixed; */
   grid-column: 1;
   grid-row: 1;
 }
@@ -157,10 +157,7 @@ methods:{
   grid-column: 2;
   grid-row:1;
 }
-.info-id{
-  grid-column: 3;
-  grid-row:1;
-}
+
 .artical-body{
   word-wrap: break-word;
   border-top: 1px solid burlywood;
@@ -170,18 +167,12 @@ methods:{
   text-align: justify;
   font-size:large;
   overflow-y: auto;
-  width:380px;
+  width:100%;
 }
-.comment{
-  width:380px;
-}
+
 .comment-button{
   width:100%;
   height:40px;
-}
-.comment-body{
-  height:50px;
-  width:100%;
 }
 .submit-comment{
   width:100%;
@@ -189,12 +180,13 @@ methods:{
 }
 
 .comment{
+  width:100%;
   display: grid;
   margin-bottom: 50px;
   margin: 10px;
   border: 1px solid #eee;
   border-radius: 2px;
-  grid-auto-columns: 150px 150px 80px;
+  grid-auto-columns: 30% 30%;
   grid-auto-rows:50px 120px;
 }
 
@@ -215,8 +207,9 @@ methods:{
   text-align: justify;
   font-size:large;
   overflow-y: auto;
-  width:380px;
+  width:100%;
 }
+
 .submit{
   width:100%;
   height:40px;
