@@ -300,7 +300,7 @@
 
       skipToday(){
         this.skip = true;
-        this.$options.methods.submit();
+        this.submit();
       },
 
       callCamera () {
