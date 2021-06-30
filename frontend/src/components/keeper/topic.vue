@@ -20,6 +20,7 @@
       <div class="artical-info">
         <p class="info-u">User: {{ piece.content.username }}</p>
         <p class="info-t">Create Time: {{ piece.content.create_time}}</p>
+        <div style="boder:1px solid burlywood"></div>
         <p class="artical-body">{{ piece.content.forum_text }}</p>
       </div>
       <!-- <div class="comment">
@@ -160,10 +161,6 @@ methods:{
 
 .artical-body{
   word-wrap: break-word;
-  border-top: 1px solid burlywood;
-  border-radius: 2px;
-  border-right: hidden;
-  border-left: hidden;
   text-align: justify;
   font-size:large;
   overflow-y: auto;
