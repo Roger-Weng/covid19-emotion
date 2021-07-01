@@ -151,6 +151,7 @@ io.on('connection',function(socket) {
         console.log(error);
       }
       else{
+        docs.comments.sort((a,b) => {return new Date(b.create_time)-new Date(a.create_time)});
         docs.sort((a,b) => {return new Date(b.create_time)-new Date(a.create_time)});
         callback({doc:docs});
       }

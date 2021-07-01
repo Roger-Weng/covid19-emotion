@@ -14,13 +14,13 @@
 
       <div v-for="content in doc" :key="content._id">
         <div class="artical">
-          <p class="u">username:{{content.username}}</p>
-          <p class="ct">create_time:{{content.create_time}}</p>
-          <p class="body">forum_text: {{content.forum_text}}</p>
+          <p class="u">User:{{content.username}}</p>
+          <p class="ct">Create Time:{{content.create_time || toDateString}}</p>
+          <p class="body">{{content.forum_text}}</p>
         </div>
         <div v-if="content.comments.length > 0">
-          <label class="cmt_label" for="content">Comment:</label>
           <div class="comment" v-for="cmt in content.comments" :key="cmt.create_time">
+            <label class="cmt_label" for="content">Comment:</label>
             <p class="u">User: {{cmt.username}}</p>
             <p class="ct">create_time: {{cmt.create_time}}</p>
             <p class="body">{{cmt.comment}}</p>
@@ -121,6 +121,39 @@ methods:{
   width:100%;
 }
 
+.comment{
+  width:100%;
+  display: grid;
+  margin-bottom: 30px;
+  margin: 10px;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  grid-auto-columns: 15% 30% 55%;
+  grid-auto-rows:30px 80px;
+}
+.comment .cmt_label{
+  grid-column: 1;
+  grid-row: 2;
+  text-align:center;
+  line-height:80px;
+  font-size:large;
+  border-right: 1px solid black;
+}
+
+.comment .u{
+  grid-column:2;
+  grid-row:1;
+}
+.comment .ct{
+  grid-column: 3;
+  grid-row: 1;
+}
+.comment .body{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row:2;
+  border-top: 1px solid black;
+}
 
 
 .submit{
