@@ -47,10 +47,12 @@
   </div>
   <p>Show Debug Comment</p>
   <div v-for=" cmt in tmpCmt" :key=" cmt._id">
+    <div v-if="cmt!==null">
     <p>{{cmt.topic_id}}</p>
     <p>{{cmt.artical_id}}</p>
     <p>{{cmt.create_time}}</p>
     <p>{{cmt.comment}}</p>
+    </div>
   </div>
 
 
