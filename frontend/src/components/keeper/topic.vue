@@ -68,29 +68,30 @@ export default {
       "Others": 3,
     };
     this.topic= topics[this.$route.params.t];
+    var articals={};
 
-  //   this.$socket.emit("getForumText", this.topic, (artical) => {
-  //     console.log(artical.doc.length);
-  //     for(var i = 0; i <artical.doc.length;i++){
-  //       var d=new Date(artical.doc[i].create_time);
-  //       var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
-  //       artical.doc[i].create_time=ctime;
-  //       this.$socket.emit("getComment",artical.doc.artical_id,(c)=>{
-  //         if(c.doc.length>0){
-  //           this.doc.push({content: artical.doc[i],comment:c.doc});
-  //         }
-  //         else{
-  //           this.doc.push({content: artical.doc[i],comment:[]});
-  //         }
-  //       })
-  //     }
-  //   console.log(this.doc.length);
-  // })
-    for(var i=0;i<10;i++){
-      this.$socket.emit("getComment",i,(c)=>{
-        this.doc.push({content:[],comment:c.doc});
-      })
+    this.$socket.emit("getForumText", this.topic, (artical) => {
+      for(var i = 0; i <artical.doc.length;i++){
+        var d=new Date(artical.doc[i].create_time);
+        var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+        artical.doc[i].create_time=ctime;
+
+        articals[artical.doc[i].artical_id.toString()]=artical.doc[i];
+      }
+
+    });
+
+      for (var key in Object.keys(articals)){
+        this.$socket.emit("getComment",parseInt(key), (c)=>{
+          for (var i = 0; i <c.doc.length;i++){
+            var d=new Date(c.doc[i].create_time);
+            var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+            c.doc[i].create_time=ctime;
+          }
+          this.doc.push({content:articals[key],comment:c.doc});
+        })
     }
+
     console.log(this.doc);
   },
 methods:{
