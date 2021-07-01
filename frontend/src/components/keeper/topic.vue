@@ -100,8 +100,8 @@ export default {
       console.log(artical.doc);
     });
 
-      for (var i=1;i<=10;i++){
-        this.$socket.emit("getComment",parseInt(i), (c)=>{
+      for (var k=1;k<=10;k++){
+        this.$socket.emit("getComment",k, (c)=>{
           for (var i = 0; i <c.doc.length;i++){
             var d=new Date(c.doc[i].create_time);
             var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
