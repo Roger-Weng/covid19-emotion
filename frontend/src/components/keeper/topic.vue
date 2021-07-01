@@ -107,15 +107,19 @@ methods:{
 .artical .u{
   grid-column: 1;
   grid-row: 1;
+  border-bottom: 1px solid blue;
 }
 .artical .ct{
   grid-column: 2;
   grid-row:1;
+  border-bottom: 1px solid blue;
 }
 
 .artical .body{
   word-wrap: break-word;
   text-align: justify;
+  margin-left: 5px;
+  margin-top:3px;
   font-size:large;
   overflow-y: auto;
   width:100%;
@@ -137,22 +141,25 @@ methods:{
   text-align:center;
   line-height:80px;
   font-size:large;
-  border-right: 1px solid black;
+  border-right: 1px double  green;
 }
 
 .comment .u{
   grid-column:2;
   grid-row:1;
+  border-bottom: 1px solid blue;
 }
 .comment .ct{
   grid-column: 3;
   grid-row: 1;
+  border-bottom: 1px solid blue;
 }
 .comment .body{
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row:2;
-  border-top: 1px solid black;
+  margin-left: 5px;
+  margin-top:3px;
 }
 
 
