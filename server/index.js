@@ -145,7 +145,6 @@ io.on('connection',function(socket) {
 
   //forum
   socket.on("getForumText", function(data, callback){
-    console.log("getForumText request received", data);
     forum.find({topic_id:data},
     function (error, docs) {
       if (error){
@@ -158,7 +157,6 @@ io.on('connection',function(socket) {
           code:1,
           doc:docs
         });
-        console.log(docs);
       }
     });
   });

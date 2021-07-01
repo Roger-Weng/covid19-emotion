@@ -97,6 +97,7 @@ export default {
         // articals[artical.doc[i].artical_id.toString()]=artical.doc[i];
       }
       this.tmpArtical=artical.doc;
+      console.log(artical.doc);
     });
 
       for (var key in Object.keys(articals)){
@@ -108,6 +109,7 @@ export default {
           }
           // this.doc.push({content:articals[key],comment:c.doc});
           this.tmpCmt=c.doc;
+          console.log(c.doc);
         })
     }
   },
