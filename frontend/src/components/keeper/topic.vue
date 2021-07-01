@@ -12,28 +12,21 @@
       <mt-button class="back"> Back </mt-button>
     </router-link>
 
-
-
-    <div>
-      <p>Show articals:</p>
       <div v-for="content in doc" :key="content._id">
-        <div>
-          <p>topic_id:{{content.topic_id}}</p>
-          <p>username:{{content.username}}</p>
-          <p>create_time:{{content.create_time}}</p>
-          <p>forum_text: {{content.forum_text}}</p>
+        <div class="artical">
+          <p class="u">username:{{content.username}}</p>
+          <p class="ct">create_time:{{content.create_time}}</p>
+          <p class="body">forum_text: {{content.forum_text}}</p>
         </div>
-        <p>Show comments:</p>
         <div v-if="content.comments.length > 0">
-          <div v-for="cmt in content.comments" :key="cmt.create_time">
-            <p>username: {{cmt.username}}</p>
-            <p>create_time: {{cmt.create_time}}</p>
-            <p>comment: {{cmt.comment}}</p>
+          <label class="cmt_label" for="content">Comment:</label>
+          <div class="comment" v-for="cmt in content.comments" :key="cmt.create_time">
+            <p class="u">User: {{cmt.username}}</p>
+            <p class="ct">create_time: {{cmt.create_time}}</p>
+            <p class="body">{{cmt.comment}}</p>
           </div>
         </div>
       </div>
-
-    </div>
 
   </div>
 
@@ -63,7 +56,6 @@ export default {
     this.topic= topics[this.$route.params.t];
     this.$socket.emit("getForumText", this.topic,(data)=>{
       this.doc=data.doc;
-      console.log(this.doc);
     });
 
   },
@@ -102,7 +94,7 @@ methods:{
   text-align: center;
 }
 
-.artical-info {
+.artical{
   width:100%;
   display: grid;
   margin-bottom: 50px;
@@ -112,18 +104,16 @@ methods:{
   grid-auto-columns: 30% 70%;
   grid-auto-rows:50px 120px;
 }
-
-.info-u{
-
+.artical.u{
   grid-column: 1;
   grid-row: 1;
 }
-.info-t{
+.artical.ct{
   grid-column: 2;
   grid-row:1;
 }
 
-.artical-body{
+.artical.body{
   word-wrap: break-word;
   text-align: justify;
   font-size:large;
@@ -131,14 +121,6 @@ methods:{
   width:100%;
 }
 
-.comment-button{
-  width:100%;
-  height:40px;
-}
-.submit-comment{
-  width:100%;
-  height:40px;
-}
 
 
 .submit{
