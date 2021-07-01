@@ -154,7 +154,9 @@ io.on('connection',function(socket) {
         console.log(error);
       }
       else{
+        if (docs.comments.length>0){
         docs.comments.sort(sortDate);
+        }
         docs.sort(sortDate);
         callback({doc:docs});
       }
