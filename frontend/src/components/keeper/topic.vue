@@ -63,6 +63,7 @@ export default {
     this.topic= topics[this.$route.params.t];
     this.$socket.emit("getForumText", this.topic,(data)=>{
       this.doc=data;
+      console.log(this.doc);
     });
 
   },
