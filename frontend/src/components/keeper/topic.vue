@@ -16,17 +16,17 @@
   </div>
 
 
-    <div v-for="piece in doc" :key="piece.content._id" class="artical">
+    <!-- <div v-for="piece in doc" :key="piece.content._id" class="artical">
       <div class="artical-info">
         <p class="info-u">User: {{ piece.content.username }}</p>
         <p class="info-t">Create Time: {{ piece.content.create_time}}</p>
         <p class="artical-body">{{ piece.content.forum_text }}</p>
       </div>
-      <!-- <div class="comment"> -->
-      <!-- <mt-button class="comment-button" @Click="addComment()">Add Comment</mt-button> -->
-      <!-- <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
-      <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button> -->
-      <!-- </div> -->
+      <div class="comment">
+      <mt-button class="comment-button" @Click="addComment()">Add Comment</mt-button>
+      <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
+      <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button>
+      </div>
       <div v-if="piece.comment.length>0">
         <div  v-for="comment in piece.comment" :key="comment._id" >
           <label>Comment: </label>
@@ -37,7 +37,21 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+  <p>Show Debug</p>
+  <div v-for="piece in tmpArtical" :key="piece._id">
+    <p>{{piece.topic_id}}</p>
+    <p>{{piece.artical_id}}</p>
+    <p>{{piece.create_time}}</p>
+    <p>{{piece.forum_text}}</p>
+  </div>
+  <p>Show Debug Comment</p>
+  <div v-for=" cmt in tmpCmt" :key=" cmt._id">
+    <p>{{cmt.topic_id}}</p>
+    <p>{{cmt.artical_id}}</p>
+    <p>{{cmt.create_time}}</p>
+    <p>{{cmt.comment}}</p>
+  </div>
 
 
   </div>
@@ -49,6 +63,10 @@ export default {
   data() {
     return{
       doc: [],
+
+      tmpArtical:[],
+      tmpCmt:[],
+
       message:'',
       topic:'',
       time_data:'',
@@ -68,7 +86,7 @@ export default {
       "Others": 3,
     };
     this.topic= topics[this.$route.params.t];
-    var articals={};
+    // var articals={};
 
     this.$socket.emit("getForumText", this.topic, (artical) => {
       for(var i = 0; i <artical.doc.length;i++){
@@ -76,9 +94,9 @@ export default {
         var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
         artical.doc[i].create_time=ctime;
 
-        articals[artical.doc[i].artical_id.toString()]=artical.doc[i];
+        // articals[artical.doc[i].artical_id.toString()]=artical.doc[i];
       }
-
+      this.tmpArtical=artical.doc;
     });
 
       for (var key in Object.keys(articals)){
@@ -88,11 +106,10 @@ export default {
             var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
             c.doc[i].create_time=ctime;
           }
-          this.doc.push({content:articals[key],comment:c.doc});
+          // this.doc.push({content:articals[key],comment:c.doc});
+          this.tmpCmt=c.doc;
         })
     }
-
-    console.log(this.doc);
   },
 methods:{
   addComment(){
