@@ -112,7 +112,7 @@ export default {
             c.doc[i].create_time=ctime;
           }
           // this.doc.push({content:articals[key],comment:c.doc});
-          this.tmpCmt=c.doc.filter((item)=>{return item!==''});
+          this.tmpCmt=c.doc.filter((item)=>{return item!=='' && item!==null && item!==undefined});
           console.log("co:",c.doc);
         })
     }
