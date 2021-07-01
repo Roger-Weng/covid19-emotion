@@ -28,7 +28,7 @@
       <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
       <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button>
       </div>
-      <div v-if="piece.comment.length>0">
+      <!-- <div v-if="piece.comment.length>0">
         <div  v-for="comment in piece.comment" :key="comment._id" >
           <label for="content">Comment: </label>
           <div class="content">
@@ -37,7 +37,7 @@
             <p class="content-body">{{comment.comment}}</p>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
 
@@ -55,7 +55,6 @@ export default {
       time_data:'',
       submit:false,
       cdisplay:'None',
-      comment: '',
     };
   },
 
