@@ -77,7 +77,9 @@ export default {
     };
   },
 
-  filters: {},
+  filters: {
+
+  },
 
 
   mounted: function () {
@@ -110,7 +112,7 @@ export default {
             c.doc[i].create_time=ctime;
           }
           // this.doc.push({content:articals[key],comment:c.doc});
-          this.tmpCmt=c.doc;
+          this.tmpCmt=c.doc.filter((item)=>{return item!==''});
           console.log("co:",c.doc);
         })
     }
