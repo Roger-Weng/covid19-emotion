@@ -25,8 +25,8 @@
       </div>
       <div class="comment">
       <mt-button class="comment-button" @Click="addComment()">Add Comment</mt-button>
-      <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
-      <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button>
+      <!-- <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
+      <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button> -->
       </div>
       <!-- <div v-if="piece.comment.length>0">
         <div  v-for="comment in piece.comment" :key="comment._id" >
