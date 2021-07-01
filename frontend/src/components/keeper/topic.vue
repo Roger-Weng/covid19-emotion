@@ -20,24 +20,23 @@
       <div class="artical-info">
         <p class="info-u">User: {{ piece.content.username }}</p>
         <p class="info-t">Create Time: {{ piece.content.create_time}}</p>
-        <div style="boder:1px solid burlywood"></div>
         <p class="artical-body">{{ piece.content.forum_text }}</p>
       </div>
-      <div class="comment">
-      <mt-button class="comment-button" @Click="addComment()">Add Comment</mt-button>
+      <!-- <div class="comment"> -->
+      <!-- <mt-button class="comment-button" @Click="addComment()">Add Comment</mt-button> -->
       <!-- <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
       <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button> -->
-      </div>
-      <!-- <div v-if="piece.comment.length>0">
+      <!-- </div> -->
+      <div v-if="piece.comment.length>0">
         <div  v-for="comment in piece.comment" :key="comment._id" >
-          <label for="content">Comment: </label>
-          <div class="content">
-            <p class="content-u">User:{{comment.username}}</p>
-            <p class="content-t">Create Time: {{comment.create_time}}</p>
-            <p class="content-body">{{comment.comment}}</p>
+          <label>Comment: </label>
+          <div class="artical-info">
+            <p class="info-u">User:{{comment.username}}</p>
+            <p class="info-t">Create Time: {{comment.create_time}}</p>
+            <p class="artical-body">{{comment.comment}}</p>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
 
 
