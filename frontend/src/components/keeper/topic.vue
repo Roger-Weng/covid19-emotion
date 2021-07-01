@@ -109,7 +109,7 @@ export default {
           }
           // this.doc.push({content:articals[key],comment:c.doc});
           this.tmpCmt=c.doc;
-          console.log(c.doc);
+          console.log("co:",c.doc);
         })
     }
   },
