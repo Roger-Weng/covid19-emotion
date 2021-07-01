@@ -49,9 +49,6 @@ function getRandom(list){
   return list[random_id];
 }
 
-function sortDate(a,b){
-  return new Date(b.create_time)-new Date(a.create_time);
-}
 
 //socket connect
 
@@ -154,10 +151,7 @@ io.on('connection',function(socket) {
         console.log(error);
       }
       else{
-        if (docs.comments.length>0){
-        docs.comments.sort(sortDate);
-        }
-        docs.sort(sortDate);
+        docs.sort((a,b) => {return new Date(b.create_time)-new Date(a.create_time)});
         callback({doc:docs});
       }
     });
