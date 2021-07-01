@@ -104,16 +104,16 @@ methods:{
   grid-auto-columns: 30% 70%;
   grid-auto-rows:50px 120px;
 }
-.artical.u{
+.artical .u{
   grid-column: 1;
   grid-row: 1;
 }
-.artical.ct{
+.artical .ct{
   grid-column: 2;
   grid-row:1;
 }
 
-.artical.body{
+.artical .body{
   word-wrap: break-word;
   text-align: justify;
   font-size:large;
