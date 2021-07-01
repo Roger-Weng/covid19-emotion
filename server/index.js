@@ -157,6 +157,8 @@ io.on('connection',function(socket) {
     });
   });
 
+
+
   socket.on("putText", function (put_data) {
     console.log("putText request received", put_data);
     forum.create(put_data,
@@ -166,8 +168,6 @@ io.on('connection',function(socket) {
         }
       });
   });
-
-
 
 
   //daily report

@@ -17,12 +17,22 @@
           <p class="u">User:{{content.username}}</p>
           <p class="ct">Create Time:{{content.create_time || toDateString}}</p>
           <p class="body">{{content.forum_text}}</p>
+
+          <div class="addCmt">
+            <mt-button class="add" @click="addCmt">New Comment</mt-button>
+            <div class="container" v-if="cd">
+              <textarea class="text" v-bind="comment"></textarea>
+              <mt-button class="submit">Submit</mt-button>
+            </div>
+          </div>
+
+
         </div>
         <div v-if="content.comments.length > 0">
           <div class="comment" v-for="cmt in content.comments" :key="cmt.create_time">
             <label class="cmt_label" for="content">Comment:</label>
             <p class="u">User: {{cmt.username}}</p>
-            <p class="ct">create_time: {{cmt.create_time}}</p>
+            <p class="ct">create_time: {{cmt.create_time || toDateString}}</p>
             <p class="body">{{cmt.comment}}</p>
           </div>
         </div>
@@ -44,6 +54,8 @@ export default {
       doc: [],
       message:'',
       topic:'',
+      cd:false,
+      comment:'',
     };
   },
 
@@ -60,7 +72,9 @@ export default {
 
   },
 methods:{
-
+  addCmt:function(){
+    this.cd=true;
+  },
   submitArtical:function(){
       const put_data={
         username:this.$store.state.user,
@@ -118,8 +132,8 @@ methods:{
 .artical .body{
   word-wrap: break-word;
   text-align: justify;
-  margin-left: 5px;
-  margin-top:3px;
+  margin-left: 10px;
+  margin-top:10px;
   font-size:large;
   overflow-y: auto;
   width:100%;
@@ -139,7 +153,7 @@ methods:{
   grid-column: 1;
   grid-row: 2;
   text-align:center;
-  line-height:80px;
+  line-height:60px;
   font-size:large;
   border-right: 1px double  green;
 }
@@ -158,8 +172,9 @@ methods:{
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row:2;
-  margin-left: 5px;
-  margin-top:3px;
+  margin-left: 10px;
+  margin-top:10px;
+  font-size:large;
 }
 
 
