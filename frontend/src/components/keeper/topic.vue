@@ -69,23 +69,29 @@ export default {
     };
     this.topic= topics[this.$route.params.t];
 
-    this.$socket.emit("getForumText", this.topic, (artical) => {
-      console.log(artical.doc.length);
-      for(var i = 0; i <artical.doc.length;i++){
-        var d=new Date(artical.doc[i].create_time);
-        var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
-        artical.doc[i].create_time=ctime;
-        this.$socket.emit("getComment",artical.doc.artical_id,(c)=>{
-          if(c.doc.length>0){
-            this.doc.push({content: artical.doc[i],comment:c.doc});
-          }
-          else{
-            this.doc.push({content: artical.doc[i],comment:[]});
-          }
-        })
-      }
-    console.log(this.doc.length);
-  })
+  //   this.$socket.emit("getForumText", this.topic, (artical) => {
+  //     console.log(artical.doc.length);
+  //     for(var i = 0; i <artical.doc.length;i++){
+  //       var d=new Date(artical.doc[i].create_time);
+  //       var ctime=d.getFullYear()+" "+d.getMonth()+" "+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+  //       artical.doc[i].create_time=ctime;
+  //       this.$socket.emit("getComment",artical.doc.artical_id,(c)=>{
+  //         if(c.doc.length>0){
+  //           this.doc.push({content: artical.doc[i],comment:c.doc});
+  //         }
+  //         else{
+  //           this.doc.push({content: artical.doc[i],comment:[]});
+  //         }
+  //       })
+  //     }
+  //   console.log(this.doc.length);
+  // })
+    for(var i=0;i<10;i++){
+      this.$socket.emit("getComment",i,(c)=>{
+        this.doc.push({content:[],comment:c.doc});
+      })
+    }
+    console.log(this.doc);
   },
 methods:{
   addComment(){
