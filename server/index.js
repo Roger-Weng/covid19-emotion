@@ -144,19 +144,15 @@ io.on('connection',function(socket) {
   });
 
   //forum
-  socket.on("getForumText", function(data, callback){
+  socket.on("getForumText", function(data, doc){
     forum.find({topic_id:data},
     function (error, docs) {
       if (error){
         console.log(error);
       }
       else{
-
         docs.sort(function(a,b){return new Date(b.create_time)-new Date(a.create_time)});
-        callback({
-          code:1,
-          doc:docs
-        });
+        doc=docs;
       }
     });
   });
