@@ -35,7 +35,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 var User = mongoose.model('User');
 var userRecord = mongoose.model('userRecord');
 var forum = mongoose.model('forum');
-var comment=mongoose.model('comment');
 
 function score_compare(){
   return function(a,b){
@@ -167,25 +166,6 @@ io.on('connection',function(socket) {
       });
   });
 
-  socket.on("putComment", function(put_data) {
-    console.log("putComment request received", put_data);
-    comment.create(put_data,
-      function (error) {
-        console.log(error);
-      }
-      )
-  });
-
-  socket.on("getComment",function(id,callback) {
-    comment.find({artical_id:id},function (error, docs){
-       if (error) {
-          console.log(error);
-        }
-        else{
-          callback({doc:docs});
-        }
-    })
-  });
 
 
 
