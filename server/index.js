@@ -143,7 +143,7 @@ io.on('connection',function(socket) {
   });
 
   //forum
-  socket.on("getForumText", function(data, doc){
+  socket.on("getForumText", function(data, callback) {
     forum.find({topic_id:data},
     function (error, docs) {
       if (error){
@@ -151,7 +151,8 @@ io.on('connection',function(socket) {
       }
       else{
         docs.sort(function(a,b){return new Date(b.create_time)-new Date(a.create_time)});
-        doc=docs;
+        callback({doc:docs})
+        console.log(callback);
       }
     });
   });
