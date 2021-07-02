@@ -167,7 +167,7 @@
     </div>
     <mt-button @click="photograph" style="display: inline-block">confirm</mt-button>
     <mt-button @click="submit" style="display: inline-block">submit</mt-button>
-    <mt-button @click="skip" style="display: inline-block">skip today</mt-button>
+    <mt-button @click="skipToday" style="display: inline-block">skip today</mt-button>
   </div>
 </template>
 
@@ -273,10 +273,7 @@
           alert('Failed because: ' + message);
         }
       },
-      skip(){
-        this.skip = true;
-        this.submit();
-      },
+
       submit() {
         console.log(this.emoInput);
         let emoRecordCopy=this.emoRecord;
@@ -301,6 +298,10 @@
         });
       },
 
+      skipToday(){
+        this.skip = true;
+        this.submit();
+      },
 
       callCamera () {
         let video = document.getElementById("video");

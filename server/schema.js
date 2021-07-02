@@ -2,18 +2,12 @@ let mongoose = require('mongoose');
 
 let forum = new mongoose.Schema({
   topic_id:Number,
-  artical_id:Number,
   username: String,
-  create_time: String,
-  forum_text: String
+  create_time: Number,
+  forum_text: String,
+  comments:Array,
 });
-let comment = new mongoose.Schema({
-  username: String,
-  create_time: String,
-  comment: String,
-  article_id: Number,
-  topic_id: Number,
-});
+
 
 let UserSchema = new mongoose.Schema({
   username: String,
@@ -51,6 +45,6 @@ let userRecord = new mongoose.Schema({
   total_score: Number,
 });
 
-mongoose.model('User', UserSchema);
+mongoose.model('User', UserSchema,'users');
 mongoose.model('userRecord', userRecord,'userRecord');
 mongoose.model('forum', forum,'forum');

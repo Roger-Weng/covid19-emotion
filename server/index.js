@@ -35,7 +35,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 var User = mongoose.model('User');
 var userRecord = mongoose.model('userRecord');
 var forum = mongoose.model('forum');
-var comment=mongoose.model('comment');
 
 function score_compare(){
   return function(a,b){
@@ -49,6 +48,7 @@ function getRandom(list){
   let random_id = Math.floor(Math.random()*(list.length));
   return list[random_id];
 }
+
 
 //socket connect
 
@@ -95,7 +95,7 @@ io.on('connection',function(socket) {
 
   //login
   socket.on("login", function (data, callback) {
-    console.log("login request from user"+ data.username);
+    console.log("login request from user "+ data.username);
     User.find({
       'username': data.username,
       'password': data.password
@@ -144,21 +144,25 @@ io.on('connection',function(socket) {
   });
 
   //forum
-  socket.on("getForumText", function(data, callback){
-    console.log("getForumText request received", data);
+  socket.on("getForumText", function(data, callback) {
     forum.find({topic_id:data},
     function (error, docs) {
       if (error){
         console.log(error);
       }
       else{
-        docs.sort(function(a,b){return new Date(b.create_time)-new Date(a.create_time)});
-        callback({
-          code:1,
-          doc:docs
-        });
+        docs.sort((a,b) => {return new Date(b.create_time)-new Date(a.create_time)});
+        callback({doc:docs});
       }
     });
+  });
+
+  socket.on("addComment",function(data, callback){
+    forum.findById(data._id,function(error,doc){
+      if(error){console.log(error);}
+      doc.comments.push(data.cmt);
+      doc.save();
+    })
   });
 
   socket.on("putText", function (put_data) {
@@ -170,27 +174,6 @@ io.on('connection',function(socket) {
         }
       });
   });
-
-  socket.on("putComment", function(put_data) {
-    console.log("putComment request received", put_data);
-    comment.create(put_data,
-      function (error) {
-        console.log(error);
-      }
-      )
-  });
-
-  socket.on("getComment",function(artical_id,callback) {
-    comment.find({artical_id:artical_id},function (error, docs){
-       if (error) {
-          console.log(error);
-        }
-        else{
-          callback({doc:docs});
-        }
-    })
-  });
-
 
 
   //daily report

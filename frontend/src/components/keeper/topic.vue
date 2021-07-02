@@ -7,38 +7,37 @@
     <div class="notes">
     <p>Notes:</p>
     <textarea class="text" v-model="message" />
-    <mt-button  class="submit" @click="onSubmit()" >Submit</mt-button>
+    <mt-button  class="submit" @click="submitArticle" >Submit</mt-button>
     <router-link :to="{ name: 'forum' }">
       <mt-button class="back"> Back </mt-button>
     </router-link>
 
+      <div v-for="content in doc" :key="content._id">
+        <div class="artical">
+          <p class="u">User:{{content.username}}</p>
+          <p class="ct">Create Time:{{content.create_time | toDateString}}</p>
+          <p class="body">{{content.forum_text}}</p>
+        </div>
+        <div class="addCmt">
+          <mt-button class="add" @click="addCmt">New Comment</mt-button>
+          <div class="container" v-if="cd">
+            <textarea class="text" v-bind="comment"></textarea>
+            <mt-button class="submit" @click="submitCmt(content._id)">Submit</mt-button>
+          </div>
+        </div>
+        <div v-if="content.comments.length > 0">
+          <div class="comment" v-for="cmt in content.comments" :key="cmt.create_time">
+            <label class="cmt_label" for="content">Comment:</label>
+            <p class="u">User: {{cmt.username}}</p>
+            <p class="ct">create_time: {{cmt.create_time | toDateString}}</p>
+            <p class="body">{{cmt.comment}}</p>
+          </div>
+        </div>
+      </div>
 
   </div>
 
 
-    <div v-for="piece in doc" class="artical">
-      <div class="artical">
-        <p class="info-u">User: {{ piece.content.username }}</p>
-        <p class="info-t">Create Time: {{ piece.content.create_time.toString() }}</p>
-        <p class="info-id">ID:#{{piece.content.artical_id}}</p>
-        <p class="artical-body">{{ piece.content.forum_text }}</p>
-      </div>
-      <div class="comment">
-      <mt-button class="comment-button" @Click="addComment()" style="display: inline-block">Add Comment</mt-button>
-      <textarea class="comment-body" style="display:{{cdisplay}}" v-model="comment" />
-      <mt-button class="submit-comment" style="display:{{cdisplay}}" @click="submitComment(piece.content.artical_id)" >Submit</mt-button>
-      </div>
-      <div v-if="piece.comment.length>0">
-        <div  v-for="comment in piece.comment" >
-          <label for="content">Comment: </label>
-          <div class="content">
-            <p class="content-u">User:{{comment.username}}</p>
-            <p class="content-t">Create Time: {{comment.create_time.toString()}}</p>
-            <p class="content-body">{{comment.comment}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
 
   </div>
@@ -52,64 +51,60 @@ export default {
       doc: [],
       message:'',
       topic:'',
-      time_data:'',
-      submit:false,
-      cdisplay:'None',
-      comment: '',
+      cd:false,
+      comment:'',
     };
   },
 
-  filters: {},
-
-
   mounted: function () {
-
     const topics = {
       "Academics": 1,
       "Extracurriculars": 2,
       "Others": 3,
     };
     this.topic= topics[this.$route.params.t];
-
-    this.$socket.emit("getForumText", this.topic, (artical) => {
-      console.log(artical);
-      for(i = 0; i <artical.doc.length;i++){
-        this.$socket.emit("getComment",artical.doc.artical_id,(comment)=>{
-          this.doc.push({content: artical.doc[i],comment:comment.doc});
-        })
-      }
+    this.$socket.emit("getForumText", this.topic,(data)=>{
+      this.doc=data.doc;
     });
 
   },
+filters:{
+  toDateString:function (value) {
+    var source=new Date(value);
+    var month=parseInt(source.getMonth())+1
+    return source.getDate()+"/"+month+"/"+source.getFullYear()+" "+source.getHours()+":"+source.getMinutes()+":"+source.getSeconds();
+  }
+},
+
 methods:{
-  addComment(){
-    this.cdisplay ='block';
+  addCmt:function(){
+    this.cd=true;
   },
-  submitComment(id){
-    const put_data={
-      username:this.$store.state.user,
-      create_time:new Date(),
-      comment:this.comment,
-      artical_id:id,
-      topic_id:this.topic,
-    };
-    this.$socket.emit("putComment",put_data,(callback) => {});
-    this.$route.go(0);
-  },
-  onSubmit(){
+  submitArtical:function(){
       const put_data={
         username:this.$store.state.user,
-        create_time:new Date(),
+        create_time:Date.now(),
         forum_text:this.message,
         topic_id:this.topic,
-        artical_id:this.doc.length+1
+        comments:[],
       };
-      this.$socket.emit('putText',put_data,(callback)=>{
-      });
+      this.$socket.emit('putText',put_data,(callback)=>{});
+      this.$toast("Update Success");
       this.$router.go(0);
-    }
+    },
+  submitCmt:function(id){
+    const data={_id:id.toString(),
+    cmt:{
+      username:this.$store.state.user,
+      create_time:Date.now(),
+      comment:this.comment
+    }};
+    this.$socket.emit("addComment",data,(callback)=>{});
+    this.$toast("Update Success");
+    this.$router.go(0);
+  }
+},
 
-}
 };
 
 
@@ -130,86 +125,93 @@ methods:{
   text-align: center;
 }
 
-.artical {
+.artical{
+  width:100%;
   display: grid;
   margin-bottom: 50px;
   margin: 10px;
   border: 1px solid #eee;
   border-radius: 2px;
-  grid-auto-columns: 150px 150px 80px;
+  grid-auto-columns: 30% 70%;
   grid-auto-rows:50px 120px;
 }
-
-.info-u{
-
-  /* position: fixed; */
+.artical .u{
   grid-column: 1;
   grid-row: 1;
+  border-bottom: 1px solid blue;
 }
-.info-t{
+.artical .ct{
   grid-column: 2;
   grid-row:1;
+  border-bottom: 1px solid blue;
 }
-.info-id{
+
+.artical .body{
+  word-wrap: break-word;
+  text-align: justify;
+  margin-left: 10px;
+  margin-top:10px;
+  font-size:large;
+  overflow-y: auto;
+  width:100%;
+}
+
+.comment{
+  width:100%;
+  display: grid;
+  margin-bottom: 30px;
+  margin: 10px;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  grid-auto-columns: 15% 30% 55%;
+  grid-auto-rows:30px 80px;
+}
+.comment .cmt_label{
+  grid-column: 1;
+  grid-row: 2;
+  text-align:center;
+  line-height:60px;
+  font-size:large;
+  border-right: 1px double  green;
+}
+
+.comment .u{
+  grid-column:2;
+  grid-row:1;
+  border-bottom: 1px solid blue;
+}
+.comment .ct{
   grid-column: 3;
-  grid-row:1;
-}
-.artical-body{
-  word-wrap: break-word;
-  border-top: 1px solid burlywood;
-  border-radius: 2px;
-  border-right: hidden;
-  border-left: hidden;
-  text-align: justify;
-  font-size:large;
-  overflow-y: auto;
-  width:380px;
-}
-.comment{
-  width:380px;
-}
-.comment-button{
-  width:100%;
-  height:40px;
-}
-.comment-body{
-  height:50px;
-  width:100%;
-}
-.submit-comment{
-  width:100%;
-  height:40px;
-}
-
-.comment{
-  display: grid;
-  margin-bottom: 50px;
-  margin: 10px;
-  border: 1px solid #eee;
-  border-radius: 2px;
-  grid-auto-columns: 150px 150px 80px;
-  grid-auto-rows:50px 120px;
-}
-
-.comment-u{
-  grid-column: 1;
   grid-row: 1;
+  border-bottom: 1px solid blue;
 }
-.comment-t{
-  grid-column: 2;
-  grid-row:1;
-}
-.comment-body{
-  word-wrap: break-word;
-  border-top: 1px solid burlywood;
-  border-radius: 2px;
-  border-right: hidden;
-  border-left: hidden;
-  text-align: justify;
+.comment .body{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row:2;
+  margin-left: 10px;
+  margin-top:10px;
   font-size:large;
-  overflow-y: auto;
-  width:380px;
 }
+
+.addCmt .add{
+  margin-top:20px;
+  width:100%;
+  height:40px;
+}
+.addCmt .container .text{
+  margin:auto;
+  width:100%;
+  height: 50px;
+  border: 1px solid #eee;
+}
+.addCmt .submit{
+  width:100%;
+  height:40px;
+  margin:auto;
+}
+
+
 .submit{
   width:100%;
   height:40px;
@@ -219,7 +221,6 @@ methods:{
   width:100%;
   height:40px;
 }
-
 
 .text{
   width: 100%;
