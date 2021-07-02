@@ -100,7 +100,7 @@ methods:{
     }};
     this.$socket.emit("addComment",function(data){});
     this.$toast("Update Success");
-    this.router.go(0);
+    this.$router.go(0);
   }
 },
 
