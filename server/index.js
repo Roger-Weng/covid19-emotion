@@ -157,7 +157,11 @@ io.on('connection',function(socket) {
     });
   });
 
-
+  socket.on("addComment",function(data, callback){
+    var doc=forum.findOne({_id:data._id});
+    doc.comments.push(data.cmt);
+    doc.save();
+  });
 
   socket.on("putText", function (put_data) {
     console.log("putText request received", put_data);
