@@ -98,7 +98,7 @@ methods:{
       create_time:Date.now(),
       comment:this.comment
     }};
-    this.$socket.emit("addComment",function(data){});
+    this.$socket.emit("addComment",data,(callback)=>{});
     this.$toast("Update Success");
     this.$router.go(0);
   }
