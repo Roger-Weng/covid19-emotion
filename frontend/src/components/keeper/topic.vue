@@ -92,7 +92,12 @@ methods:{
       this.$router.go(0);
     },
   submitCmt:function(id){
-    const data={_id:id,cmt:this.comment};
+    const data={_id:id,
+    cmt:{
+      username:this.$store.state.user,
+      create_time:Date.now(),
+      comment:this.comment
+    }};
     this.$socket.emit("addComment",function(data){});
     this.$toast("Update Success");
     this.router.go(0);
