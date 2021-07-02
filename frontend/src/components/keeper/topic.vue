@@ -92,7 +92,7 @@ methods:{
       this.$router.go(0);
     }
 },
-  submitCmt(id){
+  submitCmt:function(id){
     console.log(id);
     console.log(this.message);
   }
