@@ -68,6 +68,13 @@ export default {
     });
 
   },
+filters:{
+  toDateString:function (value) {
+    var source=new Date(value);
+    return source.getDate()+"/"+source.getMonth()+"/"+source.getFullYear()+" "+source.getHours()+":"+source.getMinutes()+":"+source.getSeconds();
+  }
+},
+
 methods:{
   addCmt:function(){
     this.cd=true;
