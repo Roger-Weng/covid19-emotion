@@ -22,7 +22,7 @@
           <mt-button class="add" @click="addCmt">New Comment</mt-button>
           <div class="container" v-if="cd">
             <textarea class="text" v-bind="comment"></textarea>
-            <mt-button class="submit">Submit</mt-button>
+            <mt-button class="submit" @click="addCmt(content._id)">Submit</mt-button>
           </div>
         </div>
         <div v-if="content.comments.length > 0">
