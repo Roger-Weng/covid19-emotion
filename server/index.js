@@ -158,7 +158,8 @@ io.on('connection',function(socket) {
   });
 
   socket.on("addComment",function(data, callback){
-    forum.findOneAndUpdate({_id:data._id},{$push:{comments:[data.cmt]}})
+    forum.updateOne({_id:data._id},{$push:{comments:[data.cmt]}})
+
   });
 
   socket.on("putText", function (put_data) {
