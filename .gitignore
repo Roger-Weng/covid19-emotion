@@ -18,3 +18,4 @@ selenium-debug.log
 *.sln
 
 start.sh
+server/test.js

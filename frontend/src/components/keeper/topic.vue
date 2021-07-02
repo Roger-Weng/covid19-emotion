@@ -85,14 +85,14 @@ methods:{
         create_time:Date.now(),
         forum_text:this.message,
         topic_id:this.topic,
-        comment:[],
+        comments:[],
       };
       this.$socket.emit('putText',put_data,(callback)=>{});
       this.$toast("Update Success");
       this.$router.go(0);
     },
   submitCmt:function(id){
-    const data={_id:id,
+    const data={_id:id.toString(),
     cmt:{
       username:this.$store.state.user,
       create_time:Date.now(),
