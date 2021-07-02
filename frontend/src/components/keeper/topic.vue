@@ -17,16 +17,13 @@
           <p class="u">User:{{content.username}}</p>
           <p class="ct">Create Time:{{content.create_time || toDateString}}</p>
           <p class="body">{{content.forum_text}}</p>
-
-          <div class="addCmt">
-            <mt-button class="add" @click="addCmt">New Comment</mt-button>
-            <div class="container" v-if="cd">
-              <textarea class="text" v-bind="comment"></textarea>
-              <mt-button class="submit">Submit</mt-button>
-            </div>
+        </div>
+        <div class="addCmt">
+          <mt-button class="add" @click="addCmt">New Comment</mt-button>
+          <div class="container" v-if="cd">
+            <textarea class="text" v-bind="comment"></textarea>
+            <mt-button class="submit">Submit</mt-button>
           </div>
-
-
         </div>
         <div v-if="content.comments.length > 0">
           <div class="comment" v-for="cmt in content.comments" :key="cmt.create_time">
