@@ -15,7 +15,7 @@
       <div v-for="content in doc" :key="content._id">
         <div class="artical">
           <p class="u">User:{{content.username}}</p>
-          <p class="ct">Create Time:{{content.create_time || toDateString}}</p>
+          <p class="ct">Create Time:{{content.create_time | toDateString}}</p>
           <p class="body">{{content.forum_text}}</p>
         </div>
         <div class="addCmt">
@@ -29,7 +29,7 @@
           <div class="comment" v-for="cmt in content.comments" :key="cmt.create_time">
             <label class="cmt_label" for="content">Comment:</label>
             <p class="u">User: {{cmt.username}}</p>
-            <p class="ct">create_time: {{cmt.create_time || toDateString}}</p>
+            <p class="ct">create_time: {{cmt.create_time | toDateString}}</p>
             <p class="body">{{cmt.comment}}</p>
           </div>
         </div>
