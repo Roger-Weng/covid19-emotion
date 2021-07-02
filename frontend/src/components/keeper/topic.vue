@@ -177,6 +177,23 @@ methods:{
   font-size:large;
 }
 
+.addCmt .add{
+  margin-top:20px;
+  width:100%;
+  height:40px;
+}
+.addCmt .container .text{
+  margin:auto;
+  width:100%;
+  height: 50px;
+  border: 1px solid #eee;
+}
+.addCmt .submit{
+  width:100%;
+  height:40px;
+  margin:auto;
+}
+
 
 .submit{
   width:100%;
