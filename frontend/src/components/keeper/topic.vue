@@ -71,7 +71,7 @@ export default {
 filters:{
   toDateString:function (value) {
     var source=new Date(value);
-    return source.getDate()+"/"+source.getMonth()+"/"+source.getFullYear()+" "+source.getHours()+":"+source.getMinutes()+":"+source.getSeconds();
+    return source.getDate()+"/"+source.getMonth()+1+"/"+source.getFullYear()+" "+source.getHours()+":"+source.getMinutes()+":"+source.getSeconds();
   }
 },
 
