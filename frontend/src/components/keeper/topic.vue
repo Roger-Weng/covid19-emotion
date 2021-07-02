@@ -87,13 +87,15 @@ methods:{
         topic_id:this.topic,
         comment:[],
       };
-      this.$socket.emit('putText',put_data,(callback)=>{
-      });
+      this.$socket.emit('putText',put_data,(callback)=>{});
+      this.$toast("Update Success");
       this.$router.go(0);
     },
   submitCmt:function(id){
-    console.log(id);
-    console.log(this.message);
+    const data={_id:id,cmt:this.comment};
+    this.$socket.emit("addComment",function(data){});
+    this.$toast("Update Success");
+    this.router.go(0);
   }
 },
 
