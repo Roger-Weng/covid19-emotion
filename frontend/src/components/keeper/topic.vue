@@ -22,7 +22,7 @@
           <mt-button class="add" @click="addCmt">New Comment</mt-button>
           <div class="container" v-if="cd">
             <textarea class="text" v-bind="comment"></textarea>
-            <mt-button class="submit" @click="submitCmt(content.create_time)">Submit</mt-button>
+            <mt-button class="submit" @click="submitCmt(content._id)">Submit</mt-button>
           </div>
         </div>
         <div v-if="content.comments.length > 0">
@@ -91,8 +91,8 @@ methods:{
       this.$toast("Update Success");
       this.$router.go(0);
     },
-  submitCmt:function(ct){
-    const data={create_time:ct,
+  submitCmt:function(id){
+    const data={_id:id,
     cmt:{
       username:this.$store.state.user,
       create_time:Date.now(),

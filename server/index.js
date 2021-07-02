@@ -158,7 +158,11 @@ io.on('connection',function(socket) {
   });
 
   socket.on("addComment",function(data, callback){
-    forum.updateOne({create_time:data.create_time},{$push:{comments:[data.cmt]}},function(e,res){if(e){console.log(e)}})
+    forum.findById(data._id,function(error,doc){
+      if(error){console.log(error);}
+      doc.comments.push(data.cmt);
+      doc.save();
+    })
   });
 
   socket.on("putText", function (put_data) {
