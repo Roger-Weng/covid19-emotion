@@ -5,7 +5,7 @@ let forum = new mongoose.Schema({
   username: String,
   create_time: Number,
   forum_text: String,
-  comments:[],
+  comments:Array,
 });
 
 

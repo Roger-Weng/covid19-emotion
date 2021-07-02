@@ -158,11 +158,12 @@ io.on('connection',function(socket) {
   });
 
   socket.on("addComment",function(data, callback){
-    forum.findById(data._id,function(error,doc){
-      if(error){console.log(error);}
-      doc.comments.push(data.cmt);
-      doc.save();
-    })
+    console.log(data);
+    // forum.findById(data._id,function(error,doc){
+    //   if(error){console.log(error);}
+    //   doc.comments.push(data.cmt);
+    //   doc.save();
+    // })
   });
 
   socket.on("putText", function (put_data) {
