@@ -129,7 +129,6 @@ methods:{
   width:100%;
   display: grid;
   margin-bottom: 50px;
-  margin: 10px;
   border: 1px solid #eee;
   border-radius: 2px;
   grid-auto-columns: auto auto;
@@ -160,7 +159,6 @@ methods:{
   width:100%;
   display: grid;
   margin-bottom: 30px;
-  margin: 10px;
   border: 1px solid #eee;
   border-radius: 2px;
   grid-auto-columns: auto 150px 150px;
