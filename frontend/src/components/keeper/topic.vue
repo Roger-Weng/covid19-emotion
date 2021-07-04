@@ -161,7 +161,7 @@ methods:{
   margin-bottom: 30px;
   border: 1px solid #eee;
   border-radius: 2px;
-  grid-auto-columns: auto 150px 150px;
+  grid-auto-columns: auto 1fr 1fr;
   grid-auto-rows:30px 80px;
 }
 .comment .cmt_label{
