@@ -19,7 +19,7 @@
           <p class="body">{{content.forum_text}}</p>
         </div>
         <div class="addCmt">
-          <mt-button class="add" @click="addCmt">New Comment</mt-button>
+          <mt-button class="add" @click="addCmt">Reply</mt-button>
           <div class="container" v-if="cd">
             <textarea class="text" v-bind="comment"></textarea>
             <mt-button class="submit" @click="submitCmt(content._id)">Submit</mt-button>
@@ -132,7 +132,7 @@ methods:{
   margin: 10px;
   border: 1px solid #eee;
   border-radius: 2px;
-  grid-auto-columns: 30% 70%;
+  grid-auto-columns: auto auto;
   grid-auto-rows:50px 120px;
 }
 .artical .u{
@@ -163,7 +163,7 @@ methods:{
   margin: 10px;
   border: 1px solid #eee;
   border-radius: 2px;
-  grid-auto-columns: 15% 30% 55%;
+  grid-auto-columns: auto 150px 150px;
   grid-auto-rows:30px 80px;
 }
 .comment .cmt_label{
