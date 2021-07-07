@@ -184,7 +184,6 @@ io.on('connection',function(socket) {
       year: Number(data.year),
       month: Number(data.month),
       day: Number(data.day),
-      skip:false,
     },function (error, docs) {
       if (error){
         console.log(error);
@@ -279,7 +278,8 @@ io.on('connection',function(socket) {
   socket.on("getWeeklyReport", function(data,callback){
     userRecord.find({
       'username': data.user,
-      'MondayDate': dateUtil.mondayDateString(data.date)
+      'MondayDate': dateUtil.mondayDateString(data.date),
+      'skip':false
     },function (error, docs) {
       if (error){
         console.log(error);
@@ -492,6 +492,7 @@ io.on('connection',function(socket) {
             imgHappiness: imgHappiness,
             imgSadness: imgSadness,
             total_score: total_score||50,
+
           }, function (error, doc) {
             if(error){
               console.log(error);

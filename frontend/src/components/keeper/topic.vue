@@ -128,7 +128,8 @@ methods:{
 .artical{
   width:100%;
   display: grid;
-  margin-bottom: 50px;
+  margin-top: 10px;
+  margin-bottom: 15px;
   border: 1px solid #eee;
   border-radius: 2px;
   grid-auto-columns: auto auto;
@@ -158,6 +159,7 @@ methods:{
 .comment{
   width:100%;
   display: grid;
+  margin-top:15px;
   margin-bottom: 30px;
   border: 1px solid #eee;
   border-radius: 2px;
