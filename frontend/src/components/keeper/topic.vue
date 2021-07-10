@@ -80,7 +80,7 @@ methods:{
   addCmt:function(){
     this.cd=true;
   },
-  submitArtical:function(){
+  submitArticle:function(){
       const put_data={
         username:this.$store.state.user,
         create_time:Date.now(),
