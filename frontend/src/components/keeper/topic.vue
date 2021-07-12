@@ -62,17 +62,22 @@ export default {
       "Extracurriculars": 2,
       "Others": 3,
     };
-    this.topic= topics[this.$route.params.t];
+    this.topic = topics[this.$route.params.t];
     this.$socket.emit("getForumText", this.topic,(data)=>{
-      this.doc=data.doc;
+      this.doc = data.doc;
     });
 
   },
 filters:{
   toDateString:function (value) {
-    var source=new Date(value);
-    var month=parseInt(source.getMonth())+1
-    return source.getDate()+"/"+month+"/"+source.getFullYear()+" "+source.getHours()+":"+source.getMinutes()+":"+source.getSeconds();
+    let source = new Date(value);
+    let month = parseInt(source.getMonth()) + 1;
+    let year = source.getFullYear();
+    let hour = source.getHours();
+    let minute = source.getMinutes();
+    let second = source.getSeconds();
+
+    return `${month}/${source.getDate()}/${year} ${hour}:${minute}:${second}`;
   }
 },
 
