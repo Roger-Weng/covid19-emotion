@@ -21,7 +21,7 @@
         <div class="addCmt">
           <mt-button class="add" @click="addCmt">Reply</mt-button>
           <div class="container" v-if="cd">
-            <textarea class="text" v-bind="comment"></textarea>
+            <textarea class="text" v-model="comment"></textarea>
             <mt-button class="submit" @click="submitCmt(content._id)">Submit</mt-button>
           </div>
         </div>
