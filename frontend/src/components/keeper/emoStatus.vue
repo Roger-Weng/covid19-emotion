@@ -286,7 +286,7 @@
         }
 
         this.$socket.emit('emoContent',{
-          emoInput: '',
+          emoInput: this.emoInput,
           emoStatus: emoRecordCopy,
           date: `${this.date.getFullYear()}/${this.date.getMonth() + 1}/${this.date.getDate()}`,
           user: this.$store.state.user,

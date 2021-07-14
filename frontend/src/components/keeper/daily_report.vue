@@ -34,16 +34,6 @@
           <div class="chartQuotes">
             {{report_extend.total_words}}
           </div>
-          <!--<div v-if="emoState > 0">-->
-          <!--<div class="chartQuotes">-->
-          <!--{{encourageWords[encourage_id]}}-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--<div v-else>-->
-          <!--<div class="chartQuotes">-->
-          <!--{{comfortWords[comfort_id]}}-->
-          <!--</div>-->
-          <!--</div>-->
         </div>
       </mt-swipe-item>
       <mt-swipe-item class="weather">
@@ -56,44 +46,6 @@
             {{report_extend.weather_recommendation}}
           </div>
         </div>
-        <!--<div v-if='daily_report.weather === "sunny"'>-->
-          <!--<img src="../../assets/weathers/sunny.jpg" class="img">-->
-          <!--<div class="weather_title">-->
-            <!--Ardent Sunny Day-->
-          <!--</div>-->
-          <!--<div class="encourage">-->
-            <!--{{poems.sunny}}-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div v-else-if='daily_report.weather === "snowy"'>-->
-          <!--<img src="../../assets/weathers/snow.jpg" class="img">-->
-          <!--<div class="weather_title">-->
-            <!--Dreamlike Snowy Day-->
-          <!--</div>-->
-          <!--<div class="encourage">-->
-            <!--{{poems.snowy}}-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div v-else-if='daily_report.weather === "rainy"'>-->
-          <!--<img src="../../assets/weathers/rainy.jpg" class="img">-->
-          <!--<div class="weather_title">-->
-            <!--Artistic Rainy Day-->
-          <!--</div>-->
-          <!--<div class="encourage">-->
-            <!--{{poems.rainy}}-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div v-else-if='daily_report.weather === "cloudy"'>-->
-          <!--<img src="../../assets/weathers/cloudy.jpg" class="img">-->
-          <!--<div class="meal_title">-->
-            <!--Elegant Cloudy Day-->
-          <!--</div>-->
-          <!--<div class="encourage">-->
-            <!--{{poems.rainy}}-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div>{{daily_report.weather}}</div>-->
-        <!--<div>{{daily_report.meals}}</div>-->
       </mt-swipe-item>
       <mt-swipe-item class="meals">
         <img :src="report_extend.meal_img" class="img">
