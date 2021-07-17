@@ -54,8 +54,8 @@
       <el-slider
         v-model="emoRecord.hoursSleep"
         :min="0"
-        :max="24"
-        :step="1"
+        :max="12"
+        :step="0.5"
         show-stops>
       </el-slider>
     </div>
@@ -243,11 +243,11 @@
     computed:{
       hoursSleep: function(){
 
-        if(this.emoRecord.hoursSleep > 23){
+        if(this.emoRecord.hoursSleep >= 12){
           return "over 12";
         }
         else {
-          return this.emoRecord.hoursSleep/2;
+          return this.emoRecord.hoursSleep;
         }
       },
       dateString: function () {
