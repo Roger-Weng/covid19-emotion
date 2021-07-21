@@ -89,9 +89,17 @@
     width:100%;
     height: 100%;
     position: absolute;
-    /*height:670px;*/
-    background-image:url('../assets/loginBackground.jpg');
-    background-size:411px 731px;
+    background-image: url('https://source.unsplash.com/random/800x600');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .sign-up::before{
+    content: '';
+    position: absolute;
+    width:100%;
+    height:100%;
+    background-color: rgba(255, 255, 255, .4);
   }
 
   .title{

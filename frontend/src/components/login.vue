@@ -72,9 +72,17 @@
     position: absolute;
     width:100%;
     height:100%;
-    background-image:url('../assets/lilac-1914124_1280.jpg');
-    background-size: 411px 731px;
-    /*background-size:100%;*/
+    background-image: url('https://source.unsplash.com/random/800x600');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .login::before{
+    content: '';
+    position: absolute;
+    width:100%;
+    height:100%;
+    background-color: rgba(255, 255, 255, .4);
   }
 
   .my-input{
