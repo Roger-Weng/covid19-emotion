@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <mt-swipe :auto="30000000" class="swipe">
+    <mt-swipe :auto="0" :defaultIndex="defaultIndex" class="swipe" :key="`daily-report-swipe-${defaultIndex}`">
       <mt-swipe-item class="chart">
         <img src="../../assets/bg_main2.jpg" class="img_bg">
         <div class="emo">
@@ -107,6 +107,22 @@
         <img :src="daily_report.img" class="my_photo">
       </mt-swipe-item>
     </mt-swipe>
+
+    <div class="navigation-button-wrapper">
+      <el-button
+        class="navigation-button"
+        @click="setSwipeIndex(-1)"
+        icon="el-icon-arrow-left"
+      >
+        Prev
+      </el-button>
+      <el-button
+        class="navigation-button"
+        @click="setSwipeIndex(1)">
+        Next
+        <i class="el-icon-arrow-right el-icon--right" />
+      </el-button>
+    </div>
   </div>
 </template>
 
@@ -118,6 +134,7 @@
           "xAxis.0.axisLabel.rotate": 30,
         };
         return {
+          defaultIndex: 0,
           daily_report:{
             weather: null,
             hoursSleep: null,
@@ -229,6 +246,11 @@
             realVal = value.toFixed(2);
           }
           return realVal;
+        }
+      },
+      methods: {
+        setSwipeIndex(indexChange) {
+          this.defaultIndex += indexChange;
         }
       },
       mounted: function () {
@@ -367,5 +389,16 @@
     position: absolute;
     width: 60%;
     margin-left: 80px;
+  }
+  .navigation-button-wrapper {
+    z-index: 999;
+    position: absolute;
+    bottom: 80px;
+    right: 40px;
+  }
+  @media screen and (max-width: 768px) {
+    .navigation-button-wrapper {
+      display: none;
+    }
   }
 </style>
