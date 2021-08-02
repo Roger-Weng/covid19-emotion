@@ -79,8 +79,14 @@
         };
 
         this.$socket.emit("getWeeklyReport",msg,  (data) => {
-          this.weekly_report = data.weekly_report;
+          this.weekly_report = data.weekly_report
           console.log(this.weekly_report);
+          const charts = ['chartAnxiety', 'chartBoredom', 'chartDepression', 'chartExcitement', 'chartHappiness'];
+          for (const chart of charts) {
+            this.weekly_report.sort((fst, snd) => {
+              return (new Date(fst.date)) > (new Date(snd.date))
+            });
+          }
         })
       }
     }
