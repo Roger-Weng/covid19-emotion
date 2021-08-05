@@ -5,7 +5,7 @@
       :defaultIndex="defaultIndex"
       class="swipe"
       :key="`weekly-report-swipe-${swipeIndexUpdater}`"
-      continuous="false"
+      :continuous="false"
       @change="swipeChangeHandler"
     >
       <mt-swipe-item v-for="date in weekly_report_dates" :key="`weekly-report-swipe-item-${date.getTime()}`">
@@ -22,6 +22,7 @@
         Prev
       </el-button>
       <el-button
+        :disabled="swipeIndex === weekly_report_dates.length - 1"
         class="navigation-button"
         @click="setSwipeIndex(1)">
         Next
@@ -56,22 +57,29 @@ export default {
     previousWeek(date) {
       return new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
     },
+    loadPrevWeek() {
+      const current_oldest = this.weekly_report_dates[0];
+      this.weekly_report_dates.unshift(this.previousWeek(current_oldest));
+      this.defaultIndex = 1; // update
+      this.swipeIndex = 1; // update swipeIndex
+      this.swipeIndexUpdater++; // force update
+    },
     swipeChangeHandler(index) {
       this.swipeIndex = index;
       // load prev week report if index is 0
       if (index === 0) {
-        const current_oldest = this.weekly_report_dates[0];
-        this.weekly_report_dates.unshift(this.previousWeek(current_oldest));
-        this.defaultIndex = 1; // update
-        this.swipeIndex = 1; // update swipeIndex
-        this.swipeIndexUpdater++; // force update
+        this.loadPrevWeek();
       }
     },
     setSwipeIndex(indexChange) {
       this.swipeIndex += indexChange;
       this.swipeIndex = this.swipeIndex % this.weekly_report_dates.length;
-      this.defaultIndex = this.swipeIndex;
-      this.swipeIndexUpdater++;
+      if (this.swipeIndex === 0) {
+        this.loadPrevWeek();
+      } else {
+        this.defaultIndex = this.swipeIndex;
+        this.swipeIndexUpdater++;
+      }
     }
   },
 }
