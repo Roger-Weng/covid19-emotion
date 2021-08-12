@@ -22,7 +22,11 @@
         Sign up
       </mt-button>
     </router-link>
+      <br />
+      <br />
+      <p style="font-size:20px;" text-align: center;> Designed by Yan(Roger) Weng
   </div>
+
 </template>
 
 <script>
@@ -58,5 +62,6 @@
   .description{
     position: relative;
   }
+
 
 </style>
