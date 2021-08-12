@@ -1,97 +1,110 @@
 <template>
-  <div>
-    <h1>Weekly Report</h1>
-    <h3>Since {{weekly_report.MondayDate}}</h3>
-    <img src="../../assets/icon/split_line.png" style="position:relative; width: 400px; height: 40px;">
-    <div>
-      <h4 style="display: inline-block">Comprehensive Evaluation: </h4>
-      <div style="display: inline-block">{{(weekly_report.total_score+100)/2| numFilter}}</div>
-      <mt-progress :value="(weekly_report.total_score+100)/2">
-        <div slot="start">
-          &nbsp;<img src="../../assets/icon/sad.png" class="icon">&nbsp;
-        </div>
-        <div slot="end">
-          &nbsp;<img src="../../assets/icon/happy.png" class="icon">&nbsp;
-        </div>
-      </mt-progress>
-    </div>
-    <br>
+  <div class="main">
+    <mt-swipe
+      :auto="0"
+      :defaultIndex="defaultIndex"
+      class="swipe"
+      :key="`weekly-report-swipe-${swipeIndexUpdater}`"
+      :continuous="false"
+      @change="swipeChangeHandler"
+    >
+      <mt-swipe-item v-for="date in weekly_report_dates" :key="`weekly-report-swipe-item-${date.getTime()}`">
+        <week-report :query_date="date" />
+      </mt-swipe-item>
+    </mt-swipe>
 
-    <img src="../../assets/icon/split_line.png" style="position:relative; width: 400px; height: 40px;">
-    <div>
-      <h4>Emotion Trend</h4>
-      <ve-line :data="weekly_report.chartHappiness" :extend="chartSettings" width="400px"></ve-line>
-      <ve-line :data="weekly_report.chartExcitement" :extend="chartSettings" width="400px"></ve-line>
-      <ve-line :data="weekly_report.chartDepression" :extend="chartSettings" width="400px"></ve-line>
-      <ve-line :data="weekly_report.chartBoredom" :extend="chartSettings" width="400px"></ve-line>
-      <ve-line :data="weekly_report.chartAnxiety" :extend="chartSettings" width="400px"></ve-line>
-    </div>
-    <img src="../../assets/icon/split_line.png" style="position:relative; width: 400px; height: 40px;">
-    <div>
-      <h4>The Greatest Moments</h4>
-      <div>{{weekly_report.BestRecords}}</div>
-    </div>
-    <img src="../../assets/icon/split_line.png" style="position:relative; width: 400px; height: 40px;">
-    <div>
-      <h4>The Happiest Smile</h4>
-      <img :src="weekly_report.BestPhoto">
+    <div class="navigation-button-wrapper">
+      <el-button
+        class="navigation-button"
+        @click="setSwipeIndex(-1)"
+        icon="el-icon-arrow-left"
+      >
+        Prev
+      </el-button>
+      <el-button
+        :disabled="swipeIndex === weekly_report_dates.length - 1"
+        class="navigation-button"
+        @click="setSwipeIndex(1)">
+        Next
+        <i class="el-icon-arrow-right el-icon--right" />
+      </el-button>
     </div>
   </div>
 </template>
 
 <script>
-    export default {
-      name: "weekly_report",
-      data(){
-        this.chartSettings = {
-          // "xAxis.0.axisLabel.rotate": 30,
-        };
-        return{
-          test: "hello",
-          weekly_report:{
-            averageSleep: null,
-            averageMeal: null,
-            total_score: null,
-            chartHappiness:{},
-            chartExcitement:{},
-            chartDepression:{},
-            chartBoredom:{},
-            chartAnxiety:{},
-            BestRecords: null,
-            BestPhoto: null
-          }
-        }
-      },
+import WeekReport from "../components/week_report";
 
-      filters: {
-        numFilter (value) {
-          let realVal = null;
-          if (value) {
-            realVal = value.toFixed(2);
-          }
-          return realVal;
-        }
-      },
-      mounted: function () {
-        let msg = {
-          user: this.$store.state.user,
-          date: new Date()
-        };
-
-        this.$socket.emit("getWeeklyReport",msg,  (data) => {
-          this.weekly_report = data.weekly_report;
-          console.log(this.weekly_report);
-        })
+export default {
+  components: {
+    WeekReport,
+  },
+  created() {
+    const now = new Date();
+    this.weekly_report_dates = [this.previousWeek(now), now];
+    this.defaultIndex = 1; // set to current week
+    this.swipeIndex = 1; // update swipeIndex
+  },
+  data() {
+    return {
+      weekly_report_dates: [],
+      defaultIndex: 0,
+      swipeIndex: 0,
+      swipeIndexUpdater: 0,
+    }
+  },
+  methods: {
+    previousWeek(date) {
+      return new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
+    },
+    loadPrevWeek() {
+      const current_oldest = this.weekly_report_dates[0];
+      this.weekly_report_dates.unshift(this.previousWeek(current_oldest));
+      this.defaultIndex = 1; // update
+      this.swipeIndex = 1; // update swipeIndex
+      this.swipeIndexUpdater++; // force update
+    },
+    swipeChangeHandler(index) {
+      this.swipeIndex = index;
+      // load prev week report if index is 0
+      if (index === 0) {
+        this.loadPrevWeek();
+      }
+    },
+    setSwipeIndex(indexChange) {
+      this.swipeIndex += indexChange;
+      this.swipeIndex = this.swipeIndex % this.weekly_report_dates.length;
+      if (this.swipeIndex === 0) {
+        this.loadPrevWeek();
+      } else {
+        this.defaultIndex = this.swipeIndex;
+        this.swipeIndexUpdater++;
       }
     }
+  },
+}
 </script>
 
 <style scoped>
-  .icon{
-    width: 20px;
-    height: 20px;
+.main{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.swipe{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.navigation-button-wrapper {
+  z-index: 999;
+  position: absolute;
+  bottom: 80px;
+  right: 40px;
+}
+@media screen and (max-width: 768px) {
+  .navigation-button-wrapper {
+    display: none;
   }
-  .sub_title{
-    font-size: 120%;
-  }
+}
 </style>
