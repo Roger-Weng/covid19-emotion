@@ -24,7 +24,7 @@
     </router-link>
       <br />
       <br />
-      <p style="font-size:20px;" text-align: center;> Designed by Roger Weng
+      <p style="font-size:20px;"> Designed by Roger Weng
   </div>
 
 </template>
