@@ -90,9 +90,10 @@ export default {
   position: absolute;
   height: 100%;
   width: 100%;
+  overflow: auto;
 }
 .swipe{
-  position: absolute;
+  position: relative;
   height: 100%;
   width: 100%;
 }

@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <div class="background"></div>
     <div class="title">
       <h2>Covid-19</h2>
       <h1>Moodup</h1>
@@ -69,24 +70,33 @@
 
 <style scoped>
   .login{
+    width:100%;
+    height:100vh;
+  }
+
+  .login > * {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 720px;
+  }
+
+  .background {
+    content: '';
     position: absolute;
     width:100%;
     height:100%;
+    max-width: initial;
+    mask-image: linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, .4));
     background-image: url('https://source.unsplash.com/random/800x600');
     background-size: cover;
     background-position: center;
   }
 
-  .login::before{
-    content: '';
-    position: absolute;
-    width:100%;
-    height:100%;
-    background-color: rgba(255, 255, 255, .4);
-  }
-
   .my-input{
     margin-top:5px;
+    border-radius: 4px;
+    border-width: 0;
   }
 
   .title{
