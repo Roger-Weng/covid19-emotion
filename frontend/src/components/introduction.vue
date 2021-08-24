@@ -27,7 +27,10 @@
         </mt-button>
       </router-link>
     </div>
+
+    <p style="font-size:20px;"> Designed by Yan(Roger) Weng</p>
   </div>
+
 </template>
 
 <script>
