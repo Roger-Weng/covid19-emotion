@@ -28,7 +28,7 @@
       </router-link>
     </div>
 
-    <p style="font-size:20px;"> Designed by Yan(Roger) Weng</p>
+    <p style="font-size:20px;" class="copyright"> Designed by Yan(Roger) Weng</p>
   </div>
 
 </template>
@@ -79,5 +79,11 @@
   .actions > * {
     width: 100%;
     max-width: 120px;
+  }
+
+  .copyright {
+    width: 90%;
+    max-width: 1080px;
+    margin: 1rem auto;
   }
 </style>
