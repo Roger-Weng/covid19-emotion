@@ -3,8 +3,7 @@
     <mt-swipe :auto="0" :defaultIndex="defaultIndex" class="swipe" :key="`daily-report-swipe-${defaultIndex}`">
       <mt-swipe-item class="chart">
         <img src="../../assets/bg_main2.jpg" class="img_bg">
-        <div class="emo">
-          <!--<img src="../../assets/bg_main2.jpg" class="img_bg">-->
+        <div class="emo content">
           <h3>Comprehensive Score of This day</h3>
           <h3 style="margin-left: 160px">{{(daily_report.total_score+100)/2| numFilter}} /100</h3>
           <mt-progress :value="(daily_report.total_score+100)/2">
@@ -24,87 +23,98 @@
             </router-link>
           </div>
         </div>
-        <br>
 
-        <img src="../../assets/icon/split_2.png" style="position:relative; width: 400px; height: 20px;">
-        <ve-histogram :data="daily_report.emoChart" :extend="chartSettings" width="400px" height="300px"></ve-histogram>
-        <img src="../../assets/icon/split_2.png" style="position:relative; width: 400px; height: 20px;">
-        <div class="quotes">
-          <h3>Wishes</h3>
-          <div class="chartQuotes">
-            {{report_extend.total_words}}
+        <div style="margin-top: 1rem" class="content">
+          <img src="../../assets/icon/split_2.png" style="position:relative; width: 400px; max-width: 90%; height: 20px;">
+          <ve-histogram :data="daily_report.emoChart" :extend="chartSettings" width="400px" height="300px"></ve-histogram>
+          <img src="../../assets/icon/split_2.png" style="position:relative; width: 400px; max-width: 90%; height: 20px;">
+          <div class="quotes">
+            <h3>Wishes</h3>
+            <div class="chartQuotes">
+              {{report_extend.total_words}}
+            </div>
           </div>
         </div>
       </mt-swipe-item>
       <mt-swipe-item class="weather">
         <div>
           <img :src="report_extend.weather_img" class="img">
-          <div class="weather_title">
-            {{report_extend.weather_sentence}}
-          </div>
-          <div class="encourage">
-            {{report_extend.weather_recommendation}}
+          <div class="content">
+            <div class="weather_title">
+              {{report_extend.weather_sentence}}
+            </div>
+            <div class="encourage">
+              {{report_extend.weather_recommendation}}
+            </div>
           </div>
         </div>
       </mt-swipe-item>
       <mt-swipe-item class="meals">
         <img :src="report_extend.meal_img" class="img">
-        <div class="meal_title">
-          You had
-          <div class="meals">{{daily_report.meals}}</div>
-          meals in this day
-        </div>
-        <div class="encourage_meal">
-          Tips: {{report_extend.meal_recommendation}}
+        <div class="content">
+          <div class="meal_title">
+            You had
+            <div class="meals">{{daily_report.meals}}</div>
+            meals in this day
+          </div>
+          <div class="encourage_meal">
+            Tips: {{report_extend.meal_recommendation}}
+          </div>
         </div>
       </mt-swipe-item>
       <mt-swipe-item class="hoursSleep">
         <img :src="report_extend.sleep_img" class="img">
-        <div class="sleep_title">You slept for {{daily_report.hoursSleep}} hours in the night</div>
-        <div class="encourage_meal">
-          Tips: {{report_extend.sleep_recommendation}}
+        <div class="content">
+          <div class="sleep_title">You slept for {{daily_report.hoursSleep}} hours in the night</div>
+          <div class="encourage_meal">
+            Tips: {{report_extend.sleep_recommendation}}
+          </div>
         </div>
       </mt-swipe-item>
       <mt-swipe-item class="text">
         <img src="../../assets/bg_main2.jpg" class="img_bg">
-        <h2>Diary</h2>
-        <img src="../../assets/icon/split_2.png" style="position:relative; width: 400px; height: 20px;">
-        <br>
-        <br>
-        <div>
-          <div style="font-size: 110%">
-            {{daily_report.report}}
+        <div class="content">
+          <h2>Diary</h2>
+          <img src="../../assets/icon/split_2.png" style="position:relative; width: 400px; max-width: 90%; height: 20px;">
+          <br>
+          <br>
+          <div>
+            <div style="font-size: 110%">
+              {{daily_report.report}}
+            </div>
           </div>
-        </div>
-        <br>
-        <img src="../../assets/icon/split_2.png" style="position:relative; width: 400px; height: 20px;">
-        <br>
-        <br>
-        <div class="emo">
-          <h4>Emotion Score</h4>
-          <mt-progress :value="((daily_report.reportEmo * 16)+100)/2">
-            <div slot="start">
-              <img src="../../assets/icon/sad.png" class="icon">&nbsp;
-            </div>
-            <div slot="end">
-              &nbsp;<img src="../../assets/icon/happy.png" class="icon">
-            </div>
-          </mt-progress>
-        </div>
-        <br>
-        <img src="../../assets/icon/split_2.png" style="position:relative; width: 400px; height: 20px;">
-        <br>
-        <div class="keywords">
-          <h4>Keywords</h4>
-          {{daily_report.reportInfo}}
+          <br>
+          <img src="../../assets/icon/split_2.png" style="position:relative; width: 400px; max-width: 90%; height: 20px;">
+          <br>
+          <br>
+          <div class="emo">
+            <h4>Emotion Score</h4>
+            <mt-progress :value="((daily_report.reportEmo * 16)+100)/2">
+              <div slot="start">
+                <img src="../../assets/icon/sad.png" class="icon">&nbsp;
+              </div>
+              <div slot="end">
+                &nbsp;<img src="../../assets/icon/happy.png" class="icon">
+              </div>
+            </mt-progress>
+          </div>
+          <br>
+          <img src="../../assets/icon/split_2.png" style="position:relative; width: 400px; max-width: 90%; height: 20px;">
+          <br>
+          <div class="keywords">
+            <h4>Keywords</h4>
+            {{daily_report.reportInfo}}
+          </div>
         </div>
       </mt-swipe-item>
       <mt-swipe-item class="img">
         <img src="../../assets/bg_main2.jpg" class="img_bg">
-        <h2>Selfie</h2>
+        <div class="content">
+          <h2>Selfie</h2>
 
-        <ve-pie :data="img_chart" width="400px"></ve-pie>
-        <img :src="daily_report.img" class="my_photo">
+          <ve-pie :data="img_chart" width="400px"></ve-pie>
+          <img :src="daily_report.img" class="my_photo">
+        </div>
       </mt-swipe-item>
     </mt-swipe>
 
@@ -255,10 +265,6 @@
       },
       mounted: function () {
       //  init chartInfo
-      //   let year = this.$route.params.year;
-      //   let month = this.$route.params.month;
-      //   let date = this.$route.params.day;
-      //   let user = this.$store.state.user;
         console.log("daily_report mounted!");
         let info = {};
         if(this.$route.params.year){
@@ -291,16 +297,19 @@
 
 <style scoped>
   .main{
-    position: absolute;
-    height: 100%;
+    height: 100vh;
     width: 100%;
-    /*background-image:url('../../assets/bg_main.jpg');*/
+    max-width: 1080px;
   }
   .swipe{
-    position: absolute;
     height: 100%;
     width: 100%;
-    /*background-image:url('../../assets/bg_main.jpg');*/
+  }
+  .content {
+    max-width: 1080px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
   .weather{
     position: absolute;
@@ -362,18 +371,14 @@
     text-align: right;
   }
   .meals{
-    font-size:120%;
+    font-size:1.2em;
     color: #FFFFFF;
   }
   .chartQuotes{
     font-family: cursive;
-    /*background: #000;*/
-    /*position: absolute;*/
-    /*top: 400px;*/
-    font-size:120%;
+    font-size:1.2em;
   }
   .quotes{
-    /*background: #000000;*/
   }
   .diary{
     font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;

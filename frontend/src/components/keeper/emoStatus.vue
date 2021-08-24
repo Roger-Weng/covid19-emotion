@@ -1,174 +1,178 @@
 <template>
   <div>
-    <h1 style="display: inline-block; margin-left: 20px">Mood up</h1>
-    <div style="position:relative; display: inline-block; margin-right: 80px">
-      <img src="../../assets/icon/date.png" class="icon" style="display: inline-block">
-      <div style="font-size: 110%; display: inline-block">{{dateString}}</div>
+    <div class="header">
+      <h1 style="display: inline-block; margin-left: 20px">Mood up</h1>
+      <div style="position:relative; display: inline-block; margin-right: 80px">
+        <img src="../../assets/icon/date.png" class="icon" style="display: inline-block">
+        <div style="font-size: 110%; display: inline-block">{{ dateString }}</div>
+      </div>
+    </div>
 
-    </div>
-    <div class="odd_row">
-      <div class="sub_title">
-        <img src="../../assets/icon/weather.png" class="icon" style="display: inline-block">
-        <div style="display: inline-block">
-          Weather Today
+    <el-row>
+      <el-col class="odd_row">
+        <div class="subtitle">
+          <img src="../../assets/icon/weather.png" class="icon" style="display: inline-block">
+          <div style="display: inline-block">
+            Weather Today
+          </div>
         </div>
-      </div>
-      <div>
-        <el-select v-model="emoRecord.weather" placeholder="choose">
-          <el-option
-            v-for="item in weather_options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-      </el-select>
-      </div>
-    </div>
-    <div class="even_row">
-      <div class="sub_title">
-        <img src="../../assets/icon/food.png" class="icon" style="display: inline-block">
-        <div style="display: inline-block">
-          Meals Had Today
-        </div>
-      </div>
-      <div>
-        <el-select v-model="emoRecord.meals" placeholder="choose">
-          <el-option
-            v-for="item in meal_options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
+        <div>
+          <el-select v-model="emoRecord.weather" placeholder="choose">
+            <el-option
+              v-for="item in weather_options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
         </el-select>
-      </div>
-    </div>
-    <div class="odd_row">
-      <div class="sub_title">
-        <img src="../../assets/icon/sleep.png" class="icon" style="display: inline-block">
-        <div style="display: inline-block">
-          Hours slept last night
         </div>
-        <div style="display: inline-block; margin-left: 70px">{{hoursSleep}} hours</div>
-      </div>
+      </el-col>
 
-      <el-slider
-        v-model="emoRecord.hoursSleep"
-        :min="0"
-        :max="12"
-        :step="0.5"
-        show-stops>
-      </el-slider>
-    </div>
-    <div class="even_row">
-      <div class="sub_title">
-        <img src="../../assets/icon/happy.png" class="icon" style="display: inline-block">
-        <div style="display: inline-block">
-          Today's happiness
+      <el-col class="even_row">
+        <div class="subtitle">
+          <img src="../../assets/icon/food.png" class="icon" style="display: inline-block">
+          <div style="display: inline-block">
+            Meals Had Today
+          </div>
         </div>
-      </div>
-      <el-slider
-        v-model="emoRecord.value_happiness"
-        :min="0"
-        :max="8"
-        :step="1"
-        :marks="marks"
-        show-stops>
-      </el-slider>
-
-    </div>
-    <div class="odd_row">
-      <div class="sub_title">
-        <img src="../../assets/icon/excite.png" class="icon" style="display: inline-block">
-        <div style="display: inline-block">
-          Today's excitement
+        <div>
+          <el-select v-model="emoRecord.meals" placeholder="choose">
+            <el-option
+              v-for="item in meal_options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </div>
-      </div>
-      <el-slider
-        v-model="emoRecord.value_excitement"
-        :min="0"
-        :max="8"
-        :step="1"
-        :marks="marks"
-        show-stops>
+      </el-col>
 
-      </el-slider>
-
-
-    </div>
-    <div class="even_row">
-      <div class="sub_title">
-        <img src="../../assets/icon/sad.png" class="icon" style="display: inline-block">
-        <div style="display: inline-block">
-          Today's anger
+      <el-col class="odd_row">
+        <div class="subtitle">
+          <img src="../../assets/icon/sleep.png" class="icon" style="display: inline-block">
+          <div style="display: inline-block">
+            Hours slept last night
+          </div>
+          <div style="display: inline-block; margin-left: 70px">{{hoursSleep}} hours</div>
         </div>
-      </div>
-      <el-slider
-        v-model="emoRecord.value_depression"
-        :min="0"
-        :max="8"
-        :step="1"
-        :marks="marks"
-        show-stops>
 
-      </el-slider>
+        <el-slider
+          v-model="emoRecord.hoursSleep"
+          :min="0"
+          :max="12"
+          :step="0.5"
+          show-stops>
+        </el-slider>
+      </el-col>
 
-    </div>
-    <div class="odd_row">
-      <div class="sub_title">
-        <img src="../../assets/icon/angry.png" class="icon" style="display: inline-block">
-        <div style="display: inline-block">
-          Today's boredom
+      <el-col class="even_row">
+        <div class="subtitle">
+          <img src="../../assets/icon/happy.png" class="icon" style="display: inline-block">
+          <div style="display: inline-block">
+            Today's happiness
+          </div>
         </div>
-      </div>
-      <el-slider
-        v-model="emoRecord.value_boredom"
-        :min="0"
-        :max="8"
-        :step="1"
-        :marks="marks"
-        show-stops>
+        <el-slider
+          v-model="emoRecord.value_happiness"
+          :min="0"
+          :max="8"
+          :step="1"
+          :marks="marks"
+          show-stops>
+        </el-slider>
+      </el-col>
 
-      </el-slider>
-
-    </div>
-    <div class="even_row">
-      <div class="sub_title">
-        <img src="../../assets/icon/anxiety.png" class="icon" style="display: inline-block">
-        <div style="display: inline-block">
-          Today's anxiety
+      <el-col class="odd_row">
+        <div class="subtitle">
+          <img src="../../assets/icon/excite.png" class="icon" style="display: inline-block">
+          <div style="display: inline-block">
+            Today's excitement
+          </div>
         </div>
-      </div>
-      <el-slider
-        v-model="emoRecord.value_anxiety"
-        :min="0"
-        :max="8"
-        :step="1"
-        :marks="marks"
-        show-stops>
-      </el-slider>
+        <el-slider
+          v-model="emoRecord.value_excitement"
+          :min="0"
+          :max="8"
+          :step="1"
+          :marks="marks"
+          show-stops>
 
-    </div>
+        </el-slider>
+      </el-col>
 
-    <p>Diary</p>
-    <textarea class="textarea" v-model="emoInput.input" placeholder="Describe your life today with several sentences"></textarea>
-    <!--<mt-button @click="open_camera">open camera</mt-button>-->
+      <el-col class="even_row">
+        <div class="subtitle">
+          <img src="../../assets/icon/sad.png" class="icon" style="display: inline-block">
+          <div style="display: inline-block">
+            Today's anger
+          </div>
+        </div>
+        <el-slider
+          v-model="emoRecord.value_depression"
+          :min="0"
+          :max="8"
+          :step="1"
+          :marks="marks"
+          show-stops>
 
+        </el-slider>
+      </el-col>
 
-    <div>
-      <div style="display: inline-block">Take a selfie!</div>
-      <img @click="callCamera" :src="headImgSrc" width="20" height="20" alt="摄像头" style="display: inline-block">
-      <!--canvas截取流-->
+      <el-col class="odd_row">
+        <div class="subtitle">
+          <img src="../../assets/icon/angry.png" class="icon" style="display: inline-block">
+          <div style="display: inline-block">
+            Today's boredom
+          </div>
+        </div>
+        <el-slider
+          v-model="emoRecord.value_boredom"
+          :min="0"
+          :max="8"
+          :step="1"
+          :marks="marks"
+          show-stops />
+      </el-col>
 
-      <!--图片展示-->
-      <video id="video" ref="video" width="320" height="230" autoplay style="display: none"></video>
-      <canvas id="canvas" ref="canvas" width="320" height="230" style="display: none"></canvas>
-      <!--确认-->
+      <el-col class="even_row">
+        <div class="subtitle">
+          <img src="../../assets/icon/anxiety.png" class="icon" style="display: inline-block">
+          <div style="display: inline-block">
+            Today's anxiety
+          </div>
+        </div>
+        <el-slider
+          class="slider"
+          v-model="emoRecord.value_anxiety"
+          :min="0"
+          :max="8"
+          :step="1"
+          :marks="marks"
+          show-stops />
+      </el-col>
 
-    </div>
-    <mt-button @click="photograph" style="display: inline-block">confirm</mt-button>
-    <mt-button @click="submit" style="display: inline-block">submit</mt-button>
-    <mt-button @click="skipToday" style="display: inline-block">skip today</mt-button>
-  </div>
+      <el-col class="diary">
+        <p>Diary</p>
+        <textarea class="textarea" v-model="emoInput.input" placeholder="Describe your life today with several sentences"></textarea>
+        <!--<mt-button @click="open_camera">open camera</mt-button>-->
+
+        <div>
+          <div style="display: inline-block">Take a selfie!</div>
+          <img @click="callCamera" :src="headImgSrc" width="20" height="20" alt="摄像头" style="display: inline-block">
+          <!--canvas截取流-->
+
+          <!--图片展示-->
+          <video id="video" ref="video" width="320" height="230" autoplay style="display: none"></video>
+          <canvas id="canvas" ref="canvas" width="320" height="230" style="display: none"></canvas>
+          <!--确认-->
+        </div>
+
+        <mt-button @click="photograph" style="display: inline-block">confirm</mt-button>
+        <mt-button @click="submit" style="display: inline-block">submit</mt-button>
+        <mt-button @click="skipToday" style="display: inline-block">skip today</mt-button>
+      </el-col>
+    </el-row>
+</div>
 </template>
 
 <script>
@@ -382,17 +386,23 @@
     margin-left: 5px;
     margin-right: 5px;
   }
-  .sub_title{
-    text-align: left;
-    font-size: 110%;
+  .subtitle{
+    font-size: 1.1em;
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  .subtitle > img {
+    margin-right: .5rem;
   }
   .odd_row{
     border: 10px solid transparent;
     background: mintcream;
+    padding: 1rem;
   }
   .even_row{
     border: 10px solid transparent;
     background: gainsboro;
+    padding: .5rem 1rem;
   }
 
   .textarea{
@@ -413,4 +423,7 @@
     height: 20px;
   }
 
+  .diary {
+    padding: .5rem 1rem;
+  }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div>
-      <emo-status v-if="selected = 'record'" />
+      <emo-status v-if="selected === 'record'" />
       <forum v-else-if="selected === 'forum'" />
       <calendar v-else-if="selected === 'calendar'" />
       <daily_report v-else-if="selected === 'report'" class="report" />
@@ -9,35 +9,30 @@
       <medical_resources v-else />
     </div>
 
-    <mt-tabbar v-model="selected" class="bottom">
+    <mt-tabbar v-model="selected" class="bottom" fixed>
       <mt-tab-item id="record">
         <img src="../assets/icon/record.png" class="icon">
         <br>
-        <!--<emo-status></emo-status>-->
         record
       </mt-tab-item>
       <mt-tab-item id="forum">
         <img src="../assets/icon/calendar.png" class="icon">
         <br>
-        <!--<forum></forum>-->
         forum
       </mt-tab-item>
       <mt-tab-item id="calendar">
         <img src="../assets/icon/calendar.png" class="icon">
         <br>
-        <!--<calendar></calendar>-->
         calendar
       </mt-tab-item>
       <mt-tab-item id="report">
         <img src="../assets/icon/report.png" class="icon">
         <br>
-        <!--<daily_report></daily_report>-->
         report
       </mt-tab-item>
       <mt-tab-item id="statistics">
         <img src="../assets/icon/statistics.png" class="icon">
         <br>
-        <!--<weekly_report></weekly_report>-->
         statistics
       </mt-tab-item>
       <mt-tab-item id="resources">
@@ -73,27 +68,24 @@ export default {
     weekly_report,
     calendar,
     medical_resources
+  },
+  methods: {
+    changeSelected(val) {
+      this.selected = val
+    }
   }
 }
 </script>
 
 <style scoped>
   .home{
-    position: relative;
     width: 100%;
-    height: 100vh;
-  }
-  .bottom{
-    position: fixed;
-    bottom: 5px;
+    max-height: 94vh;
+    overflow: auto;
+    padding-bottom: 1rem;
   }
   .icon{
     height: 30px;
     width: 30px;
-  }
-  .report{
-    position: absolute;
-    width: 100%;
-    height: 100%;
   }
 </style>
