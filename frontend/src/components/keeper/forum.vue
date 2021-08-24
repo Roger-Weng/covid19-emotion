@@ -34,15 +34,15 @@ export default {
 <style scoped>
 .forum {
   width: 90%;
-  height: 100vh;
+  max-height: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 5rem;
 }
 
 .title {
   color: #c0663f;
   font-size: 30px;
   text-align: center;
-  margin-top: 5rem;
 }
 </style>

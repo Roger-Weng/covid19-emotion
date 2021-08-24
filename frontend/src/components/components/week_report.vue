@@ -2,7 +2,7 @@
   <div>
     <h1>Weekly Report</h1>
     <h3>Since {{weekly_report.MondayDate}}</h3>
-    <img src="../../assets/icon/split_line.png" style="position:relative; width: 400px; height: 40px;">
+    <img src="../../assets/icon/split_line.png" style="position:relative; width: 400px; max-width: 90%; height: 40px;">
     <div>
       <h4 style="display: inline-block">Comprehensive Evaluation: </h4>
       <div style="display: inline-block">{{(weekly_report.total_score+100)/2| numFilter}}</div>
@@ -17,7 +17,7 @@
     </div>
     <br>
 
-    <img src="../../assets/icon/split_line.png" style="position:relative; width: 400px; height: 40px;">
+    <img src="../../assets/icon/split_line.png" style="position:relative; width: 400px; max-width: 90%; height: 40px;">
     <div>
       <h4>Emotion Trend</h4>
       <ve-line :data="weekly_report.chartHappiness" :extend="chartSettings" width="400px"></ve-line>

@@ -7,8 +7,9 @@
       :key="`weekly-report-swipe-${swipeIndexUpdater}`"
       :continuous="false"
       @change="swipeChangeHandler"
+      :show-indicators="false"
     >
-      <mt-swipe-item v-for="date in weekly_report_dates" :key="`weekly-report-swipe-item-${date.getTime()}`">
+      <mt-swipe-item v-for="date in weekly_report_dates" :key="`weekly-report-swipe-item-${date.getTime()}`" class="position-relative">
         <week-report :query_date="date" />
       </mt-swipe-item>
     </mt-swipe>
@@ -87,15 +88,16 @@ export default {
 
 <style scoped>
 .main{
-  position: absolute;
-  height: 100%;
   width: 100%;
-  overflow: auto;
+}
+.position-relative {
+  position: relative;
 }
 .swipe{
-  position: relative;
   height: 100%;
-  width: 100%;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .navigation-button-wrapper {
   z-index: 999;
