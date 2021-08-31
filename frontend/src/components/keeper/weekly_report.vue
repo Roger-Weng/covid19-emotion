@@ -2,8 +2,8 @@
   <div class="main">
     <mt-swipe
       :auto="0"
-      :defaultIndex="defaultIndex"
       class="swipe"
+      :defaultIndex="defaultIndex"
       :key="`weekly-report-swipe-${swipeIndexUpdater}`"
       :continuous="false"
       @change="swipeChangeHandler"
@@ -109,5 +109,11 @@ export default {
   .navigation-button-wrapper {
     display: none;
   }
+}
+</style>
+
+<style>
+.mint-swipe-item:not(.is-active) {
+  display: none !important;
 }
 </style>
