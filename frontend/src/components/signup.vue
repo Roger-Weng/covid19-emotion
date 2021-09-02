@@ -1,28 +1,18 @@
 <template>
   <div class="sign-up">
+    <div class="background"></div>
     <div class="title">
       <br />
       <h2>Create your account</h2>
     </div>
-    <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+    <div class="form">
       <mt-field label="Username" placeholder="Enter your username (8-16 characters long; including at least one number and one letter)" v-model="username" class="my-input"></mt-field>
       <mt-field label="Password" placeholder="Enter a password (8-16 characters long; including at least one number and one letter)" type="password" v-model="password" class="my-input" ></mt-field>
       <mt-field label="Confirm" placeholder="Enter password again" type="password" v-model="password_new" class="my-input" ></mt-field>
-      <br />
-      <mt-button type="primary" size="large" @click="sign_up">Create your account</mt-button>
+      <mt-button style="margin-top: 2rem" type="primary" size="large" @click="sign_up">Create your account</mt-button>
     </div>
     <h4>Have an account?</h4>
-    <router-link :to="{path: '/login'}">
+    <router-link :to="{path: '/login'}" style="display: block">
       <mt-button>
         Log In
       </mt-button>
@@ -85,32 +75,45 @@
 </script>
 
 <style scoped>
-  .sign-up{
+  .sign-up {
     width:100%;
-    height: 100%;
+    height: 100vh;
+    position: relative;
+  }
+
+  .sign-up > .background {
+    z-index: -1;
     position: absolute;
+    width:100%;
+    max-width: initial;
+    height:100%;
+    top: 0;
+    left: 0;
     background-image: url('https://source.unsplash.com/random/800x600');
     background-size: cover;
     background-position: center;
-  }
-
-  .sign-up::before{
-    content: '';
-    position: absolute;
-    width:100%;
-    height:100%;
-    background-color: rgba(255, 255, 255, .4);
+    mask-image: linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, .4));
   }
 
   .title{
-    /*color: #ffffff;*/
-    position: relative;
-    top: 80px;
-    /*right: 0;*/
+    margin-top: 3rem;
     text-align: center;
   }
 
   .my-input{
     margin-top:5px;
+    border-radius: 4px;
+    border-top: 0;
+  }
+
+  .form {
+    margin-top: 6rem;
+  }
+
+  .sign-up > * {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 720px;
+    width: 90%;
   }
 </style>

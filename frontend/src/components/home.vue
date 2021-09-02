@@ -1,60 +1,38 @@
 <template>
   <div class="home">
     <div>
-      <div v-if="selected === 'record'">
-        <emo-status></emo-status>
-      </div>
-      <div v-else-if="selected === 'forum'">
-        <forum></forum>
-      </div>
-      <div v-else-if="selected === 'calendar'">
-        <calendar></calendar>
-      </div>
-      <div v-else-if="selected === 'report'" class="report">
-        <daily_report></daily_report>
-      </div>
-      <div v-else-if="selected === 'statistics'">
-        <weekly_report></weekly_report>
-      </div>
-      <div v-else>
-        <medical_resources></medical_resources>
-      </div>
+      <emo-status v-if="selected === 'record'" />
+      <forum v-else-if="selected === 'forum'" />
+      <calendar v-else-if="selected === 'calendar'" />
+      <daily_report v-else-if="selected === 'report'" class="report" />
+      <weekly_report v-else-if="selected === 'statistics'" />
+      <medical_resources v-else />
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <mt-tabbar v-model="selected" class="bottom">
+
+    <mt-tabbar v-model="selected" class="bottom" fixed>
       <mt-tab-item id="record">
         <img src="../assets/icon/record.png" class="icon">
         <br>
-        <!--<emo-status></emo-status>-->
         record
       </mt-tab-item>
       <mt-tab-item id="forum">
         <img src="../assets/icon/calendar.png" class="icon">
         <br>
-        <!--<forum></forum>-->
         forum
       </mt-tab-item>
       <mt-tab-item id="calendar">
         <img src="../assets/icon/calendar.png" class="icon">
         <br>
-        <!--<calendar></calendar>-->
         calendar
       </mt-tab-item>
       <mt-tab-item id="report">
         <img src="../assets/icon/report.png" class="icon">
         <br>
-        <!--<daily_report></daily_report>-->
         report
       </mt-tab-item>
       <mt-tab-item id="statistics">
         <img src="../assets/icon/statistics.png" class="icon">
         <br>
-        <!--<weekly_report></weekly_report>-->
         statistics
       </mt-tab-item>
       <mt-tab-item id="resources">
@@ -90,30 +68,24 @@ export default {
     weekly_report,
     calendar,
     medical_resources
+  },
+  methods: {
+    changeSelected(val) {
+      this.selected = val
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .home{
-    /*position: relative;*/
-    /*background-image:url('../assets/loginBackground.jpg');*/
-    position: absolute;
     width: 100%;
-    height: 100%;
-  }
-  .bottom{
-    position:fixed;
-    bottom: 5px;
+    max-height: 94vh;
+    overflow: auto;
+    padding-bottom: 1rem;
   }
   .icon{
     height: 30px;
     width: 30px;
-  }
-  .report{
-    position: absolute;
-    width: 100%;
-    height: 100%;
   }
 </style>

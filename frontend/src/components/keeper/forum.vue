@@ -4,24 +4,19 @@
       <h2>Categories</h2>
     </div>
     <div class="description">
-      <br />
-      <br />
       <p style="font-size:20px;"> Welcome to our forum! </p>
     </div>
     <div v-for="topic in topics" :key='topic.title'>
       <router-link :to="{ name: 'topic',params:{t:topic.title}}">
-        <mt-button>
+        <mt-button style="margin-top: 1rem">
           {{topic.title}}
         </mt-button>
-      <br />
-      <br />
       </router-link>
     </div>
 
     <router-link :to="{ name: 'home' }">
-      <mt-button class="back"> Back </mt-button>
+      <mt-button class="back" style="margin-top: 1rem"> Back </mt-button>
     </router-link>
-
   </div>
 </template>
 
@@ -38,17 +33,16 @@ export default {
 
 <style scoped>
 .forum {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  max-height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 5rem;
 }
 
 .title {
   color: #c0663f;
   font-size: 30px;
-  position: relative;
-  top: 80px;
-  /*right: 0;*/
   text-align: center;
 }
 </style>
